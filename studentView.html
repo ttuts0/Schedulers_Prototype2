@@ -1,0 +1,897 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f0f23;--purple:#6C63FF;--pl:#f0efff;--p2:#8B85FF;
+  --gold:#F5C842;--coral:#FF6B6B;--teal:#00C9A7;
+  --red:#FF4757;--rl:#fff0f1;--amber:#FFA502;--al:#fff8ee;
+  --green:#2ED573;--gl:#f0fff6;--dg:#1a9952;
+  --border:#eeeef5;--text:#1a1a2e;--muted:#8888aa;--surf:#f7f7fc
+}
+body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--text)}
+.app{display:flex;height:100vh;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.sb{width:210px;background:var(--navy);display:flex;flex-direction:column;flex-shrink:0}
+.logo-wrap{padding:16px 14px 12px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-mark{width:30px;height:30px;border-radius:9px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
+.logo-text{font-size:15px;font-weight:700;color:#fff}.logo-text span{color:var(--gold)}
+.logo-sub{font-size:9px;color:rgba(255,255,255,0.3);margin-top:2px}
+.nl{padding:12px 14px 4px;font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:0.8px;text-transform:uppercase}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;color:rgba(255,255,255,0.5);border-radius:7px;margin:1px 6px;transition:all 0.15s;font-size:12px}
+.ni:hover{background:rgba(255,255,255,0.07);color:#fff}
+.ni.active{background:rgba(108,99,255,0.3);color:#fff}
+.ni svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.nb{margin-top:auto;padding:10px 8px;border-top:1px solid rgba(255,255,255,0.08)}
+.av-row{display:flex;align-items:center;gap:8px;padding:5px 6px}
+.av{width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--navy);flex-shrink:0}
+.av-name{font-size:11px;color:rgba(255,255,255,0.75);font-weight:500}
+.av-role{font-size:10px;color:rgba(255,255,255,0.3)}
+.sb-link{display:flex;align-items:center;gap:6px;padding:6px 8px;font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer;border-radius:6px;margin:2px 6px;transition:all 0.15s;text-decoration:none}
+.sb-link:hover{color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.05)}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--surf);overflow:hidden}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.pg-title{font-size:14px;font-weight:700}
+.pg-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.scroll{flex:1;overflow-y:auto;padding:16px 18px}
+.btn{padding:6px 12px;border-radius:8px;font-size:11.5px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--text);transition:all 0.15s}
+.btn-p{background:var(--purple);color:#fff;border-color:var(--purple)}
+.status-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.scard{background:#fff;border:1px solid var(--border);border-radius:11px;padding:13px 14px}
+.sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.sv{font-size:22px;font-weight:800;line-height:1}
+.sem-block{background:#fff;border:1px solid var(--border);border-radius:11px;margin-bottom:12px;overflow:hidden}
+.sem-head{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surf)}
+.sem-title{font-size:12.5px;font-weight:700}
+.sem-stats{font-size:11px;color:var(--muted);display:flex;gap:12px}
+.course-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #f3f3f8}
+.course-row:last-child{border-bottom:none}
+.sc{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.sc-g{background:var(--green)}.sc-a{background:var(--amber)}.sc-r{background:var(--red)}.sc-gr{background:#ccc}.sc-p{background:var(--purple)}
+.cr-name{font-weight:500;font-size:12.5px}
+.cr-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.cr-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.tag-done{background:var(--gl);color:#006a3a}
+.tag-now{background:var(--al);color:#a06000}
+.tag-next{background:var(--pl);color:var(--purple)}
+.tag-block{background:var(--rl);color:#cc1122}
+.tag-req{background:#f3f3f8;color:var(--muted)}
+.alert-banner{background:var(--rl);border:1px solid #ffb3ba;border-radius:10px;padding:11px 14px;margin-bottom:14px;font-size:12.5px;line-height:1.6;color:#8a0000}
+.alert-banner strong{color:#cc1122}
+.info-banner{background:var(--pl);border:1px solid #c5c2ff;border-radius:10px;padding:11px 14px;margin-bottom:14px;font-size:12.5px;line-height:1.6;color:#26215c}
+.info-banner strong{color:var(--purple)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.leg-dot{width:10px;height:10px;border-radius:50%}
+
+/* QUICK TAKE BUTTONS */
+.qt{display:flex;gap:3px;margin-left:auto;flex-shrink:0}
+.qt-btn{width:28px;height:24px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-weight:600;color:var(--muted)}
+.qt-btn:hover{transform:scale(1.1)}
+.qt-btn.yes{border-color:#a3ffd4;color:#006a3a;background:var(--gl)}
+.qt-btn.yes.active{background:var(--green);color:#fff;border-color:var(--green)}
+.qt-btn.maybe{border-color:#ffd4a3;color:#a06000;background:var(--al)}
+.qt-btn.maybe.active{background:var(--amber);color:#fff;border-color:var(--amber)}
+.qt-btn.no{border-color:#ffb3ba;color:#cc1122;background:var(--rl)}
+.qt-btn.no.active{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* ALEX LEARNED PILLS */
+.learned-banner{background:var(--pl);border:1px solid #c5c2ff;border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.learned-title{font-size:11px;font-weight:700;color:var(--purple);white-space:nowrap}
+.learned-pill{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;border:1px solid}
+.lp-yes{background:var(--gl);color:#006a3a;border-color:#a3ffd4}
+.lp-maybe{background:var(--al);color:#a06000;border-color:#ffd4a3}
+.lp-no{background:var(--rl);color:#cc1122;border-color:#ffb3ba}
+
+/* DROP TOOL */
+.drop-tool{background:#fff;border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:14px}
+.dt-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.dt-select{flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--text);background:#fff;outline:none}
+.dt-result{border-radius:8px;padding:11px 13px;font-size:12.5px;line-height:1.6;margin-top:8px}
+
+/* COACH */
+.coach-top{background:#fff;border-bottom:1px solid var(--border);padding:12px 18px;flex-shrink:0}
+.coach-hdr{display:flex;align-items:center;gap:10px}
+.coach-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--teal));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ctx-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.pill{display:flex;align-items:center;gap:4px;border-radius:20px;padding:3px 9px;font-size:11px;font-weight:500;border:1px solid var(--border);background:var(--surf);color:var(--muted)}
+.pill strong{color:var(--text)}
+.pill.warn{background:#fff8ee;border-color:#ffd4a3;color:#a06000}
+.pill.good{background:#f0fff6;border-color:#a3ffd4;color:#006a3a}
+.pill.bad{background:var(--rl);border-color:#ffb3ba;color:#cc1122}
+.pill.p{background:var(--pl);border-color:#c5c2ff;color:var(--purple)}
+.pill.no{background:var(--rl);border-color:#ffb3ba;color:#cc1122}
+.pill.maybe{background:var(--al);border-color:#ffd4a3;color:#a06000}
+.chat-scroll{flex:1;overflow-y:auto;padding:13px 18px;display:flex;flex-direction:column;gap:10px}
+.mrow{display:flex;align-items:flex-end;gap:7px}
+.mrow.u{flex-direction:row-reverse}
+.bav{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.bav-ai{background:linear-gradient(135deg,var(--purple),var(--teal))}
+.bav-u{background:var(--pl);color:var(--purple)}
+.bub{max-width:82%;padding:10px 13px;border-radius:14px;line-height:1.6;font-size:12.5px}
+.bub.ai{background:#fff;border:1px solid var(--border);border-radius:4px 14px 14px 14px}
+.bub.u{background:var(--purple);color:#fff;border-radius:14px 14px 4px 14px}
+.bub.ai .w{color:var(--coral);font-weight:600}
+.bub.ai .g{color:var(--teal);font-weight:600}
+.bub.ai .p{color:var(--purple);font-weight:600}
+.icard{background:#fff;border:1px solid var(--border);border-radius:10px;margin-top:8px;overflow:hidden}
+.icard-t{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;padding:9px 12px 5px}
+.typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--muted);margin-right:3px;animation:bob 1.1s infinite}
+.typing span:nth-child(2){animation-delay:.18s}
+.typing span:nth-child(3){animation-delay:.36s;margin-right:0}
+@keyframes bob{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.qs{padding:8px 18px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--border);background:#fff;flex-shrink:0}
+.qc{padding:6px 12px;border-radius:20px;font-size:11.5px;cursor:pointer;border:1px solid #c5c2ff;color:var(--purple);background:var(--pl);white-space:nowrap;font-weight:500;transition:all 0.15s}
+.qc:hover{background:var(--purple);color:#fff}
+.inp-row{display:flex;gap:8px;padding:10px 18px;border-top:1px solid var(--border);background:#fff;flex-shrink:0}
+.cinp{flex:1;border:1.5px solid var(--border);border-radius:22px;padding:9px 14px;font-size:12.5px;color:var(--text);outline:none;background:var(--surf)}
+.cinp:focus{border-color:var(--purple);background:#fff}
+.send{width:36px;height:36px;border-radius:50%;background:var(--purple);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.send svg{width:14px;height:14px;fill:#fff}
+.notes-tabs{display:flex;border-bottom:1px solid var(--border);background:#fff;flex-shrink:0}
+.ntab{padding:11px 16px;font-size:12.5px;font-weight:500;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent}
+.ntab.active{color:var(--purple);border-bottom-color:var(--purple)}
+.note-card{background:#fff;border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:10px}
+.note-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.note-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.note-body{font-size:12.5px;line-height:1.7}
+.note-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block}
+.hidden{display:none}
+/* ===== DEGREE PATH VISUALIZER ===== */
+.dp-hdr{background:#fff;border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:16px;flex-shrink:0;flex-wrap:wrap}
+.dp-prog-wrap{flex:1;min-width:160px;max-width:300px}
+.dp-prog-track{height:5px;background:var(--border);border-radius:3px;margin-top:5px;overflow:hidden}
+.dp-prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--purple));border-radius:3px;transition:width 0.4s}
+.dp-cred-label{font-size:11px;font-weight:600;color:var(--muted)}
+.dp-drop-btn{padding:6px 13px;border-radius:8px;font-size:11.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--text);transition:all 0.2s;white-space:nowrap;flex-shrink:0}
+.dp-drop-btn.active{background:#fff0f1;color:#cc1122;border-color:#ffb3ba}
+.dp-canvas-wrap{flex:1;overflow:auto;background:#0f0f13;position:relative}
+.dp-canvas{position:relative;padding:20px 24px 60px;display:inline-flex;gap:24px;min-height:100%}
+.dp-col{width:180px;flex-shrink:0}
+.dp-sem-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:14px;line-height:1.3}
+.dp-sem-sub{font-size:9px;color:rgba(255,255,255,0.18);display:block;margin-top:2px;font-weight:400;letter-spacing:0;text-transform:none}
+.dp-nodes{display:flex;flex-direction:column;gap:10px}
+.dp-node{width:180px;height:64px;border-radius:10px;padding:9px 12px;cursor:pointer;transition:background 0.3s,border-color 0.3s,color 0.3s,box-shadow 0.3s;position:relative;box-sizing:border-box;border:1.5px solid transparent;user-select:none;flex-shrink:0}
+.dp-node:hover{filter:brightness(1.12)}
+.dp-code{font-size:10px;font-weight:700;letter-spacing:0.2px;line-height:1}
+.dp-name{font-size:12px;font-weight:600;margin-top:3px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dp-cr{font-size:9px;position:absolute;bottom:7px;right:10px;opacity:0.6}
+.dp-lock{position:absolute;bottom:7px;left:10px;font-size:10px;opacity:0.35}
+.dp-node.dp-completed{background:#0b3830;border-color:#00c9a7}
+.dp-node.dp-completed .dp-code{color:#4dffd4}
+.dp-node.dp-completed .dp-name{color:#a0ffe8}
+.dp-node.dp-in-progress{background:#0b1d3d;border-color:#3d72ff}
+.dp-node.dp-in-progress .dp-code{color:#80aaff}
+.dp-node.dp-in-progress .dp-name{color:#b8ccff}
+.dp-node.dp-recommended{background:#160d3a;border-color:#6C63FF;animation:dp-pulse 2.2s ease-in-out infinite}
+.dp-node.dp-recommended .dp-code{color:#a09aff}
+.dp-node.dp-recommended .dp-name{color:#d0ccff}
+.dp-node.dp-blocked{background:#161620;border-color:#242436}
+.dp-node.dp-blocked .dp-code{color:#32324a}
+.dp-node.dp-blocked .dp-name{color:#32324a}
+.dp-node.dp-blocked .dp-cr{color:#282838}
+.dp-node.dp-elective{background:#2b1800;border-color:#cc8400}
+.dp-node.dp-elective .dp-code{color:#ffb040}
+.dp-node.dp-elective .dp-name{color:#ffd080}
+.dp-node.dp-drop-impact{background:#2d0b0b!important;border-color:#ff4757!important;animation:none!important}
+.dp-node.dp-drop-impact .dp-code{color:#ff6b7a!important}
+.dp-node.dp-drop-impact .dp-name{color:#ff9090!important}
+@keyframes dp-pulse{0%,100%{box-shadow:0 0 0 0 rgba(108,99,255,0)}55%{box-shadow:0 0 10px 3px rgba(108,99,255,0.3)}}
+.dp-svg{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
+.dp-tooltip{position:fixed;background:#181828;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,0.8);pointer-events:none;z-index:9999;max-width:220px;line-height:1.5;box-shadow:0 8px 28px rgba(0,0,0,0.6);display:none}
+.dp-tt-code{font-size:10px;font-weight:700;color:#4dffd4;margin-bottom:3px}
+.dp-tt-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px}
+.dp-tt-cr{display:inline-block;background:rgba(255,255,255,0.1);padding:1px 8px;border-radius:20px;font-size:10px;margin-bottom:6px}
+.dp-tt-desc{font-size:11px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:5px}
+.dp-tt-pre{font-size:10.5px;color:rgba(255,255,255,0.38)}
+.dp-tt-pre strong{color:rgba(255,255,255,0.65)}
+.dp-tt-hint{font-size:10px;margin-top:5px;color:rgba(255,255,255,0.3)}
+@media(max-width:640px){.dp-canvas-wrap{overflow-x:hidden}.dp-canvas{flex-direction:column;gap:20px;padding:14px;display:flex}.dp-col{width:100%}.dp-node{width:100%}.dp-nodes{flex-direction:row;flex-wrap:wrap;gap:8px}.dp-node{width:calc(50% - 4px);height:56px}}
+</style>
+
+<div class="app">
+<div class="sb">
+  <div class="logo-wrap">
+    <div class="logo">
+      <div class="logo-mark">S</div>
+      <div><div class="logo-text">Schedu<span>lers</span></div><div class="logo-sub">Student Portal · USD</div></div>
+    </div>
+  </div>
+  <div class="nl">My Academics</div>
+  <div class="ni active" onclick="sw('plan',this)">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Degree Plan
+  </div>
+  <div class="ni" onclick="sw('coach',this)">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Alex · Coach
+  </div>
+  <div class="ni" onclick="sw('notes',this)">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Advisor Notes
+  </div>
+  <div class="nb">
+    <div class="av-row">
+      <div class="av">JM</div>
+      <div><div class="av-name">Jordan Martinez</div><div class="av-role">Finance · Junior</div></div>
+    </div>
+    <a class="sb-link" href="index.html">
+      <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg>
+      Schedulers
+    </a>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- DEGREE PLAN -->
+<div id="v-plan" style="display:flex;flex-direction:column;height:100%">
+  <div class="dp-hdr">
+    <div>
+      <div class="pg-title">Degree Path — Jordan Martinez</div>
+      <div class="pg-sub">Computer Science BS · Catalog 2024 · 128 credits total</div>
+    </div>
+    <div class="dp-prog-wrap">
+      <div class="dp-cred-label" id="dp-cred-label">48 / 128 credits completed</div>
+      <div class="dp-prog-track"><div class="dp-prog-fill" id="dp-prog-fill" style="width:37.5%"></div></div>
+    </div>
+    <button class="dp-drop-btn" id="dp-drop-btn" onclick="dpToggleDrop()">Drop Impact</button>
+  </div>
+  <div class="dp-canvas-wrap">
+    <div class="dp-canvas" id="dp-canvas">
+      <svg class="dp-svg" id="dp-svg" width="1" height="1"></svg>
+    </div>
+  </div>
+  <div class="dp-tooltip" id="dp-tooltip"></div>
+</div>
+
+<!-- COACH VIEW -->
+<div id="v-coach" class="hidden" style="display:none;flex-direction:column;height:100%">
+  <div class="coach-top">
+    <div class="coach-hdr">
+      <div class="coach-av">🎓</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700">Alex · Your Academic Coach</div>
+        <div style="font-size:11px;color:var(--teal);display:flex;align-items:center;gap:4px;margin-top:2px"><div style="width:6px;height:6px;border-radius:50%;background:var(--teal)"></div>Knows your grades, prereqs, preferences, and advisor notes</div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);text-align:right">Registration<br><strong style="color:var(--coral)">Jan 15 · 8 days</strong></div>
+    </div>
+    <div class="ctx-pills" id="ctx-pills">
+      <div class="pill bad">GPA <strong>2.7 ↓</strong></div>
+      <div class="pill warn">4 sems declining</div>
+      <div class="pill">72 <strong>/128 cr</strong></div>
+      <div class="pill warn">No 8am · <strong>max 15cr</strong></div>
+      <div class="pill p">Goal: <strong>Internship</strong></div>
+      <div class="pill good">Strong: <strong>MGT/ECON</strong></div>
+    </div>
+  </div>
+  <div class="chat-scroll" id="cs">
+    <div class="mrow">
+      <div class="bav bav-ai">🎓</div>
+      <div><div class="bub ai">Hey Jordan! I've pulled your full transcript, checked your prereq chain, and read all your advisor notes.<br><br><span class="w">Your GPA has dropped 4 semesters in a row</span> — and I know exactly why. Every time you've loaded up on quant courses, it drops. Every MGT/ECON-heavy semester, it holds.<br><br>Registration is in 8 days. What do you want to tackle first?</div></div>
+    </div>
+  </div>
+  <div class="qs" id="qs">
+    <div class="qc" onclick="doQ(this,'pattern')">Show me the pattern</div>
+    <div class="qc" onclick="doQ(this,'next')">Build my Fall schedule</div>
+    <div class="qc" onclick="doQ(this,'drop')">Can I drop a class?</div>
+    <div class="qc" onclick="doQ(this,'olsen')">What did Dr. Olsen say?</div>
+  </div>
+  <div class="inp-row">
+    <input class="cinp" id="ci" placeholder="Ask Alex anything about your degree..." onkeydown="if(event.key==='Enter')send()">
+    <button class="send" onclick="send()"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+  </div>
+</div>
+
+<!-- NOTES VIEW -->
+<div id="v-notes" class="hidden" style="display:none;flex-direction:column;height:100%">
+  <div class="topbar">
+    <div><div class="pg-title">Advisor Notes Hub</div><div class="pg-sub">All your advisors in one place</div></div>
+    <button class="btn btn-p" onclick="sw('coach',null);setTimeout(()=>doQ(null,'olsen'),300)">Ask Alex about these ↗</button>
+  </div>
+  <div class="notes-tabs">
+    <div class="ntab active" onclick="showNotes('olsen',this)">Dr. Olsen · Faculty</div>
+    <div class="ntab" onclick="showNotes('academic',this)">Academic Advisor</div>
+    <div class="ntab" onclick="showNotes('sss',this)">SSS · Angelo</div>
+  </div>
+  <div class="scroll" id="notes-content"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+const takes = {};
+const courseNames = {
+  math250:'MATH 250',fin215:'FIN 215',mgt450:'MGT 450',bus301:'BUS 301',
+  fin310:'FIN 310',acct301:'ACCT 301',fin420:'FIN 420',fin480:'FIN 480'
+};
+
+function setTake(course, val, btn) {
+  const row = btn.closest('.qt');
+  row.querySelectorAll('.qt-btn').forEach(b => {
+    b.classList.remove('active');
+  });
+  if (takes[course] === val) {
+    delete takes[course];
+  } else {
+    takes[course] = val;
+    btn.classList.add('active');
+  }
+  updateLearned();
+  updateCtxPills();
+  updateQtCount();
+
+  // If they say no to MATH 250, Alex reacts immediately
+  if (course === 'math250' && val === 'no') {
+    setTimeout(() => {
+      sw('coach', null);
+      setTimeout(() => doQ(null, 'math250-no'), 200);
+    }, 400);
+  }
+  // If they say yes to ACCT 301, Alex reacts
+  if (course === 'acct301' && val === 'yes') {
+    setTimeout(() => {
+      sw('coach', null);
+      setTimeout(() => doQ(null, 'acct301-yes'), 200);
+    }, 400);
+  }
+}
+
+function updateQtCount() {
+  const _qtel = document.getElementById('qt-count');
+  if (_qtel) _qtel.textContent = Object.keys(takes).length;
+}
+
+function updateLearned() {
+  const banner = document.getElementById('learned-banner');
+  const pills = document.getElementById('learned-pills');
+  if (!banner || !pills) return;
+  const entries = Object.entries(takes);
+  if (entries.length === 0) { banner.classList.add('hidden'); return; }
+  banner.classList.remove('hidden');
+  pills.innerHTML = entries.map(([k, v]) =>
+    `<span class="learned-pill lp-${v}">${v === 'yes' ? '✓' : v === 'maybe' ? '?' : '✗'} ${courseNames[k]}</span>`
+  ).join('');
+}
+
+function updateCtxPills() {
+  const base = `<div class="pill bad">GPA <strong>2.7 ↓</strong></div>
+    <div class="pill warn">4 sems declining</div>
+    <div class="pill">72 <strong>/128 cr</strong></div>
+    <div class="pill warn">No 8am · <strong>max 15cr</strong></div>
+    <div class="pill p">Goal: <strong>Internship</strong></div>
+    <div class="pill good">Strong: <strong>MGT/ECON</strong></div>`;
+  const extra = Object.entries(takes).map(([k, v]) =>
+    `<div class="pill ${v === 'yes' ? 'good' : v === 'no' ? 'no' : 'maybe'}">${v === 'yes' ? '✓' : v === 'no' ? '✗' : '?'} <strong>${courseNames[k]}</strong></div>`
+  ).join('');
+  const el = document.getElementById('ctx-pills');
+  if (el) el.innerHTML = base + extra;
+}
+
+const replies = {
+  pattern: {
+    msgs: [{t:'ai',txt:'Here\'s the brutal truth about your last 4 semesters:\n\nFall \'22: 3.4 — mostly MGT and ECON\nSpr \'23: 3.1 — added MATH 130 and ACCT 201 together\nFall \'23: 2.9 — two quant courses again\nSpr \'24: 2.7 — FIN 201 dragged you down\n\n<span class="w">Every single drop happened in a semester with 2+ quantitative courses.</span> Your C+ in MATH 130 is the signal I keep coming back to — it means MATH 250 needs to be your ONLY quant course this semester. Not one of two. Not one of three. The only one.'}],
+    chips: ['Build my schedule around that', 'Can I still get a 3.0?', 'What did Dr. Olsen flag?']
+  },
+  next: {
+    msgs: [{t:'ai',txt:'Based on your grades, your advisor notes, and what you\'ve told me so far — here\'s what I\'d take Fall 2025:\n\n<span class="p">MATH 250 · Prof. Kim · TTh 11am</span> — non-negotiable\n<span class="g">FIN 215 · Financial Markets</span> — internship-relevant\n<span class="g">MGT 450 · Strategy</span> — your strength, GPA booster\n<span class="g">BUS 301 · Business Law</span> — light, clears a req\n\n12 credits · no 8am · 1 quant course only.\n\nIf you haven\'t already, go to the Degree Plan tab and tap ✓ on the ones you like. I\'ll adjust if you push back on anything.'}],
+    chips: ['What about ACCT 301?', 'Will this get me to May 2026?', 'What does Prof. Kim\'s section look like?']
+  },
+  drop: {
+    msgs: [{t:'ai',txt:'Use the Drop Impact Calculator on your Degree Plan — it\'ll show you instantly.\n\nBut quick answer: <span class="g">MGT 310 is safe to drop</span> — it\'s not in your critical prereq chain.\n\n<span class="w">Do not skip MATH 250.</span> That one cascades into 3 blocked courses. Everything else is negotiable. That one isn\'t.'}],
+    chips: ['What if I drop FIN 201?', 'What does Angelo say about my workload?']
+  },
+  olsen: {
+    msgs: [{t:'ai',txt:'Dr. Olsen left two notes I want you to read in the Advisors tab. The big things:\n\n<span class="w">Science & Tech vs Natural Science:</span> You\'re under the 2022 catalog — Science & Tech requirements apply. The BIOL 110 elective you were planning doesn\'t count. This is the kind of thing that catches people in senior year.\n\n<span class="p">Prof. Kim\'s MATH 250:</span> She specifically recommended this section for students who struggled in MATH 130. Smaller class, more office hours. This is a real difference.'}],
+    chips: ['What electives do count?', 'Tell me more about catalog year', 'What did Angelo say?']
+  },
+  'math250-no': {
+    msgs: [{t:'ai',txt:'Hey — I noticed you marked MATH 250 as a no. I want to flag something before you commit to that.\n\n<span class="w">MATH 250 isn\'t optional for your degree.</span> It\'s a hard requirement that directly unlocks FIN 310, FIN 420, and ACCT 301. If you skip it this semester, graduation moves to December 2026 at the earliest.\n\nIs there something specific about it that\'s putting you off? The workload, the timing, a specific section? If it\'s any of those, I might be able to help work around the concern without losing a semester.'}],
+    chips: ['I\'m worried about the workload', 'Can I take it over summer?', 'Ok fine I\'ll take it']
+  },
+  'acct301-yes': {
+    msgs: [{t:'ai',txt:'Noted — and I want to give you a heads up before you commit.\n\nYou got a C+ in ACCT 202. Students with that grade taking ACCT 301 immediately had a <span class="w">38% fail rate.</span> It\'s not impossible — but pairing it with other heavy courses this semester would be risky.\n\nIf you want ACCT 301 in your plan, I\'d suggest it as a standalone heavy course with lighter electives around it. Want me to rebuild your semester with that in mind?'}],
+    chips: ['Yes, rebuild around ACCT 301', 'Maybe I should wait a semester', 'What courses pair well with ACCT 301?']
+  },
+  fromtakes: {
+    msgs: [{t:'ai',txt:''}],
+    chips: []
+  },
+  quicktake: {
+    msgs: [{t:'ai',txt:'See those ✓ ? ✗ buttons on each course in your plan? Tap them as you scroll through. It only takes a second and it tells me a lot — whether you\'re dreading something, excited about something, or completely on the fence.\n\nThe more you tell me, the more I can tailor your schedule to actually fit you — not just what\'s required.'}],
+    chips: ['Got it, going back to plan', 'What happens when I tap them?']
+  },
+  'Got it, going back to plan': {msgs:[{t:'ai',txt:'Go for it — tap a few and come back. I\'ll have thoughts.'}],chips:[]},
+  'I\'m worried about the workload': {msgs:[{t:'ai',txt:'That\'s a fair concern. MATH 250 is about 8 hours a week. But here\'s the thing — Prof. Kim\'s TTh 11am section has a significantly better pass rate for students with your MATH 130 history. And if you keep the rest of your semester light (MGT 450 + BUS 301 + FIN 215), the total load is manageable.\n\nAngelo also mentioned in his note that 12 credits is the right number for you right now. This plan fits exactly in that range.'}],chips:['Ok, what\'s the full 12-credit plan?','Show me Prof. Kim vs other sections']},
+  'Can I take it over summer?': {msgs:[{t:'ai',txt:'You can — but the summer section is condensed into 6 weeks and has a higher drop rate than the regular semester. And if you\'re planning to intern this summer, the timing gets brutal.\n\nMy honest take: take it in Fall with Prof. Kim. Use the summer for recruiting prep instead.'}],chips:['Ok I\'ll take it Fall','What if I intern AND take summer classes?']},
+  'Ok fine I\'ll take it': {msgs:[{t:'ai',txt:'That\'s the right call. Go back to the plan and tap ✓ on MATH 250 — I\'ll update your semester build around it. Prof. Kim TTh 11am is the one to register for the moment registration opens January 15th.'}],chips:['Build my full Fall schedule','When do seats fill up?']},
+  fallback: [
+    'Based on your transcript and what you\'ve told me so far — the most important thing before Jan 15 is locking in MATH 250. Everything else flows from that one decision.',
+    'Good question. Let me cross-reference your grades, your remaining requirements, and your advisor notes... The short answer is you\'re closer to on track than it might feel, but the prereq chain needs to be resolved this semester.',
+    'I\'m factoring in everything you\'ve shared — your preferences, your grades, what Dr. Olsen flagged, and what Angelo said about workload. Want me to show you the full picture?'
+  ]
+};
+
+const notes = {
+  olsen: [{name:"Dr. Olsen",initials:"DO",color:"#6C63FF",date:"Jan 8, 2025",tag:"Prereq Warning",tagBg:"var(--rl)",tagColor:"#cc1122",body:"Jordan came in confused about Science & Tech vs Natural Science requirements. Clarified: Jordan is in Science & Tech under catalog year 2022. BIOL 110 does not count. Also discussed MATH 250 prereq chain — strongly advised registering for Prof. Kim's TTh 11am section."}],
+  academic: [{name:"Maria Santos",initials:"MS",color:"#00C9A7",date:"Dec 3, 2024",tag:"Registration",tagBg:"var(--gl)",tagColor:"#006a3a",body:"Met to review Spring 2025 registration. Jordan is on track with 72/128 credits. Catalog year confirmed as 2022. Reminder: DegreeWorks is view-only — always notify advising if you drop a course."}],
+  sss: [{name:"Angelo Reyes",initials:"AR",color:"#FFA502",date:"Nov 20, 2024",tag:"Support Check-in",tagBg:"var(--al)",tagColor:"#a06000",body:"Jordan came in after a difficult midterm week — stressed about quant courses. Suggested reducing to 12 credits next semester. Free MATH and ACCT tutoring available Mon–Thu through SSS."}]
+};
+
+let fbIdx = 0;
+
+function sw(v, el) {
+  ['plan','coach','notes'].forEach(id => {
+    const e = document.getElementById('v-'+id);
+    if (e) e.style.display = 'none';
+  });
+  const t = document.getElementById('v-'+v);
+  if (t) t.style.display = 'flex';
+  document.querySelectorAll('.ni').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  else {
+    const map = {plan:0,coach:1,notes:2};
+    const btns = document.querySelectorAll('.ni');
+    if (btns[map[v]]) btns[map[v]].classList.add('active');
+  }
+  if (v === 'notes') showNotes('olsen', document.querySelector('.ntab'));
+  if (v === 'coach') updateCtxPills();
+  if (v === 'plan') setTimeout(dpArrows, 80);
+}
+
+function showNotes(type, el) {
+  document.querySelectorAll('.ntab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('notes-content').innerHTML = notes[type].map(n => `
+    <div class="note-card">
+      <div class="note-header">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="note-av" style="background:${n.color};color:#fff">${n.initials}</div>
+          <div><div style="font-size:12px;font-weight:600">${n.name}</div><div style="font-size:11px;color:var(--muted)">${n.date}</div></div>
+        </div>
+        <span class="note-tag" style="background:${n.tagBg};color:${n.tagColor}">${n.tag}</span>
+      </div>
+      <div class="note-body">${n.body.replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+}
+
+function addMsg(type, html) {
+  const scroll = document.getElementById('cs');
+  const row = document.createElement('div');
+  row.className = 'mrow' + (type === 'u' ? ' u' : '');
+  const av = type === 'ai' ? '<div class="bav bav-ai">🎓</div>' : '<div class="bav bav-u">JM</div>';
+  const bub = `<div class="bub ${type === 'u' ? 'u' : 'ai'}">${html}</div>`;
+  row.innerHTML = type === 'ai' ? `${av}<div>${bub}</div>` : `<div>${bub}</div>${av}`;
+  scroll.appendChild(row);
+  scroll.scrollTop = scroll.scrollHeight;
+}
+
+function showTyping() {
+  const s = document.getElementById('cs');
+  const r = document.createElement('div'); r.className='mrow'; r.id='tr';
+  r.innerHTML='<div class="bav bav-ai">🎓</div><div><div class="bub ai"><span class="typing"><span></span><span></span><span></span></span></div></div>';
+  s.appendChild(r); s.scrollTop = s.scrollHeight;
+}
+function hideTyping() { const r=document.getElementById('tr'); if(r) r.remove(); }
+
+function setChips(chips) {
+  document.getElementById('qs').innerHTML = chips.map(c =>
+    `<div class="qc" onclick="doQ(this,'${c.replace(/'/g,"\\'")}')">${c}</div>`
+  ).join('');
+}
+
+function doQ(el, key) {
+  if (el) el.remove();
+  sw('coach', null);
+  if (key !== 'fromtakes' && key !== 'quicktake') {
+    addMsg('u', key.length > 50 ? key.substring(0,48)+'...' : key);
+  }
+
+  // Dynamic response for fromtakes
+  if (key === 'fromtakes') {
+    const entries = Object.entries(takes);
+    if (entries.length === 0) {
+      addMsg('u', 'See what Alex thinks about my picks');
+      showTyping();
+      setTimeout(() => { hideTyping(); addMsg('ai', "You haven't tapped any courses yet! Go to your Degree Plan and tap ✓ ? ✗ on a few courses — then come back and I'll tell you what I think."); setChips(['Go back to plan','Build my Fall schedule']); }, 900);
+      return;
+    }
+    const yeses = entries.filter(([,v])=>v==='yes').map(([k])=>courseNames[k]);
+    const nos = entries.filter(([,v])=>v==='no').map(([k])=>courseNames[k]);
+    const maybes = entries.filter(([,v])=>v==='maybe').map(([k])=>courseNames[k]);
+    let resp = '';
+    if (nos.includes('MATH 250')) {
+      resp = `Ok I see you marked <span class="w">MATH 250 as a no</span>. I really need to push back on that one — it's the only course in your plan that I'd call non-negotiable. Without it, FIN 310, FIN 420, and ACCT 301 stay blocked and graduation moves to December 2026.\n\nEverything else you've flagged, I can work around.`;
+    } else if (yeses.includes('ACCT 301')) {
+      resp = `You said yes to ACCT 301 — I want to flag that. You got a C+ in ACCT 202, and students with that background taking 301 immediately had a 38% fail rate. If you want it in your plan, let's build the rest of the semester light around it.`;
+    } else if (yeses.length > 0 && nos.length > 0) {
+      resp = `Here's what I'm seeing from your picks:\n\n<span class="g">You want:</span> ${yeses.join(', ')}\n<span class="w">You don't want:</span> ${nos.join(', ')}\n${maybes.length ? `<span class="p">On the fence:</span> ${maybes.join(', ')}\n\n` : '\n'}That's helpful. I can build your Fall schedule around this — want me to?`;
+    } else if (yeses.length > 0) {
+      resp = `You're into ${yeses.join(', ')} — good choices. Those all fit well with your grade history and your internship goal. Want me to build your full Fall schedule around them?`;
+    } else {
+      resp = `Noted on all your picks. Based on what you've told me, I can build a schedule that fits your preferences while keeping you on track. Want to see it?`;
+    }
+    addMsg('u', 'See what Alex thinks about my picks');
+    showTyping();
+    setTimeout(() => { hideTyping(); addMsg('ai', resp); setChips(['Yes, build my schedule','What if I change my mind?','Tell me more about a specific course']); }, 1000);
+    return;
+  }
+
+  showTyping();
+  const resp = replies[key];
+  setTimeout(() => {
+    hideTyping();
+    if (resp) {
+      let i = 0;
+      function next() {
+        if (i < resp.msgs.length) {
+          const m = resp.msgs[i];
+          if (m.txt) addMsg('ai', m.txt.replace(/\n/g,'<br>'));
+          i++;
+          if (i < resp.msgs.length) setTimeout(() => { showTyping(); setTimeout(() => { hideTyping(); next(); }, 900); }, 200);
+          else if (resp.chips && resp.chips.length) setTimeout(() => setChips(resp.chips), 400);
+        }
+      }
+      next();
+    } else {
+      addMsg('ai', replies.fallback[fbIdx % replies.fallback.length].replace(/\n/g,'<br>'));
+      fbIdx++;
+      setChips(['Show me the GPA pattern','Build my Fall schedule','What did Dr. Olsen say?']);
+    }
+  }, 1000);
+}
+
+function send() {
+  const inp = document.getElementById('ci');
+  const val = inp.value.trim(); if (!val) return;
+  inp.value = '';
+  doQ(null, val);
+}
+
+const dropResults = {
+  'fin201-w': 'Dropping FIN 201 with a W loses 3 credits this semester. FIN 215 prereqs still clear. However FIN 310 gets pushed one semester — graduation moves from May 2026 to December 2026 unless another course fills the gap.',
+  'fin201-dfw': 'A DFW in FIN 201 is a significant GPA hit and you must retake it. Graduation moves to December 2026 at minimum. Contact Dr. Olsen immediately if you are at risk.',
+  'mgt310-w': 'Dropping MGT 310 with a W is safe — it\'s not in your critical prereq chain. Graduation timeline unaffected. You can retake any future semester.',
+  'math250': 'Do not skip MATH 250. It directly blocks FIN 310, FIN 420, and ACCT 301. Skipping it this semester moves graduation from May 2026 to December 2026 at the earliest. This is the one course you cannot skip.'
+};
+
+function calcDrop() {
+  const sel = document.getElementById('drop-sel').value;
+  const res = document.getElementById('drop-res');
+  if (!sel) { res.style.display='none'; return; }
+  const text = dropResults[sel];
+  const isRed = text.includes('Do not') || text.includes('significant') || text.includes('minimum');
+  const isGreen = text.includes('safe');
+  res.style.display = 'block';
+  res.style.background = isRed ? 'var(--rl)' : isGreen ? 'var(--gl)' : 'var(--al)';
+  res.style.color = isRed ? '#8a0000' : isGreen ? '#004d2a' : '#6b3a00';
+  res.style.border = isRed ? '1px solid #ffb3ba' : isGreen ? '1px solid #a3ffd4' : '1px solid #ffd4a3';
+  res.textContent = text;
+}
+
+// ================================================================
+// DEGREE PATH VISUALIZER
+// ================================================================
+const DP_SEMS = [
+  {id:0,lbl:'Fall 2022',sub:'Year 1 Fall'},
+  {id:1,lbl:'Spring 2023',sub:'Year 1 Spring'},
+  {id:2,lbl:'Fall 2023',sub:'Year 2 Fall'},
+  {id:3,lbl:'Spring 2024',sub:'Year 2 Spring'},
+  {id:4,lbl:'Fall 2024',sub:'Year 3 Fall'},
+  {id:5,lbl:'Spring 2025',sub:'Year 3 Spring'},
+  {id:6,lbl:'Fall 2025',sub:'Year 4 Fall'},
+  {id:7,lbl:'Spring 2026',sub:'Year 4 Spring'},
+];
+
+const DP = [
+  // ── Year 1 Fall ──────────────────────────────────────────────
+  {id:'ENGL101',code:'ENGL 101',name:'Writing I',cr:3,pre:[],sem:0,
+   desc:'Academic writing, argumentation, and revision fundamentals.'},
+  {id:'MATH115',code:'MATH 115',name:'Precalculus',cr:4,pre:[],sem:0,
+   desc:'Algebra, functions, and trig as preparation for calculus.'},
+  {id:'CS101',code:'CS 101',name:'Intro to CS',cr:3,pre:[],sem:0,
+   desc:'Computational thinking, algorithms, and first programs.'},
+  {id:'ECON101',code:'ECON 101',name:'Microeconomics',cr:3,pre:[],sem:0,
+   desc:'Markets, supply/demand, consumer theory, and pricing.'},
+  // ── Year 1 Spring ────────────────────────────────────────────
+  {id:'MATH130',code:'MATH 130',name:'Calculus I',cr:4,pre:['MATH115'],sem:1,
+   desc:'Limits, derivatives, and introduction to integration.'},
+  {id:'CS150',code:'CS 150',name:'Programming I',cr:3,pre:['CS101'],sem:1,
+   desc:'Python programming — variables, loops, functions, I/O.'},
+  {id:'ENGL102',code:'ENGL 102',name:'Writing II',cr:3,pre:['ENGL101'],sem:1,
+   desc:'Research writing, source integration, and argumentation.'},
+  {id:'PHIL101',code:'PHIL 101',name:'Ethics',cr:3,pre:[],sem:1,
+   desc:'Ethical theories: utilitarianism, deontology, virtue ethics.'},
+  // ── Year 2 Fall ──────────────────────────────────────────────
+  {id:'MATH220',code:'MATH 220',name:'Calculus II',cr:4,pre:['MATH130'],sem:2,
+   desc:'Integration techniques, sequences, series, and applications.'},
+  {id:'CS200',code:'CS 200',name:'Data Structures',cr:3,pre:['CS150'],sem:2,
+   desc:'Lists, stacks, queues, trees, hash tables, and Big-O analysis.'},
+  {id:'MATH215',code:'MATH 215',name:'Discrete Math',cr:3,pre:['MATH130'],sem:2,
+   desc:'Logic, proofs, sets, graphs, and combinatorics.'},
+  {id:'STAT250',code:'STAT 250',name:'Statistics',cr:3,pre:['MATH130'],sem:2,
+   desc:'Probability, distributions, hypothesis testing, regression.'},
+  // ── Year 2 Spring (in progress) ──────────────────────────────
+  {id:'CS250',code:'CS 250',name:'Computer Org',cr:3,pre:['CS200'],sem:3,
+   desc:'Digital logic, assembly language, memory hierarchy, CPU design.'},
+  {id:'CS260',code:'CS 260',name:'Algorithms',cr:3,pre:['CS200','MATH215'],sem:3,
+   desc:'Sorting, DP, greedy, graph algorithms, and NP-complexity.'},
+  {id:'MATH310',code:'MATH 310',name:'Linear Algebra',cr:3,pre:['MATH220'],sem:3,
+   desc:'Vectors, matrices, eigenvalues, and ML applications.'},
+  {id:'CS270',code:'CS 270',name:'Systems Prog',cr:3,pre:['CS250'],sem:3,
+   desc:'C programming, memory management, processes, system calls.'},
+  // ── Year 3 Fall ──────────────────────────────────────────────
+  {id:'CS330',code:'CS 330',name:'Operating Systems',cr:3,pre:['CS270'],sem:4,
+   desc:'Scheduling, virtual memory, file systems, and concurrency.'},
+  {id:'CS340',code:'CS 340',name:'Databases',cr:3,pre:['CS260'],sem:4,
+   desc:'Relational models, SQL, normalization, query optimization.'},
+  {id:'CS350',code:'CS 350',name:'Software Eng',cr:3,pre:['CS260'],sem:4,
+   desc:'Agile methods, design patterns, testing, and team projects.'},
+  {id:'CS360',code:'CS 360',name:'Networks',cr:3,pre:['CS270'],sem:4,
+   desc:'TCP/IP, routing, DNS, sockets, and network security basics.'},
+  // ── Year 3 Spring ────────────────────────────────────────────
+  {id:'CS370',code:'CS 370',name:'AI / ML',cr:3,pre:['CS260','STAT250','MATH310'],sem:5,
+   desc:'Search, classifiers, neural networks, and reinforcement learning.'},
+  {id:'CS380',code:'CS 380',name:'Prog Languages',cr:3,pre:['CS260'],sem:5,
+   desc:'Language paradigms, type systems, interpreters, lambda calculus.'},
+  {id:'ELECTA',code:'Elective A',name:'Tech Elective',cr:3,pre:['CS260'],sem:5,type:'elective',
+   desc:'Any 300+ level CS elective of your choice.'},
+  {id:'PHIL310',code:'PHIL 310',name:'Ethics in Tech',cr:3,pre:['PHIL101'],sem:5,
+   desc:'AI ethics, surveillance, privacy, and algorithmic bias.'},
+  // ── Year 4 Fall ──────────────────────────────────────────────
+  {id:'CS450',code:'CS 450',name:'Capstone I',cr:3,pre:['CS350','CS340'],sem:6,
+   desc:'Team capstone: proposal, design, and initial implementation.'},
+  {id:'CS460',code:'CS 460',name:'Security',cr:3,pre:['CS360','CS330'],sem:6,
+   desc:'Cryptography, network attacks, and vulnerability analysis.'},
+  {id:'ELECTB',code:'Elective B',name:'Tech Elective',cr:3,pre:['CS370'],sem:6,type:'elective',
+   desc:'Advanced AI/ML elective building on CS 370.'},
+  {id:'ELECTC',code:'Elective C',name:'Tech Elective',cr:3,pre:['CS330'],sem:6,type:'elective',
+   desc:'Systems or networks elective — choose based on interest.'},
+  // ── Year 4 Spring ────────────────────────────────────────────
+  {id:'CS480',code:'CS 480',name:'Capstone II',cr:3,pre:['CS450'],sem:7,
+   desc:'Complete and present capstone project. Final demo and review.'},
+  {id:'CS490',code:'CS 490',name:'Senior Seminar',cr:3,pre:['CS450'],sem:7,
+   desc:'Career prep, interviews, ethics review, and portfolio.'},
+  {id:'ELECTD',code:'Elective D',name:'Tech Elective',cr:3,pre:['CS340'],sem:7,type:'elective',
+   desc:'Advanced database or systems elective.'},
+  {id:'FREE1',code:'Free Elect',name:'Free Elective',cr:3,pre:[],sem:7,type:'elective',
+   desc:'Any course from any department. Explore freely!'},
+];
+
+// Initial state: Year 1 + Year 2 Fall = completed; Year 2 Spring = in progress
+let dpDone = new Set([
+  'ENGL101','MATH115','CS101','ECON101',
+  'MATH130','CS150','ENGL102','PHIL101',
+  'MATH220','CS200','MATH215','STAT250'
+]);
+let dpProg = new Set(['CS250','CS260','MATH310','CS270']);
+let dpDropMode = false;
+
+function dpStatus(c) {
+  if (dpDone.has(c.id)) return 'dp-completed';
+  if (dpProg.has(c.id)) return 'dp-in-progress';
+  const ok = c.pre.every(p => dpDone.has(p) || dpProg.has(p));
+  if (!ok) return 'dp-blocked';
+  return c.type === 'elective' ? 'dp-elective' : 'dp-recommended';
+}
+
+// BFS: courses that depend (directly or transitively) on id and aren't yet done
+function dpImpact(id) {
+  const hit = new Set();
+  const q = [id], seen = new Set([id]);
+  while (q.length) {
+    const cur = q.shift();
+    DP.forEach(c => {
+      if (seen.has(c.id) || dpDone.has(c.id)) return;
+      if (!c.pre.includes(cur)) return;
+      seen.add(c.id); hit.add(c.id); q.push(c.id);
+    });
+  }
+  return hit;
+}
+
+function dpCompletedCr() {
+  return DP.filter(c => dpDone.has(c.id)).reduce((s,c) => s + c.cr, 0);
+}
+
+const DP_COL = {
+  'dp-completed':'#00c9a7','dp-in-progress':'#3d72ff',
+  'dp-recommended':'#6C63FF','dp-elective':'#cc8400','dp-blocked':'#242436'
+};
+const DP_OP = {
+  'dp-completed':0.6,'dp-in-progress':0.55,
+  'dp-recommended':0.55,'dp-elective':0.5,'dp-blocked':0.14
+};
+
+function dpRender() {
+  const canvas = document.getElementById('dp-canvas');
+  if (!canvas) return;
+  [...canvas.children].forEach(ch => { if (ch.id !== 'dp-svg') ch.remove(); });
+
+  const bySem = {};
+  DP.forEach(c => { (bySem[c.sem] = bySem[c.sem] || []).push(c); });
+
+  DP_SEMS.forEach(s => {
+    const col = document.createElement('div');
+    col.className = 'dp-col';
+    const lbl = document.createElement('div');
+    lbl.className = 'dp-sem-lbl';
+    lbl.innerHTML = s.lbl + '<span class="dp-sem-sub">' + s.sub + '</span>';
+    col.appendChild(lbl);
+    const wrap = document.createElement('div');
+    wrap.className = 'dp-nodes';
+    (bySem[s.id] || []).forEach(c => {
+      const st = dpStatus(c);
+      const nd = document.createElement('div');
+      nd.className = 'dp-node ' + st;
+      nd.id = 'dpn-' + c.id;
+      nd.innerHTML =
+        '<div class="dp-code">' + c.code + '</div>' +
+        '<div class="dp-name">' + c.name + '</div>' +
+        (st === 'dp-blocked' ? '<span class="dp-lock">&#x1F512;</span>' : '') +
+        '<span class="dp-cr">' + c.cr + 'cr</span>';
+      nd.addEventListener('click', () => dpClick(c));
+      nd.addEventListener('mouseenter', e => dpTip(e, c));
+      nd.addEventListener('mousemove', dpMoveTip);
+      nd.addEventListener('mouseleave', dpHideTip);
+      wrap.appendChild(nd);
+    });
+    col.appendChild(wrap);
+    canvas.appendChild(col);
+  });
+
+  const cr = dpCompletedCr();
+  const lb = document.getElementById('dp-cred-label');
+  const fl = document.getElementById('dp-prog-fill');
+  if (lb) lb.textContent = cr + ' / 128 credits completed';
+  if (fl) fl.style.width = (cr / 128 * 100).toFixed(1) + '%';
+
+  requestAnimationFrame(dpArrows);
+}
+
+function dpClick(c) {
+  if (dpDropMode) return;
+  const st = dpStatus(c);
+  if (st === 'dp-completed') {
+    dpDone.delete(c.id);
+  } else if (st !== 'dp-blocked') {
+    dpDone.add(c.id);
+    dpProg.delete(c.id);
+  }
+  dpRender();
+}
+
+function dpArrows() {
+  const svg = document.getElementById('dp-svg');
+  const canvas = document.getElementById('dp-canvas');
+  if (!svg || !canvas) return;
+  svg.setAttribute('width', canvas.scrollWidth);
+  svg.setAttribute('height', canvas.scrollHeight);
+  svg.innerHTML = '';
+
+  // Arrowhead markers per status
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  Object.entries(DP_COL).forEach(([k, col]) => {
+    const m = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    m.setAttribute('id', 'dpa-' + k);
+    m.setAttribute('markerWidth', '6');
+    m.setAttribute('markerHeight', '4');
+    m.setAttribute('refX', '5');
+    m.setAttribute('refY', '2');
+    m.setAttribute('orient', 'auto');
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    p.setAttribute('points', '0 0,6 2,0 4');
+    p.setAttribute('fill', col);
+    p.setAttribute('opacity', k === 'dp-blocked' ? '0.22' : '0.7');
+    m.appendChild(p);
+    defs.appendChild(m);
+  });
+  svg.appendChild(defs);
+
+  const cr = canvas.getBoundingClientRect();
+
+  DP.forEach(tgt => {
+    tgt.pre.forEach(pid => {
+      const src = DP.find(x => x.id === pid);
+      if (!src) return;
+      const se = document.getElementById('dpn-' + src.id);
+      const te = document.getElementById('dpn-' + tgt.id);
+      if (!se || !te) return;
+      const sr = se.getBoundingClientRect();
+      const tr = te.getBoundingClientRect();
+      const sx = sr.right  - cr.left;
+      const sy = sr.top + sr.height / 2 - cr.top;
+      const ex = tr.left   - cr.left;
+      const ey = tr.top + tr.height / 2 - cr.top;
+      const st = dpStatus(src);
+      const col = DP_COL[st] || '#333';
+      const op  = DP_OP[st]  || 0.15;
+      const cp  = Math.min(Math.abs(ex - sx) * 0.45, 130);
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M${sx},${sy} C${sx+cp},${sy} ${ex-cp},${ey} ${ex},${ey}`);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', col);
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('stroke-opacity', op);
+      path.setAttribute('marker-end', 'url(#dpa-' + st + ')');
+      svg.appendChild(path);
+    });
+  });
+}
+
+function dpToggleDrop() {
+  dpDropMode = !dpDropMode;
+  const btn = document.getElementById('dp-drop-btn');
+  if (btn) {
+    btn.classList.toggle('active', dpDropMode);
+    btn.textContent = dpDropMode ? 'Drop Impact: ON' : 'Drop Impact';
+  }
+  if (!dpDropMode) {
+    document.querySelectorAll('.dp-drop-impact').forEach(n => n.classList.remove('dp-drop-impact'));
+  }
+}
+
+function dpTip(e, c) {
+  const tip = document.getElementById('dp-tooltip');
+  if (!tip) return;
+  const st = dpStatus(c);
+  const stLbl = {
+    'dp-completed':'Completed',
+    'dp-in-progress':'In Progress',
+    'dp-recommended':'Recommended Next',
+    'dp-blocked':'Blocked — prereqs not met',
+    'dp-elective':'Elective (available)'
+  }[st] || st;
+  const preNames = c.pre.map(p => { const f = DP.find(x => x.id === p); return f ? f.code : p; });
+  let hint = '';
+  if (!dpDropMode) {
+    if (st === 'dp-completed') hint = '<div class="dp-tt-hint">Click to unmark</div>';
+    else if (st !== 'dp-blocked') hint = '<div class="dp-tt-hint">Click to mark completed</div>';
+  } else {
+    hint = '<div class="dp-tt-hint" style="color:#ff9090">Hover shows what this course unlocks</div>';
+  }
+  tip.innerHTML =
+    '<div class="dp-tt-code">' + c.code + ' · ' + stLbl + '</div>' +
+    '<div class="dp-tt-name">' + c.name + '</div>' +
+    '<span class="dp-tt-cr">' + c.cr + ' credits</span>' +
+    '<div class="dp-tt-desc">' + c.desc + '</div>' +
+    (preNames.length
+      ? '<div class="dp-tt-pre"><strong>Prereqs:</strong> ' + preNames.join(', ') + '</div>'
+      : '<div class="dp-tt-pre" style="color:rgba(255,255,255,0.22)">No prerequisites</div>') +
+    hint;
+  tip.style.display = 'block';
+  dpMoveTip(e);
+  if (dpDropMode) {
+    document.querySelectorAll('.dp-drop-impact').forEach(n => n.classList.remove('dp-drop-impact'));
+    dpImpact(c.id).forEach(id => {
+      const el = document.getElementById('dpn-' + id);
+      if (el) el.classList.add('dp-drop-impact');
+    });
+  }
+}
+
+function dpMoveTip(e) {
+  const tip = document.getElementById('dp-tooltip');
+  if (!tip || tip.style.display === 'none') return;
+  const x = e.clientX + 14, y = e.clientY - 8;
+  const w = tip.offsetWidth || 220, h = tip.offsetHeight || 160;
+  tip.style.left = (x + w > window.innerWidth - 8 ? e.clientX - w - 14 : x) + 'px';
+  tip.style.top  = Math.max(8, Math.min(y, window.innerHeight - h - 8)) + 'px';
+}
+
+function dpHideTip() {
+  const tip = document.getElementById('dp-tooltip');
+  if (tip) tip.style.display = 'none';
+  if (dpDropMode) {
+    document.querySelectorAll('.dp-drop-impact').forEach(n => n.classList.remove('dp-drop-impact'));
+  }
+}
+
+// Also redraw arrows on window resize
+window.addEventListener('resize', dpArrows);
+
+// Kick off initial render
+dpRender();
+
+</script>

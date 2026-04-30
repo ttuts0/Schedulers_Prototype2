@@ -1,0 +1,540 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f0f23;--navy2:#1a1a35;--purple:#6C63FF;--pl:#f0efff;--p2:#8B85FF;
+  --gold:#F5C842;--coral:#FF6B6B;--teal:#00C9A7;
+  --red:#FF4757;--rl:#fff0f1;--amber:#FFA502;--al:#fff8ee;
+  --green:#2ED573;--gl:#f0fff6;--dg:#1a9952;
+  --border:#eeeef5;--text:#1a1a2e;--muted:#8888aa;--surf:#f7f7fc
+}
+body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--text)}
+.app{display:flex;height:100vh;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.sb{width:210px;background:var(--navy);display:flex;flex-direction:column;flex-shrink:0}
+.logo-wrap{padding:16px 14px 12px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-mark{width:30px;height:30px;border-radius:9px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
+.logo-text{font-size:15px;font-weight:700;color:#fff}.logo-text span{color:var(--gold)}
+.logo-sub{font-size:9px;color:rgba(255,255,255,0.3);margin-top:2px}
+.nl{padding:12px 14px 4px;font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:0.8px;text-transform:uppercase}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;color:rgba(255,255,255,0.5);border-radius:7px;margin:1px 6px;transition:all 0.15s;font-size:12px}
+.ni:hover{background:rgba(255,255,255,0.07);color:#fff}
+.ni.active{background:rgba(108,99,255,0.3);color:#fff}
+.ni-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ni-badge{margin-left:auto;background:var(--coral);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px}
+.nb{margin-top:auto;padding:10px 8px;border-top:1px solid rgba(255,255,255,0.08)}
+.sb-link{display:flex;align-items:center;gap:6px;padding:6px 8px;font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer;border-radius:6px;margin:2px 6px;transition:all 0.15s;text-decoration:none}
+.sb-link:hover{color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.05)}
+.av-row{display:flex;align-items:center;gap:8px;padding:5px 6px}
+.av{width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--navy);flex-shrink:0}
+.av-name{font-size:11px;color:rgba(255,255,255,0.75);font-weight:500}
+.av-role{font-size:10px;color:rgba(255,255,255,0.3)}
+.main{flex:1;background:var(--surf);display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.pg-title{font-size:14px;font-weight:700}.pg-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.btn{padding:6px 12px;border-radius:8px;font-size:11.5px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--text);transition:all 0.15s;white-space:nowrap}
+.btn:hover{background:var(--surf)}
+.btn-p{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn-purple{background:var(--purple);color:#fff;border-color:var(--purple)}
+.btn-gold{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700}
+.btn-gold:hover{background:#e0b230}
+.scroll{flex:1;overflow-y:auto;padding:16px 18px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:15px}
+.mc{background:#fff;border:1px solid var(--border);border-radius:11px;padding:12px 14px}
+.ml{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.mv{font-size:24px;font-weight:800;line-height:1}
+.ms{font-size:11px;margin-top:4px;font-weight:500}
+.sec{background:#fff;border:1px solid var(--border);border-radius:11px;margin-bottom:12px;overflow:hidden}
+.sh{padding:12px 15px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.st{font-size:13px;font-weight:700}.ss{font-size:11px;color:var(--muted);margin-top:1px}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;font-size:10px;font-weight:600;color:var(--muted);padding:8px 13px;text-transform:uppercase;letter-spacing:0.4px;border-bottom:1px solid var(--border);background:var(--surf)}
+.tbl td{padding:10px 13px;border-bottom:1px solid #f3f3f8;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr.cr:hover td{background:#fafafd;cursor:pointer}
+.grad{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.grad.g{background:var(--gl);color:#006a3a}.grad.a{background:var(--al);color:#a06000}.grad.r{background:var(--rl);color:#cc1122}
+.tag{font-size:10px;padding:2px 7px;border-radius:5px;margin-right:3px;display:inline-block;font-weight:500;white-space:nowrap}
+.tag.r{background:var(--rl);color:#cc1122}.tag.a{background:var(--al);color:#a06000}.tag.g{background:var(--gl);color:#006a3a}.tag.p{background:var(--pl);color:var(--purple)}
+.ab{padding:4px 9px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--text);white-space:nowrap;transition:all 0.15s}
+.ab:hover{background:var(--surf)}.ab.p{background:var(--navy);color:#fff;border-color:var(--navy)}
+.ai{display:flex;align-items:flex-start;gap:9px;padding:10px 15px;border-bottom:1px solid #f3f3f8}
+.ai:last-child{border-bottom:none}
+.ai-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px}
+.ai-text{flex:1;font-size:12.5px;line-height:1.6}
+.ai-text .w{color:#cc1122;font-weight:600}.ai-text .g{color:#006a3a;font-weight:600}.ai-text .p{color:var(--purple);font-weight:600}.ai-text .a{color:#a06000;font-weight:600}
+/* SECTION DEMAND CARD */
+.demand-card{background:#fff;border:2px solid var(--gold);border-radius:12px;margin-bottom:13px;overflow:hidden}
+.demand-head{background:linear-gradient(135deg,#1a1a35,#0f0f23);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.demand-title{font-size:13px;font-weight:700;color:#fff}
+.demand-sub{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px}
+.demand-badge{background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
+.course-demand-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.course-demand-row:last-child{border-bottom:none}
+.cd-left{flex:1}
+.cd-name{font-size:13px;font-weight:700;color:var(--text)}
+.cd-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.cd-students{margin-top:7px}
+.student-chip{display:inline-flex;align-items:center;gap:5px;background:var(--surf);border:1px solid var(--border);border-radius:20px;padding:3px 9px;font-size:11px;margin-right:5px;margin-bottom:4px}
+.student-av{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0}
+.cd-right{text-align:center;min-width:100px}
+.cd-count{font-size:28px;font-weight:800;color:var(--red);line-height:1}
+.cd-label{font-size:10px;color:var(--muted);margin-top:2px}
+.cd-seats{font-size:11px;font-weight:600;margin-top:4px}
+.seats-low{color:#cc1122}.seats-ok{color:#006a3a}
+.recommend-btn{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--gl);border-top:1px solid #a3ffd4}
+.rec-text{flex:1;font-size:12px;color:#004d2a;line-height:1.5}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{padding:4px 10px;border-radius:20px;font-size:11px;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:#fff;transition:all 0.15s;font-weight:500}
+.chip:hover{border-color:var(--p2);color:var(--purple)}.chip.on{background:var(--pl);color:var(--purple);border-color:var(--p2);font-weight:600}
+.bulk-bar{display:flex;align-items:center;gap:9px;background:var(--pl);border-radius:9px;padding:10px 13px;margin-bottom:13px;font-size:12px;color:var(--purple);border:1px solid #c5c2ff}
+.detail{background:#fff;border:1px solid var(--border);border-radius:11px;margin-bottom:12px;overflow:hidden}
+.dh{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--border);background:var(--surf)}
+.big-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.d3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:13px 15px}
+.dbox{background:var(--surf);border-radius:8px;padding:10px 12px}
+.dbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px}
+.dbv{font-size:13px;font-weight:700}
+.pbar{margin:0 15px 13px}
+.pbar-lbl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;color:var(--muted)}
+.pbar-track{height:7px;background:#eee;border-radius:4px;overflow:hidden}
+.pbar-fill{height:100%;border-radius:4px}
+.note-composer{padding:13px 15px;border-top:1px solid var(--border)}
+.nc-body{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:12.5px;color:var(--text);background:#fff;resize:none;outline:none;font-family:inherit;line-height:1.6}
+.nc-body:focus{border-color:var(--purple)}
+.hidden{display:none}
+.sent{background:var(--gl);border-color:#a3ffd4;color:#004d2a;font-size:12px;padding:10px 14px;border-radius:8px;margin-top:8px;font-weight:500}
+</style>
+
+<div class="app">
+<div class="sb">
+  <div class="logo-wrap">
+    <div class="logo">
+      <div class="logo-mark">S</div>
+      <div><div class="logo-text">Schedu<span>lers</span></div><div class="logo-sub">Advisor Portal · USD</div></div>
+    </div>
+  </div>
+  <div class="nl">Overview</div>
+  <div class="ni active" onclick="showV('dashboard',this)"><div class="ni-dot" style="background:var(--coral)"></div>Risk Dashboard<div class="ni-badge">8</div></div>
+  <div class="ni" onclick="showV('demand',this)"><div class="ni-dot" style="background:var(--gold)"></div>Section Demand<div class="ni-badge" style="background:var(--gold);color:var(--navy)">3</div></div>
+  <div class="ni" onclick="showV('trends',this)"><div class="ni-dot" style="background:var(--teal)"></div>Cohort Patterns</div>
+  <div class="nl">Tools</div>
+  <div class="ni" onclick="showV('messages',this)"><div class="ni-dot" style="background:var(--p2)"></div>Bulk Messaging</div>
+  <div class="ni" onclick="showV('reports',this)"><div class="ni-dot" style="background:#aaa)"></div>Dean's Report</div>
+  <div class="nb">
+    <div class="av-row">
+      <div class="av">DO</div>
+      <div><div class="av-name">Dr. Olsen</div><div class="av-role">CS Advisor · 38 students</div></div>
+    </div>
+    <a class="sb-link" href="index.html">
+      <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg>
+      Schedulers Home
+    </a>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- DASHBOARD -->
+<div id="v-dashboard" style="display:flex;flex-direction:column;height:100%">
+  <div class="topbar">
+    <div><div class="pg-title">Good morning, Dr. Olsen 👋</div><div class="pg-sub">Registration opens Jan 15 · 8 days · 8 students need attention · 3 courses undersupplied</div></div>
+    <div style="display:flex;gap:7px">
+      <button class="btn btn-gold" onclick="showV('demand',null)">⚠ Section Demand Alerts</button>
+      <button class="btn btn-purple" onclick="showV('messages',null)">Message At-Risk</button>
+    </div>
+  </div>
+  <div class="scroll">
+    <div class="metrics">
+      <div class="mc"><div class="ml">Your Advisees</div><div class="mv">38</div><div class="ms" style="color:var(--muted)">CS Department</div></div>
+      <div class="mc"><div class="ml">Need Action</div><div class="mv" style="color:var(--red)">8</div><div class="ms" style="color:#cc1122">before Jan 15</div></div>
+      <div class="mc"><div class="ml">Section Shortages</div><div class="mv" style="color:var(--amber)">3</div><div class="ms" style="color:#a06000">courses undersupplied</div></div>
+      <div class="mc"><div class="ml">Prereq Violations</div><div class="mv" style="color:var(--purple)">5</div><div class="ms" style="color:var(--purple)">flagged this week</div></div>
+    </div>
+
+    <div class="demand-card">
+      <div class="demand-head">
+        <div>
+          <div class="demand-title">Section Demand Alert</div>
+          <div class="demand-sub">Schedulers detected courses with more students who need them than available seats</div>
+        </div>
+        <div class="demand-badge">Recommend to Dean</div>
+      </div>
+      <div class="course-demand-row">
+        <div class="cd-left">
+          <div class="cd-name">MATH 250 · Business Statistics</div>
+          <div class="cd-meta">Currently 1 section open · Prof. Kim · TTh 11am · 28 seats remaining</div>
+          <div class="cd-students">
+            <div class="student-chip"><div class="student-av" style="background:#E24B4A">JM</div>Jordan M.</div>
+            <div class="student-chip"><div class="student-av" style="background:#D85A30">AT</div>Aaliyah T.</div>
+            <div class="student-chip"><div class="student-av" style="background:#6C63FF">ML</div>Marcus L.</div>
+            <div class="student-chip"><div class="student-av" style="background:#854F0B">PS</div>Priya S.</div>
+            <div class="student-chip"><div class="student-av" style="background:#3B6D11">CR</div>Carlos R.</div>
+            <div class="student-chip" style="background:var(--pl);border-color:#c5c2ff;color:var(--purple)">+8 from other advisors</div>
+          </div>
+        </div>
+        <div class="cd-right">
+          <div class="cd-count">13</div>
+          <div class="cd-label">students need this</div>
+          <div class="cd-seats seats-low">28 seats left</div>
+          <div style="font-size:10px;color:#cc1122;margin-top:3px;font-weight:600">at risk of filling</div>
+        </div>
+      </div>
+      <div class="recommend-btn">
+        <div class="rec-text"><strong>Schedulers recommends:</strong> Open 1 additional section of MATH 250 before registration opens. 13 students across 4 advisors need it to stay on their graduation track. If it fills before they register, each student loses a semester.</div>
+        <button class="btn btn-gold" onclick="sendToDean('math250')">Send to Dean ↗</button>
+      </div>
+    </div>
+
+    <div id="sent-math250" class="hidden sent">✓ Recommendation sent to Dean Chen with list of 13 affected students and graduation impact data.</div>
+
+    <div class="sec">
+      <div class="sh">
+        <div><div class="st">At-Risk Students — Action Before Jan 15</div></div>
+        <div class="chips">
+          <div class="chip on" onclick="ft('all',this)">All 8</div>
+          <div class="chip" onclick="ft('red',this)">Red 3</div>
+          <div class="chip" onclick="ft('amber',this)">Amber 3</div>
+          <div class="chip" onclick="ft('green',this)">Green 2</div>
+        </div>
+      </div>
+      <table class="tbl">
+        <thead><tr>
+          <th style="width:28px"><input type="checkbox" id="sa" onchange="toggleAll(this)"></th>
+          <th>Student</th><th>Year</th><th>Status</th><th>Alert</th><th>Actions</th>
+        </tr></thead>
+        <tbody id="risk-body"></tbody>
+      </table>
+    </div>
+    <div id="student-detail" class="hidden"></div>
+  </div>
+</div>
+
+<!-- SECTION DEMAND VIEW -->
+<div id="v-demand" class="hidden">
+  <div class="topbar">
+    <div><div class="pg-title">Section Demand Alerts</div><div class="pg-sub">Schedulers detected 3 courses with more students needing them than available seats</div></div>
+    <button class="btn btn-gold" onclick="sendAllToDean()">Send All Recommendations to Dean ↗</button>
+  </div>
+  <div class="scroll">
+    <div style="background:var(--al);border:1px solid #ffd4a3;border-radius:10px;padding:12px 15px;margin-bottom:14px;font-size:12.5px;color:#6b3a00;line-height:1.6">
+      <strong>How this works:</strong> Schedulers cross-references every student's graduation requirements with current course availability. When more students need a course to graduate on time than seats exist, it flags it here — before registration opens, not after it fills.
+    </div>
+
+    <!-- MATH 250 -->
+    <div class="demand-card" style="border-color:var(--red)">
+      <div class="demand-head" style="background:linear-gradient(135deg,#3a0000,#1a0000)">
+        <div><div class="demand-title">MATH 250 · Business Statistics</div><div class="demand-sub">Critical — fills in avg 2.3 days after registration opens</div></div>
+        <div class="demand-badge" style="background:var(--red);color:#fff">Urgent</div>
+      </div>
+      <div class="course-demand-row">
+        <div class="cd-left">
+          <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px">Students who need this to graduate on time</div>
+          <div class="cd-students">
+            <div class="student-chip"><div class="student-av" style="background:#E24B4A">JM</div>Jordan M. · Junior · blocks 3 courses</div>
+            <div class="student-chip"><div class="student-av" style="background:#D85A30">AT</div>Aaliyah T. · Soph · prereq chain blocked</div>
+            <div class="student-chip"><div class="student-av" style="background:#6C63FF">ML</div>Marcus L. · Junior · 5th year risk</div>
+            <div class="student-chip"><div class="student-av" style="background:#854F0B">PS</div>Priya S. · Junior · graduation delayed</div>
+            <div class="student-chip"><div class="student-av" style="background:#3B6D11">CR</div>Carlos R. · Soph · sequence risk</div>
+            <div class="student-chip" style="background:var(--pl);border-color:#c5c2ff;color:var(--purple)">+8 from other advisors</div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--text);line-height:1.6">
+            <strong>If this course fills before they register:</strong> Each of the 5 students above loses at minimum 1 semester of graduation time. Combined: <span style="color:#cc1122;font-weight:700">5 delayed graduations</span>, estimated <span style="color:#cc1122;font-weight:700">$180,000+ in additional tuition</span> to the university.
+          </div>
+        </div>
+        <div class="cd-right">
+          <div class="cd-count">13</div>
+          <div class="cd-label">need this course</div>
+          <div style="margin-top:8px;font-size:11px"><div class="cd-seats seats-ok">28 seats open</div><div style="font-size:10px;color:var(--muted);margin-top:2px">1 section available</div></div>
+          <div style="margin-top:8px;padding:6px 10px;background:var(--rl);border-radius:8px;font-size:11px;color:#cc1122;font-weight:600">Fills in ~2 days</div>
+        </div>
+      </div>
+      <div class="recommend-btn">
+        <div class="rec-text"><strong>Schedulers recommendation to Dean:</strong> Open 1 additional section of MATH 250. Suggest Prof. Kim (highest success rate for at-risk students) or Prof. Lee as instructor. TTh afternoon preferred based on student schedule data.</div>
+        <button class="btn btn-gold" id="btn-math250" onclick="sendToDean('math250')">Send to Dean ↗</button>
+      </div>
+      <div id="sent-math250-2" class="hidden sent" style="margin:0 16px 14px">✓ Sent to Dean Chen · Jan 9, 2025 · Includes names of 13 affected students and $180k graduation impact estimate.</div>
+    </div>
+
+    <!-- COMP 305 -->
+    <div class="demand-card" style="border-color:var(--amber)">
+      <div class="demand-head" style="background:linear-gradient(135deg,#2a1800,#1a0f00)">
+        <div><div class="demand-title">COMP 305 · Algorithms</div><div class="demand-sub">Required spring course — only 1 section, high historical demand</div></div>
+        <div class="demand-badge" style="background:var(--amber);color:var(--navy)">Monitor</div>
+      </div>
+      <div class="course-demand-row">
+        <div class="cd-left">
+          <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px">Students who need this — spring is their only window</div>
+          <div class="cd-students">
+            <div class="student-chip"><div class="student-av" style="background:#185FA5">EP</div>Ethan P. · must take spring for sequence</div>
+            <div class="student-chip"><div class="student-av" style="background:#993556">EM</div>Emma P. · Senior Project prereq</div>
+            <div class="student-chip"><div class="student-av" style="background:#0C447C">JB</div>Jaylen B. · graduation dependency</div>
+            <div class="student-chip" style="background:var(--pl);border-color:#c5c2ff;color:var(--purple)">+6 from other advisors</div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--text);line-height:1.6">
+            Note from Dr. Olsen: <em>"Core Automata runs fall, Algorithms in spring — students who miss this spring window have to wait a full year."</em>
+          </div>
+        </div>
+        <div class="cd-right">
+          <div class="cd-count">9</div>
+          <div class="cd-label">need this course</div>
+          <div style="margin-top:8px;font-size:11px"><div class="cd-seats seats-low">12 seats open</div><div style="font-size:10px;color:var(--muted);margin-top:2px">1 section available</div></div>
+          <div style="margin-top:8px;padding:6px 10px;background:var(--al);border-radius:8px;font-size:11px;color:#a06000;font-weight:600">Tight — monitor</div>
+        </div>
+      </div>
+      <div class="recommend-btn">
+        <div class="rec-text"><strong>Schedulers recommendation:</strong> Reserve seats for students with COMP 305 as a graduation requirement before general registration opens. Or open a second section if instructor available.</div>
+        <button class="btn btn-gold" id="btn-comp305" onclick="sendToDean('comp305')">Send to Dean ↗</button>
+      </div>
+      <div id="sent-comp305" class="hidden sent" style="margin:0 16px 14px">✓ Sent to Dean Chen · Jan 9, 2025 · Seat reservation request included.</div>
+    </div>
+
+    <!-- FIN 310 -->
+    <div class="demand-card" style="border-color:var(--border)">
+      <div class="demand-head">
+        <div><div class="demand-title">FIN 310 · Investments</div><div class="demand-sub">High demand from junior cohort — seats may not cover need</div></div>
+        <div class="demand-badge" style="background:#444;color:#fff">Watch</div>
+      </div>
+      <div class="course-demand-row">
+        <div class="cd-left">
+          <div class="cd-students">
+            <div class="student-chip"><div class="student-av" style="background:#E24B4A">JM</div>Jordan M.</div>
+            <div class="student-chip"><div class="student-av" style="background:#BA7517">DW</div>Devon W.</div>
+            <div class="student-chip" style="background:var(--pl);border-color:#c5c2ff;color:var(--purple)">+5 from other advisors</div>
+          </div>
+        </div>
+        <div class="cd-right">
+          <div class="cd-count">7</div>
+          <div class="cd-label">need this course</div>
+          <div style="margin-top:8px"><div class="cd-seats seats-ok">34 seats open</div></div>
+          <div style="margin-top:8px;padding:6px 10px;background:var(--gl);border-radius:8px;font-size:11px;color:#006a3a;font-weight:600">Currently sufficient</div>
+        </div>
+      </div>
+      <div class="recommend-btn" style="background:#f9f9f9;border-color:var(--border)">
+        <div class="rec-text" style="color:var(--muted)">No action needed yet. Schedulers will alert if demand increases or seats drop below threshold before Jan 15.</div>
+        <button class="btn" style="color:var(--muted)" disabled>No action needed</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COHORT TRENDS -->
+<div id="v-trends" class="hidden">
+  <div class="topbar"><div><div class="pg-title">Cohort Patterns</div><div class="pg-sub">What Schedulers sees across all your advisees</div></div></div>
+  <div class="scroll">
+    <div class="sec">
+      <div class="sh"><div class="st">Most Common Recurring Mistakes</div></div>
+      <div id="mistakes-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGING -->
+<div id="v-messages" class="hidden">
+  <div class="topbar"><div><div class="pg-title">Bulk Messaging</div><div class="pg-sub">Schedulers drafts personalized messages — you review and send</div></div></div>
+  <div class="scroll">
+    <div class="sec">
+      <div class="sh"><div class="st">Message Preview · Personalized for Jordan Martinez</div></div>
+      <div style="padding:13px 15px">
+        <textarea class="nc-body" rows="9">Hi Jordan,
+
+Before registration opens January 15th, I want to flag two things:
+
+1. MATH 250 (Business Statistics) — you haven't taken this yet and it's blocking FIN 310, FIN 420, and ACCT 301. I'm recommending the dean open an extra section but seats may still be limited. Register for Prof. Kim's TTh 11am section the moment registration opens.
+
+2. Catalog year — you're under the 2022 requirements, which means Science & Tech electives apply, not Natural Science. BIOL 110 won't count. Let's talk about which elective to swap in.
+
+Can we meet before Jan 15? I have Tuesday 2pm or Thursday 10am open.
+
+Dr. Olsen</textarea>
+        <div style="display:flex;gap:8px;margin-top:9px;justify-content:flex-end">
+          <button class="btn">Edit</button>
+          <button class="btn btn-p" onclick="alert('Messages sent to 8 students!')">Send to All 8 Students</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEAN REPORT -->
+<div id="v-reports" class="hidden">
+  <div class="topbar">
+    <div><div class="pg-title">Dean's Report</div><div class="pg-sub">Spring 2025 · CS Department · Prepared by Schedulers</div></div>
+    <button class="btn btn-p" onclick="alert('Report exported as PDF!')">Export PDF</button>
+  </div>
+  <div class="scroll">
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px">
+      <div class="mc"><div class="ml">On-Time Grad Rate</div><div class="mv">71%</div><div class="ms" style="color:var(--amber)">vs 68% last year</div></div>
+      <div class="mc"><div class="ml">Students Intervened</div><div class="mv" style="color:var(--teal)">8</div><div class="ms" style="color:var(--dg)">before registration</div></div>
+      <div class="mc"><div class="ml">Section Gaps Found</div><div class="mv" style="color:var(--amber)">3</div><div class="ms" style="color:#a06000">courses undersupplied</div></div>
+      <div class="mc"><div class="ml">Est. Tuition at Risk</div><div class="mv" style="color:var(--red)">$180k</div><div class="ms" style="color:#cc1122">if MATH 250 fills</div></div>
+    </div>
+
+    <div class="sec" style="border:2px solid var(--gold);margin-bottom:13px">
+      <div class="sh" style="background:linear-gradient(135deg,#1a1a35,#0f0f23)">
+        <div><div class="st" style="color:#fff">Section Recommendations from Schedulers</div><div class="ss" style="color:rgba(255,255,255,0.5)">Open additional sections before Jan 15 to protect graduation rates</div></div>
+        <div id="dean-sent-badge" class="hidden" style="font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;background:var(--gl);color:#006a3a">✓ Sent to Dean</div>
+      </div>
+      <div class="ai" style="background:#fffdf0">
+        <div class="ai-icon" style="background:var(--rl)">🚨</div>
+        <div class="ai-text">
+          <strong>MATH 250 — Open 1 additional section immediately.</strong><br>
+          <span class="w">13 students across 4 advisors need this course to stay on graduation track.</span> 5 of those are in your direct caseload, Dr. Olsen. Current section has 28 seats — demand is projected to exceed supply within 2 days of registration opening. Each student who doesn't get in loses a full semester. <span class="w">Estimated tuition risk: $180,000+</span> if 5 students extend to a 5th year.
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag r">Jordan Martinez</span><span class="tag r">Aaliyah Thompson</span><span class="tag r">Marcus Lee</span><span class="tag a">Priya Sharma</span><span class="tag a">Carlos Reyes</span><span class="tag p">+8 other students</span>
+          </div>
+        </div>
+      </div>
+      <div class="ai" style="background:#fffdf0">
+        <div class="ai-icon" style="background:var(--al)">⚠️</div>
+        <div class="ai-text">
+          <strong>COMP 305 (Algorithms) — Reserve seats or open a second section.</strong><br>
+          <span class="a">9 students need this specific spring section</span> — Algorithms only runs in spring. Students who miss it wait a full academic year. Note: Core Automata → Algorithms is a fixed sequence. Students cannot reorder it.
+        </div>
+      </div>
+      <div class="ai">
+        <div class="ai-icon" style="background:var(--gl)">✅</div>
+        <div class="ai-text">
+          <strong>FIN 310 — Currently sufficient.</strong> 7 students need it, 34 seats available. No action required unless enrollment spikes before Jan 15.
+        </div>
+      </div>
+      <div style="padding:12px 15px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn">Preview Email</button>
+        <button class="btn btn-gold" onclick="sendFullReport()">Send Full Report to Dean ↗</button>
+      </div>
+      <div id="full-report-sent" class="hidden sent" style="margin:0 15px 13px">✓ Full report sent to Dean Chen · Jan 9, 2025 · Includes section recommendations, student lists, and graduation impact estimates.</div>
+    </div>
+
+    <div class="sec">
+      <div class="sh"><div class="st">Additional Recommendations</div></div>
+      <div class="ai"><div class="ai-icon" style="background:var(--rl)">📋</div><div class="ai-text"><strong>DegreeWorks is view-only and does not update when students drop courses.</strong> <span class="w">4 students dropped courses this semester without notifying advisors</span> — DegreeWorks still shows them as enrolled. Schedulers caught this by cross-referencing registration data. Recommend a real-time drop notification policy.</div></div>
+      <div class="ai"><div class="ai-icon" style="background:var(--al)">🗂️</div><div class="ai-text"><strong>Catalog year confusion is a recurring structural problem.</strong> <span class="a">3 students this semester</span> were planning electives that don't count under their catalog year (Science & Tech vs Natural Science). A clearer automated warning at the point of registration would prevent this annually.</div></div>
+      <div class="ai"><div class="ai-icon" style="background:var(--gl)">📈</div><div class="ai-text"><strong>Early intervention is working.</strong> <span class="g">Advisor response time improved significantly</span> since Schedulers deployment. Students arrive at appointments pre-briefed. Advisors report spending more time on career and research conversations instead of catching students up on basics.</div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+const students=[
+  {id:1,name:"Jordan Martinez",initials:"JM",color:"#E24B4A",year:"Junior",gpa:2.7,credits:"72/128",catalog:"2022",status:"red",forecast:"Dec 2026",alert:"MATH 250 missing — blocks FIN 310, FIN 420, ACCT 301. Catalog year confusion flagged.",tags:["prereq-gap","catalog-issue"],alerts:[{icon:"🚨",t:"r",txt:"<span class='w'>MATH 250 missing</span> — blocks FIN 310, FIN 420, ACCT 301. Cannot qualify for Senior Capstone without it."},{icon:"⚠️",t:"a",txt:"<span class='w'>Catalog year confusion:</span> Planning BIOL 110 — doesn't count under 2022 Science & Tech requirements."},{icon:"💡",t:"p",txt:"<span class='p'>Prof. Kim's MATH 250 TTh 11am</span> recommended based on grade history. Register immediately when registration opens."}]},
+  {id:2,name:"Aaliyah Thompson",initials:"AT",color:"#D85A30",year:"Sophomore",gpa:3.1,credits:"38/128",catalog:"2023",status:"red",forecast:"May 2027",alert:"Attempting STAT 301 without MATH 220 prereq. Will be blocked at registration.",tags:["prereq-gap"],alerts:[{icon:"🚨",t:"r",txt:"<span class='w'>Prereq violation:</span> STAT 301 requires MATH 220 — not completed. Registration will be blocked automatically."}]},
+  {id:3,name:"Marcus Lee",initials:"ML",color:"#6C63FF",year:"Junior",gpa:2.6,credits:"65/128",catalog:"2022",status:"red",forecast:"Dec 2027",alert:"Dropped COMP 301 silently — DegreeWorks still shows enrolled. 5th year trajectory.",tags:["dropped-silent","pace-risk"],alerts:[{icon:"🚨",t:"r",txt:"<span class='w'>Silent drop:</span> Dropped COMP 301 in October. DegreeWorks still shows enrolled. COMP 301 is a prereq for COMP 401."},{icon:"⚠️",t:"a",txt:"5th year trajectory at current 12cr/semester pace. One conversation could move graduation to May 2027."}]},
+  {id:4,name:"Devon Williams",initials:"DW",color:"#BA7517",year:"Senior",gpa:3.2,credits:"98/128",catalog:"2022",status:"amber",forecast:"May 2026",alert:"Language Competency Exam not completed. Only 2 exam dates left this year.",tags:["req-gap"],alerts:[{icon:"⚠️",t:"a",txt:"<span class='w'>Language Competency Exam not taken.</span> Required under 2022 catalog. Only 2 dates remain this year."}]},
+  {id:5,name:"Priya Sharma",initials:"PS",color:"#854F0B",year:"Junior",gpa:3.0,credits:"68/128",catalog:"2023",status:"amber",forecast:"May 2026",alert:"Planning 18 credits — 43% drop rate for similar profile at this load.",tags:["overload"],alerts:[{icon:"⚠️",t:"a",txt:"18 credits planned. <span class='w'>43% drop rate</span> for similar GPA/load profile historically."}]},
+  {id:6,name:"Carlos Reyes",initials:"CR",color:"#3B6D11",year:"Sophomore",gpa:2.7,credits:"35/128",catalog:"2023",status:"amber",forecast:"May 2027",alert:"GPA declining 3 semesters. Core Automata → Algorithms sequence at risk.",tags:["gpa-risk"],alerts:[{icon:"📉",t:"a",txt:"GPA: 3.1 → 2.9 → <span class='w'>2.7</span>. Automata → Algorithms sequence requires maintained GPA. Monitoring."}]},
+  {id:7,name:"Nina Okafor",initials:"NO",color:"#185FA5",year:"Junior",gpa:3.6,credits:"75/128",catalog:"2022",status:"green",forecast:"May 2026",alert:"On track. Strong candidate for research opportunity.",tags:["on-track"],alerts:[{icon:"✅",t:"g",txt:"<span class='g'>On track for May 2026.</span> Consider recommending for research or TA opportunity."}]},
+  {id:8,name:"Ethan Park",initials:"EP",color:"#0F6E56",year:"Sophomore",gpa:3.4,credits:"44/128",catalog:"2023",status:"green",forecast:"May 2026",alert:"On track. Early concentration declaration recommended.",tags:["on-track"],alerts:[{icon:"✅",t:"g",txt:"<span class='g'>On track for May 2026.</span> Declare CS concentration now to lock upper-division sequence."}]},
+];
+
+let selected=new Set();
+
+function showV(v,el){
+  ['dashboard','demand','trends','messages','reports'].forEach(id=>{
+    const e=document.getElementById('v-'+id);if(e){e.style.display='none';e.classList.add('hidden');}
+  });
+  const t=document.getElementById('v-'+v);
+  if(t){t.style.display='block';t.classList.remove('hidden');}
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+  else{const map={dashboard:0,demand:1,trends:2,messages:3,reports:4};const btns=document.querySelectorAll('.ni');if(btns[map[v]])btns[map[v]].classList.add('active');}
+  if(v==='trends')renderTrends();
+}
+
+function renderTable(filter){
+  const data=filter==='all'?students:students.filter(s=>s.status===filter);
+  document.getElementById('risk-body').innerHTML=data.map(s=>`
+    <tr class="cr" onclick="showDetail(${s.id})">
+      <td onclick="event.stopPropagation()"><input type="checkbox" class="rc" value="${s.id}" onchange="toggleS(${s.id},this)"></td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div style="width:28px;height:28px;border-radius:50%;background:${s.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">${s.initials}</div>
+        <div><div style="font-weight:600">${s.name}</div><div style="font-size:11px;color:var(--muted)">GPA ${s.gpa} · ${s.credits}</div></div>
+      </div></td>
+      <td>${s.year}<br><span style="font-size:10px;color:var(--muted)">Cat. ${s.catalog}</span></td>
+      <td><span class="grad ${s.status==='green'?'g':s.status==='amber'?'a':'r'}">${s.status==='green'?'On Track':s.status==='amber'?'Monitor':'At Risk'}</span></td>
+      <td style="max-width:240px"><div style="font-size:11.5px;line-height:1.4">${s.alert}</div>
+        <div style="margin-top:4px">${s.tags.map(t=>`<span class="tag ${t.includes('gap')||t.includes('silent')?'r':t.includes('risk')||t.includes('overload')||t.includes('catalog')?'a':t.includes('track')?'g':'p'}">${t.replace(/-/g,' ')}</span>`).join('')}</div>
+      </td>
+      <td><div style="display:flex;flex-direction:column;gap:4px">
+        <button class="ab p" onclick="event.stopPropagation();showDetail(${s.id})">Full Brief</button>
+        <button class="ab" onclick="event.stopPropagation()">Message</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+function ft(f,el){document.querySelectorAll('.chips .chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');renderTable(f);}
+function toggleS(id,cb){if(cb.checked)selected.add(id);else selected.delete(id);}
+function toggleAll(cb){document.querySelectorAll('.rc').forEach(c=>{c.checked=cb.checked;const id=parseInt(c.value);if(cb.checked)selected.add(id);else selected.delete(id);});}
+
+function showDetail(id){
+  const s=students.find(x=>x.id===id);if(!s)return;
+  const el=document.getElementById('student-detail');
+  el.classList.remove('hidden');
+  const pct=Math.round(parseInt(s.credits)/128*100);
+  el.innerHTML=`<div class="detail">
+    <div class="dh">
+      <div class="big-av" style="background:${s.color}">${s.initials}</div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:700">${s.name}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">${s.year} · GPA ${s.gpa} · Catalog ${s.catalog}</div></div>
+      <span class="grad ${s.status==='green'?'g':s.status==='amber'?'a':'r'}" style="margin-right:8px">${s.forecast}</span>
+      <button class="ab" onclick="document.getElementById('student-detail').classList.add('hidden')">Close</button>
+    </div>
+    <div class="d3">
+      <div class="dbox"><div class="dbl">GPA</div><div class="dbv" style="color:${s.gpa<2.7?'var(--red)':s.gpa<3.0?'var(--amber)':'var(--teal)'}">${s.gpa}</div></div>
+      <div class="dbox"><div class="dbl">Credits</div><div class="dbv">${s.credits}</div></div>
+      <div class="dbox"><div class="dbl">Catalog Year</div><div class="dbv">${s.catalog}</div></div>
+    </div>
+    <div class="pbar">
+      <div class="pbar-lbl"><span>Degree progress</span><span style="font-weight:700">${pct}%</span></div>
+      <div class="pbar-track"><div class="pbar-fill" style="width:${pct}%;background:${s.status==='red'?'var(--red)':s.status==='amber'?'var(--amber)':'var(--teal)'}"></div></div>
+    </div>
+    <div style="padding:0 15px 4px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px">Schedulers Intelligence Brief</div>
+    ${s.alerts.map(a=>`<div class="ai"><div class="ai-icon" style="background:${a.t==='r'?'var(--rl)':a.t==='a'?'var(--al)':a.t==='g'?'var(--gl)':'var(--pl)'}">${a.icon}</div><div class="ai-text">${a.txt}</div></div>`).join('')}
+    <div class="note-composer">
+      <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:7px">Leave a note (visible to all advisors)</div>
+      <textarea class="nc-body" rows="3" placeholder="Add advising notes here..."></textarea>
+      <div style="display:flex;justify-content:flex-end;margin-top:7px;gap:7px">
+        <button class="btn">Save Note</button>
+        <button class="btn btn-p">Message Student</button>
+      </div>
+    </div>
+  </div>`;
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function sendToDean(course){
+  const btn=document.getElementById('btn-'+course);
+  const sent1=document.getElementById('sent-'+course);
+  const sent2=document.getElementById('sent-'+course+'-2');
+  if(btn)btn.textContent='✓ Sent';
+  if(sent1)sent1.classList.remove('hidden');
+  if(sent2)sent2.classList.remove('hidden');
+  document.getElementById('dean-sent-badge')&&document.getElementById('dean-sent-badge').classList.remove('hidden');
+}
+
+function sendAllToDean(){
+  ['math250','comp305'].forEach(c=>sendToDean(c));
+  alert('All section recommendations sent to Dean Chen with student lists and graduation impact data.');
+}
+
+function sendFullReport(){
+  document.getElementById('full-report-sent').classList.remove('hidden');
+  document.getElementById('dean-sent-badge').classList.remove('hidden');
+}
+
+function renderTrends(){
+  document.getElementById('mistakes-list').innerHTML=[
+    {m:"Prereq missing at registration",n:"5 students this semester",c:"r"},
+    {m:"Catalog year confusion (Sci&Tech vs Natural Sci)",n:"3 students this semester",c:"r"},
+    {m:"Automata → Algorithms sequence misunderstood",n:"Recurring each year",c:"a"},
+    {m:"Language Competency Exam forgotten until senior year",n:"2 students last year",c:"a"},
+    {m:"Silent course drops — DegreeWorks not updated",n:"4 students this semester",c:"a"},
+    {m:"Students taking 18+ credits, dropping mid-semester",n:"43% drop rate pattern",c:"a"},
+  ].map(x=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 15px;border-bottom:1px solid #f3f3f8"><div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:${x.c==='r'?'var(--red)':'var(--amber)'}"></div><span style="font-weight:500;font-size:12.5px">${x.m}</span></div><span style="font-size:11px;color:var(--muted);white-space:nowrap;margin-left:10px">${x.n}</span></div>`).join('');
+}
+
+renderTable('all');
+</script>
