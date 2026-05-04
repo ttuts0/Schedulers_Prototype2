@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathwise · Jordan Martinez</title>
+<style>
+:root {
+  --bg:          #1C1E2E;
+  --surface:     #21243A;
+  --surface2:    #292D45;
+  --accent:      #8B85CC;
+  --accent-glow: rgba(139,133,204,0.18);
+  --completed:   #5B8C6E;
+  --prog:        #6B7FD4;
+  --prog-glow:   rgba(107,127,212,0.22);
+  --available:   #3A3D52;
+  --locked:      #252836;
+  --at-risk:     #C4813A;
+  --text:        #E8E6F0;
+  --muted:       #9B99B0;
+  --dim:         #52506A;
+  --border:      rgba(255,255,255,0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Back nav ───────────────────────────────────────────── */
+.back-nav {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  z-index: 300;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(28,30,46,0.85);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.back-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.14); }
+
+/* ── Header ─────────────────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(28,30,46,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(139,133,204,0.1);
+  padding: 22px 24px 18px;
+}
+
+.header-inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--prog) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: -0.5px;
+}
+
+.student-info { flex: 1; min-width: 0; }
+
+.student-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.student-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.drop-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(139,133,204,0.1);
+  border: 1px solid rgba(139,133,204,0.22);
+  color: var(--accent);
+  padding: 9px 16px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.drop-btn:hover {
+  background: rgba(139,133,204,0.18);
+  border-color: rgba(139,133,204,0.38);
+  transform: translateY(-1px);
+}
+
+.drop-btn:active { transform: translateY(0); }
+
+/* Progress bar */
+.xp-section { margin-bottom: 14px; }
+
+.xp-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 7px;
+}
+
+.xp-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.2px;
+}
+
+.xp-pct {
+  font-size: 11px;
+  color: var(--dim);
+}
+
+.xp-track {
+  height: 7px;
+  background: rgba(139,133,204,0.1);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent) 0%, #A89EE0 50%, #BDB5E8 100%);
+  border-radius: 99px;
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 14px rgba(139,133,204,0.35);
+  position: relative;
+}
+
+.xp-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25));
+  border-radius: 99px;
+}
+
+/* Stat bar */
+.stat-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 18px 0 0;
+}
+
+.stat-item:first-child { padding-left: 0; }
+
+.stat-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.stat-val.green { color: var(--completed); }
+
+.stat-key {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--dim);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  margin-right: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Main content ───────────────────────────────────────── */
+.main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  position: relative;
+}
+
+/* SVG prereq lines */
+.prereq-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* ── Level row ───────────────────────────────────────────── */
+.level {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 44px;
+}
+
+.level-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.level-num {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(139,133,204,0.1);
+  padding: 3px 8px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.level-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.level-line { flex: 1; }
+
+.level-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.badge-cleared {
+  background: rgba(91,140,110,0.13);
+  color: var(--completed);
+  border: 1px solid rgba(91,140,110,0.28);
+}
+
+.badge-progress {
+  background: rgba(107,127,212,0.1);
+  color: var(--prog);
+  border: 1px solid rgba(107,127,212,0.28);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--prog);
+  animation: dot-pulse 2.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.45; transform: scale(0.75); }
+}
+
+/* Current level accent */
+.level.current {
+  padding: 14px;
+  margin-left: -14px;
+  margin-right: -14px;
+  border-radius: 16px;
+  background: rgba(107,127,212,0.04);
+  border: 1px solid rgba(107,127,212,0.1);
+}
+
+/* Future levels: muted feel */
+.level.future {
+  opacity: 0.85;
+}
+
+/* ── Course grid ─────────────────────────────────────────── */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 11px;
+}
+
+/* ── Course card ─────────────────────────────────────────── */
+.card {
+  border-radius: 13px;
+  padding: 14px 15px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  border: 1px solid transparent;
+  user-select: none;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover { transform: translateY(-2px); }
+
+/* Completed */
+.card.completed {
+  background: linear-gradient(145deg, rgba(91,140,110,0.22) 0%, rgba(91,140,110,0.1) 100%);
+  border-color: rgba(91,140,110,0.32);
+}
+.card.completed:hover {
+  box-shadow: 0 6px 24px rgba(91,140,110,0.18);
+  border-color: rgba(91,140,110,0.5);
+}
+
+/* In progress */
+.card.in-progress {
+  background: linear-gradient(145deg, rgba(107,127,212,0.22) 0%, rgba(107,127,212,0.1) 100%);
+  border-color: rgba(107,127,212,0.38);
+  animation: card-glow 3.2s ease-in-out infinite;
+}
+@keyframes card-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(107,127,212,0); }
+  50%       { box-shadow: 0 0 22px rgba(107,127,212,0.22); }
+}
+.card.in-progress:hover { box-shadow: 0 6px 28px rgba(107,127,212,0.32); }
+
+/* Available */
+.card.available {
+  background: rgba(58,61,82,0.55);
+  border-color: rgba(255,255,255,0.07);
+}
+.card.available:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.28);
+  border-color: rgba(255,255,255,0.13);
+}
+
+/* Locked */
+.card.locked {
+  background: rgba(37,40,54,0.65);
+  border-color: rgba(255,255,255,0.03);
+  opacity: 0.6;
+  cursor: default;
+}
+.card.locked:hover { transform: none; }
+
+/* At-risk */
+.card.at-risk {
+  background: linear-gradient(145deg, rgba(196,129,58,0.2) 0%, rgba(196,129,58,0.09) 100%);
+  border-color: rgba(196,129,58,0.38);
+}
+.card.at-risk:hover { box-shadow: 0 6px 22px rgba(196,129,58,0.18); }
+
+/* Card internals */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.card-code {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.completed  .card-code { color: #7BB890; }
+.in-progress .card-code { color: #8F9EE4; }
+.available  .card-code { color: var(--muted); }
+.locked     .card-code { color: var(--dim); }
+.at-risk    .card-code { color: #D4995A; }
+
+.card-icon { font-size: 13px; line-height: 1; }
+
+.card-name {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  flex: 1;
+}
+.completed  .card-name { color: #EAE8F4; }
+.in-progress .card-name { color: #EAE8F4; }
+.available  .card-name { color: #BDBAD0; }
+.locked     .card-name { color: var(--dim); }
+.at-risk    .card-name { color: #EAE8F4; }
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.card-credits {
+  font-size: 10px;
+  color: var(--dim);
+}
+
+.card-grade {
+  font-size: 12px;
+  font-weight: 700;
+  color: #85C49A;
+}
+
+/* ── Tooltip ─────────────────────────────────────────────── */
+.tooltip {
+  position: fixed;
+  background: #282B42;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 11px;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--text);
+  pointer-events: none;
+  z-index: 1000;
+  max-width: 220px;
+  box-shadow: 0 10px 36px rgba(0,0,0,0.45);
+  opacity: 0;
+  transition: opacity 0.12s;
+  line-height: 1.5;
+}
+.tooltip.show { opacity: 1; }
+
+.tt-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.tt-sub { color: var(--muted); }
+.tt-sub strong { color: var(--text); }
+
+/* ── Overlay backdrop ────────────────────────────────────── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,12,22,0.72);
+  z-index: 400;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+}
+.backdrop.open { display: flex; }
+
+/* ── Achievement card ────────────────────────────────────── */
+.ach-card {
+  background: #1F2238;
+  border: 1px solid rgba(91,140,110,0.28);
+  border-radius: 20px;
+  padding: 30px 28px 24px;
+  max-width: 370px;
+  width: 100%;
+  position: relative;
+  animation: pop-in 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ach-card.prog-card { border-color: rgba(107,127,212,0.28); }
+.ach-card.avail-card { border-color: rgba(139,133,204,0.22); }
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.93) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.ach-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--dim);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 7px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.ach-close:hover { color: var(--text); }
+
+.ach-emoji { font-size: 34px; display: block; margin-bottom: 14px; }
+
+.ach-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--completed);
+  margin-bottom: 6px;
+}
+.prog-card .ach-eyebrow { color: var(--prog); }
+.avail-card .ach-eyebrow { color: var(--accent); }
+
+.ach-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 3px;
+  letter-spacing: -0.3px;
+}
+
+.ach-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.ach-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.ach-cell {
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 11px 12px;
+}
+
+.ach-cell-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--dim);
+  margin-bottom: 3px;
+}
+
+.ach-cell-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.ach-note {
+  font-size: 12px;
+  color: var(--muted);
+  background: rgba(91,140,110,0.08);
+  border-radius: 9px;
+  padding: 10px 13px;
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+.ach-note strong { color: var(--completed); }
+
+.prog-card .ach-note { background: rgba(107,127,212,0.08); }
+.prog-card .ach-note strong { color: var(--prog); }
+
+.avail-card .ach-note { background: rgba(139,133,204,0.07); }
+.avail-card .ach-note strong { color: var(--accent); }
+
+.ach-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.ach-btn:hover { background: rgba(255,255,255,0.1); }
+
+/* ── Drop Impact Modal ───────────────────────────────────── */
+.modal {
+  background: #1F2238;
+  border: 1px solid rgba(139,133,204,0.18);
+  border-radius: 20px;
+  padding: 30px 28px 24px;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  animation: pop-in 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.modal-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+.modal-select {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B99B0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  transition: border-color 0.15s;
+}
+.modal-select:focus { border-color: var(--accent); }
+.modal-select option { background: #1F2238; color: var(--text); }
+
+/* Impact results */
+.impact-results { display: none; }
+.impact-results.show { display: block; }
+
+.impact-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+.impact-stat {
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.impact-val {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 3px;
+  line-height: 1;
+}
+
+.impact-key {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--dim);
+}
+
+.impact-stat.danger .impact-val { color: #C47070; }
+.impact-stat.warn   .impact-val { color: var(--at-risk); }
+.impact-stat.ok     .impact-val { color: var(--completed); }
+.impact-stat.neutral .impact-val { color: var(--muted); }
+
+.blocked-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+
+.blocked-list { display: flex; flex-direction: column; gap: 6px; }
+
+.blocked-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(196,112,112,0.07);
+  border: 1px solid rgba(196,112,112,0.12);
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-size: 12px;
+  color: #D4B0B0;
+}
+
+.blocked-item.safe {
+  background: rgba(91,140,110,0.07);
+  border-color: rgba(91,140,110,0.12);
+  color: #9EC4AE;
+}
+
+.blocked-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C47070;
+  flex-shrink: 0;
+}
+.blocked-item.safe .blocked-dot { background: var(--completed); }
+
+.delay-note {
+  margin-top: 14px;
+  font-size: 12px;
+  padding: 10px 13px;
+  border-radius: 9px;
+  line-height: 1.5;
+}
+.delay-note.has-risk {
+  background: rgba(196,129,58,0.1);
+  border: 1px solid rgba(196,129,58,0.2);
+  color: #D4A870;
+}
+.delay-note.no-risk {
+  background: rgba(91,140,110,0.08);
+  border: 1px solid rgba(91,140,110,0.15);
+  color: #9EC4AE;
+}
+
+.modal-close-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.18s;
+}
+.modal-close-btn:hover { background: rgba(255,255,255,0.09); }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .course-grid { grid-template-columns: repeat(2, 1fr); }
+  .header { padding: 16px 16px 14px; }
+  .main { padding: 28px 16px 60px; }
+  .impact-summary { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .student-name { font-size: 15px; }
+  .stat-divider { display: none; }
+  .stat-item { padding-right: 14px; }
+  .drop-btn span { display: none; }
+  .ach-grid { grid-template-columns: 1fr 1fr; }
+  .back-nav { display: none; }
+}
+
+@media (max-width: 360px) {
+  .course-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="studentView.html" style="position:fixed;top:16px;left:20px;z-index:300;display:inline-flex;align-items:center;gap:6px;background:rgba(28,30,46,0.85);border:1px solid rgba(255,255,255,0.07);color:#9B99B0;text-decoration:none;font-size:12px;font-weight:500;padding:7px 12px;border-radius:8px;backdrop-filter:blur(8px);transition:color 0.15s,border-color 0.15s;">
+  ← Back
+</a>
+
+<!-- ── Header ──────────────────────────────────────────── -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="avatar">JM</div>
+      <div class="student-info">
+        <div class="student-name">Jordan Martinez</div>
+        <div class="student-sub">Computer Science BS &middot; Catalog 2024 &middot; USD</div>
+      </div>
+      <button class="drop-btn" onclick="openDropModal()">
+        ⚡ <span>Drop Impact</span>
+      </button>
+    </div>
+
+    <div class="xp-section">
+      <div class="xp-label">
+        <span class="xp-title">&#9108; 69 / 128 credits &middot; Level 6 Unlocked</span>
+        <span class="xp-pct">53.9%</span>
+      </div>
+      <div class="xp-track">
+        <div class="xp-fill" id="xpFill"></div>
+      </div>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-item">
+        <div class="stat-val">4</div>
+        <div class="stat-key">Semesters Cleared</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-val">18</div>
+        <div class="stat-key">Courses Unlocked</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-val">3.2</div>
+        <div class="stat-key">GPA</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-val green">May 2026</div>
+        <div class="stat-key">On Track</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Main ────────────────────────────────────────────── -->
+<main class="main" id="mainWrap">
+  <svg class="prereq-svg" id="prereqSvg" aria-hidden="true"></svg>
+  <div id="levelWrap"></div>
+</main>
+
+<!-- ── Achievement overlay ─────────────────────────────── -->
+<div class="backdrop" id="achBackdrop" onclick="backdropClick(event,'achBackdrop')">
+  <div id="achCard"></div>
+</div>
+
+<!-- ── Drop Impact Modal ───────────────────────────────── -->
+<div class="backdrop" id="modalBackdrop" onclick="backdropClick(event,'modalBackdrop')">
+  <div class="modal">
+    <button class="ach-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Drop Impact Calculator</div>
+    <div class="modal-sub">Select a course you're currently taking to see how dropping it would affect your graduation path.</div>
+    <select class="modal-select" id="dropSelect" onchange="calcImpact()">
+      <option value="">— Select a current course —</option>
+      <option value="CS330">CS 330 &middot; Operating Systems</option>
+      <option value="CS340">CS 340 &middot; Databases</option>
+      <option value="CS350">CS 350 &middot; Software Engineering</option>
+      <option value="CS360">CS 360 &middot; Networks</option>
+    </select>
+    <div class="impact-results" id="impactResults"></div>
+    <button class="modal-close-btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- ── Tooltip ─────────────────────────────────────────── -->
+<div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+// ─── Data ──────────────────────────────────────────────────────────────────
+
+const SEM = [
+  { level: 1, name: 'Fall 2023',   status: 'cleared'  },
+  { level: 2, name: 'Spring 2024', status: 'cleared'  },
+  { level: 3, name: 'Fall 2024',   status: 'current'  },
+  { level: 4, name: 'Spring 2025', status: 'future'   },
+  { level: 5, name: 'Fall 2025',   status: 'future'   },
+  { level: 6, name: 'Spring 2026', status: 'future'   },
+];
+
+const COURSES = [
+  // Sem 0 — Fall 2023
+  { id:'MATH220', code:'MATH 220', name:'Calculus II',       cr:4, pre:[],                   sem:0, state:'completed',   grade:'A−' },
+  { id:'CS200',   code:'CS 200',   name:'Data Structures',   cr:3, pre:[],                   sem:0, state:'completed',   grade:'A'  },
+  { id:'MATH215', code:'MATH 215', name:'Discrete Math',     cr:3, pre:[],                   sem:0, state:'completed',   grade:'B+' },
+  { id:'STAT250', code:'STAT 250', name:'Statistics',        cr:3, pre:[],                   sem:0, state:'completed',   grade:'B'  },
+
+  // Sem 1 — Spring 2024
+  { id:'CS250',   code:'CS 250',   name:'Computer Org.',     cr:3, pre:['CS200'],             sem:1, state:'completed',   grade:'A'  },
+  { id:'CS260',   code:'CS 260',   name:'Algorithms',        cr:3, pre:['CS200','MATH215'],   sem:1, state:'completed',   grade:'B+' },
+  { id:'MATH310', code:'MATH 310', name:'Linear Algebra',    cr:3, pre:['MATH220'],           sem:1, state:'completed',   grade:'B'  },
+  { id:'CS270',   code:'CS 270',   name:'Systems Prog.',     cr:3, pre:['CS250'],             sem:1, state:'completed',   grade:'A−' },
+
+  // Sem 2 — Fall 2024 (current)
+  { id:'CS330',   code:'CS 330',   name:'Operating Systems', cr:3, pre:['CS270','CS260'],     sem:2, state:'in-progress', grade:null },
+  { id:'CS340',   code:'CS 340',   name:'Databases',         cr:3, pre:['CS260'],             sem:2, state:'in-progress', grade:null },
+  { id:'CS350',   code:'CS 350',   name:'Software Eng.',     cr:3, pre:['CS260'],             sem:2, state:'in-progress', grade:null },
+  { id:'CS360',   code:'CS 360',   name:'Networks',          cr:3, pre:['CS270'],             sem:2, state:'in-progress', grade:null },
+
+  // Sem 3 — Spring 2025
+  { id:'CS370',   code:'CS 370',   name:'AI / ML',           cr:3, pre:['CS260','STAT250'],   sem:3, state:'available',   grade:null },
+  { id:'CS380',   code:'CS 380',   name:'Prog. Languages',   cr:3, pre:['CS330'],             sem:3, state:'locked',      grade:null },
+  { id:'ELECTA',  code:'Elective', name:'Tech Elective A',   cr:3, pre:['CS260'],             sem:3, state:'available',   grade:null },
+  { id:'PHIL310', code:'PHIL 310', name:'Ethics in Tech',    cr:3, pre:[],                   sem:3, state:'available',   grade:null },
+
+  // Sem 4 — Fall 2025
+  { id:'CS450',   code:'CS 450',   name:'Capstone I',        cr:3, pre:['CS350'],             sem:4, state:'locked',      grade:null },
+  { id:'CS460',   code:'CS 460',   name:'Security',          cr:3, pre:['CS330','CS360'],     sem:4, state:'locked',      grade:null },
+  { id:'ELECTB',  code:'Elective', name:'Tech Elective B',   cr:3, pre:[],                   sem:4, state:'available',   grade:null },
+  { id:'ELECTC',  code:'Elective', name:'Tech Elective C',   cr:3, pre:[],                   sem:4, state:'available',   grade:null },
+
+  // Sem 5 — Spring 2026
+  { id:'CS480',   code:'CS 480',   name:'Capstone II',       cr:3, pre:['CS450'],             sem:5, state:'locked',      grade:null },
+  { id:'CS490',   code:'CS 490',   name:'Senior Seminar',    cr:3, pre:['CS480'],             sem:5, state:'locked',      grade:null },
+  { id:'ELECTD',  code:'Elective', name:'Tech Elective D',   cr:3, pre:[],                   sem:5, state:'available',   grade:null },
+  { id:'FREEELEC',code:'Elective', name:'Free Elective',     cr:3, pre:[],                   sem:5, state:'available',   grade:null },
+];
+
+// Which courses this course directly unlocks
+const UNLOCKS = {
+  CS200:   ['CS250','CS260'],
+  MATH215: ['CS260'],
+  MATH220: ['MATH310'],
+  STAT250: ['CS370'],
+  CS250:   ['CS270'],
+  CS260:   ['CS330','CS340','CS350','CS360','CS370','ELECTA'],
+  CS270:   ['CS330','CS360'],
+  CS330:   ['CS380','CS460'],
+  CS350:   ['CS450'],
+  CS360:   ['CS460'],
+  CS450:   ['CS480'],
+  CS480:   ['CS490'],
+};
+
+// Pre-requisite connections to draw (from → to)
+const PREREQ_LINES = [
+  ['CS200','CS250'], ['CS200','CS260'], ['MATH215','CS260'],
+  ['MATH220','MATH310'], ['STAT250','CS370'],
+  ['CS250','CS270'],
+  ['CS260','CS330'], ['CS260','CS340'], ['CS260','CS350'], ['CS260','CS360'],
+  ['CS270','CS330'], ['CS270','CS360'],
+  ['CS260','CS370'],
+  ['CS330','CS380'], ['CS330','CS460'], ['CS360','CS460'],
+  ['CS350','CS450'],
+  ['CS450','CS480'], ['CS480','CS490'],
+];
+
+const DROP_IMPACT = {
+  CS330: { blocked:['CS 380 · Prog. Languages','CS 460 · Security'],            risk:true,  delay:'1 semester', cr:9  },
+  CS340: { blocked:[],                                                            risk:false, delay:'None',       cr:3  },
+  CS350: { blocked:['CS 450 · Capstone I','CS 480 · Capstone II','CS 490 · Senior Seminar'], risk:true, delay:'Graduation risk', cr:12 },
+  CS360: { blocked:['CS 460 · Security'],                                         risk:false, delay:'1 semester', cr:6  },
+};
+
+const ADVISOR_NOTES = {
+  CS330: 'Strong start — OS concurrency concepts clicking well. Watch the midterm scheduling section.',
+  CS340: 'SQL fundamentals solid. Next unit: query optimization and indexing.',
+  CS350: 'Team project on track. Peer review milestone due Week 11.',
+  CS360: 'Network layer lab complete. Moving into transport protocols this week.',
+};
+
+const byId = {};
+COURSES.forEach(c => { byId[c.id] = c; });
+
+// ─── Render ────────────────────────────────────────────────────────────────
+
+function cardIcon(state) {
+  return { completed:'✓', 'in-progress':'◉', available:'○', locked:'🔒', 'at-risk':'⚠' }[state] || '';
+}
+
+function renderCard(c) {
+  const foot = c.grade
+    ? `<span class="card-credits">${c.cr} cr</span><span class="card-grade">${c.grade}</span>`
+    : `<span class="card-credits">${c.cr} cr</span>`;
+  return `
+    <div class="card ${c.state}" id="card-${c.id}" data-id="${c.id}" role="button" tabindex="0" aria-label="${c.name}">
+      <div>
+        <div class="card-top">
+          <span class="card-code">${c.code}</span>
+          <span class="card-icon">${cardIcon(c.state)}</span>
+        </div>
+        <div class="card-name">${c.name}</div>
+      </div>
+      <div class="card-footer">${foot}</div>
+    </div>`;
+}
+
+function renderAll() {
+  const wrap = document.getElementById('levelWrap');
+  wrap.innerHTML = '';
+  SEM.forEach((s, si) => {
+    const courses = COURSES.filter(c => c.sem === si);
+    const levelEl = document.createElement('div');
+    levelEl.className = `level ${s.status}`;
+    levelEl.id = `level-${si}`;
+
+    let badge = '';
+    if (s.status === 'cleared')
+      badge = `<span class="level-badge badge-cleared">CLEARED ✓</span>`;
+    else if (s.status === 'current')
+      badge = `<span class="level-badge badge-progress"><span class="pulse-dot"></span>IN PROGRESS</span>`;
+
+    levelEl.innerHTML = `
+      <div class="level-header">
+        <span class="level-num">Level ${s.level}</span>
+        <span class="level-name">— ${s.name}</span>
+        <span class="level-line"></span>
+        ${badge}
+      </div>
+      <div class="course-grid">${courses.map(renderCard).join('')}</div>
+    `;
+    wrap.appendChild(levelEl);
+  });
+
+  attachCardEvents();
+}
+
+function attachCardEvents() {
+  COURSES.forEach(c => {
+    const el = document.getElementById(`card-${c.id}`);
+    if (!el) return;
+    if (c.state === 'locked') {
+      el.addEventListener('mouseenter', e => showLockedTip(e, c));
+      el.addEventListener('mousemove', moveTip);
+      el.addEventListener('mouseleave', hideTip);
+    } else if (c.state === 'completed') {
+      el.addEventListener('click', () => openAchievement(c));
+      el.addEventListener('mouseenter', e => showCompletedTip(e, c));
+      el.addEventListener('mousemove', moveTip);
+      el.addEventListener('mouseleave', hideTip);
+    } else if (c.state === 'in-progress') {
+      el.addEventListener('click', () => openInProgress(c));
+    } else {
+      el.addEventListener('click', () => openAvailable(c));
+    }
+  });
+}
+
+// ─── Prereq SVG Lines ──────────────────────────────────────────────────────
+
+function stateStroke(state) {
+  return { completed:'#5B8C6E', 'in-progress':'#6B7FD4', available:'#3A3D52', locked:'#252836', 'at-risk':'#C4813A' }[state] || '#3A3D52';
+}
+
+function drawLines() {
+  const svg   = document.getElementById('prereqSvg');
+  const wrap  = document.getElementById('mainWrap');
+  const wRect = wrap.getBoundingClientRect();
+
+  svg.setAttribute('height', wrap.scrollHeight);
+  svg.setAttribute('width', wrap.offsetWidth);
+
+  let paths = '';
+  PREREQ_LINES.forEach(([aId, bId]) => {
+    const aEl = document.getElementById(`card-${aId}`);
+    const bEl = document.getElementById(`card-${bId}`);
+    if (!aEl || !bEl) return;
+
+    const aR = aEl.getBoundingClientRect();
+    const bR = bEl.getBoundingClientRect();
+
+    const x1 = aR.left - wRect.left + aR.width / 2;
+    const y1 = aR.top  - wRect.top  + aR.height;
+    const x2 = bR.left - wRect.left + bR.width / 2;
+    const y2 = bR.top  - wRect.top;
+
+    const dy = y2 - y1;
+    const cp1y = y1 + dy * 0.38;
+    const cp2y = y1 + dy * 0.62;
+
+    const src     = byId[aId];
+    const color   = stateStroke(src ? src.state : 'available');
+    const opacity = src?.state === 'completed' ? 0.22 : src?.state === 'in-progress' ? 0.18 : 0.09;
+    const dash    = src?.state === 'completed' ? '' : 'stroke-dasharray="4 5"';
+
+    paths += `<path d="M${x1},${y1} C${x1},${cp1y} ${x2},${cp2y} ${x2},${y2}"
+      fill="none" stroke="${color}" stroke-width="1.5" stroke-opacity="${opacity}" ${dash}/>`;
+  });
+
+  svg.innerHTML = paths;
+}
+
+function debounce(fn, ms) {
+  let t;
+  return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+}
+
+// ─── Tooltip ──────────────────────────────────────────────────────────────
+
+const TIP = document.getElementById('tooltip');
+
+function showLockedTip(e, c) {
+  const missing = c.pre.filter(p => byId[p]?.state !== 'completed')
+    .map(p => byId[p]?.code || p).join(', ');
+  TIP.innerHTML = `<div class="tt-title">🔒 ${c.name}</div>
+    <div class="tt-sub">Complete first: <strong>${missing || 'Prerequisites required'}</strong></div>`;
+  positionTip(e); TIP.classList.add('show');
+}
+
+function showCompletedTip(e, c) {
+  const unlocks = (UNLOCKS[c.id] || []).map(id => byId[id]?.code).filter(Boolean).join(', ');
+  TIP.innerHTML = `<div class="tt-title">✓ ${c.name}</div>
+    <div class="tt-sub">${SEM[c.sem].name} &middot; Grade: <strong>${c.grade}</strong>${unlocks ? `<br>Unlocks: ${unlocks}` : ''}</div>`;
+  positionTip(e); TIP.classList.add('show');
+}
+
+function positionTip(e) {
+  const pad = 14, w = 230, h = 90;
+  let x = e.clientX + pad, y = e.clientY + pad;
+  if (x + w > window.innerWidth)  x = e.clientX - w - pad;
+  if (y + h > window.innerHeight) y = e.clientY - h - pad;
+  TIP.style.left = x + 'px';
+  TIP.style.top  = y + 'px';
+}
+
+function moveTip(e) { positionTip(e); }
+function hideTip()  { TIP.classList.remove('show'); }
+
+// ─── Achievement Overlay ───────────────────────────────────────────────────
+
+function openAchievement(c) {
+  const unlockNames = (UNLOCKS[c.id] || []).map(id => byId[id]?.name).filter(Boolean);
+  const unlockText  = unlockNames.length ? unlockNames.join(', ') : 'No direct dependents';
+  document.getElementById('achCard').innerHTML = `
+    <div class="ach-card">
+      <button class="ach-close" onclick="closeAch()">✕</button>
+      <span class="ach-emoji">🏆</span>
+      <div class="ach-eyebrow">Achievement Unlocked</div>
+      <div class="ach-title">${c.name}</div>
+      <div class="ach-sub">${c.code} &middot; ${SEM[c.sem].name}</div>
+      <div class="ach-grid">
+        <div class="ach-cell"><div class="ach-cell-label">Grade</div><div class="ach-cell-val">${c.grade}</div></div>
+        <div class="ach-cell"><div class="ach-cell-label">Credits</div><div class="ach-cell-val">${c.cr}</div></div>
+      </div>
+      <div class="ach-note"><strong>Unlocks →</strong> ${unlockText}</div>
+      <button class="ach-btn" onclick="closeAch()">Continue</button>
+    </div>`;
+  document.getElementById('achBackdrop').classList.add('open');
+}
+
+function openInProgress(c) {
+  document.getElementById('achCard').innerHTML = `
+    <div class="ach-card prog-card">
+      <button class="ach-close" onclick="closeAch()">✕</button>
+      <span class="ach-emoji">◉</span>
+      <div class="ach-eyebrow">In Progress · ${SEM[c.sem].name}</div>
+      <div class="ach-title">${c.name}</div>
+      <div class="ach-sub">${c.code} &middot; ${c.cr} credits</div>
+      <div class="ach-grid">
+        <div class="ach-cell"><div class="ach-cell-label">Status</div><div class="ach-cell-val" style="color:var(--prog);font-size:13px">Enrolled</div></div>
+        <div class="ach-cell"><div class="ach-cell-label">Credits</div><div class="ach-cell-val">${c.cr}</div></div>
+      </div>
+      <div class="ach-note"><strong>Advisor Note →</strong> ${ADVISOR_NOTES[c.id] || 'No recent notes.'}</div>
+      <button class="ach-btn" onclick="closeAch()">Close</button>
+    </div>`;
+  document.getElementById('achBackdrop').classList.add('open');
+}
+
+function openAvailable(c) {
+  const prereqNames = c.pre.map(p => byId[p]?.name || p).join(', ');
+  document.getElementById('achCard').innerHTML = `
+    <div class="ach-card avail-card">
+      <button class="ach-close" onclick="closeAch()">✕</button>
+      <span class="ach-emoji">○</span>
+      <div class="ach-eyebrow">Upcoming · ${SEM[c.sem].name}</div>
+      <div class="ach-title">${c.name}</div>
+      <div class="ach-sub">${c.code} &middot; ${c.cr} credits</div>
+      <div class="ach-grid">
+        <div class="ach-cell"><div class="ach-cell-label">Credits</div><div class="ach-cell-val">${c.cr}</div></div>
+        <div class="ach-cell"><div class="ach-cell-label">Status</div><div class="ach-cell-val" style="color:var(--accent);font-size:12px">Ready to register</div></div>
+      </div>
+      ${prereqNames ? `<div class="ach-note"><strong>Prerequisites →</strong> ${prereqNames}</div>` : ''}
+      <button class="ach-btn" onclick="closeAch()">Close</button>
+    </div>`;
+  document.getElementById('achBackdrop').classList.add('open');
+}
+
+function closeAch() { document.getElementById('achBackdrop').classList.remove('open'); }
+
+// ─── Drop Impact Modal ─────────────────────────────────────────────────────
+
+function openDropModal() {
+  document.getElementById('dropSelect').value = '';
+  document.getElementById('impactResults').innerHTML = '';
+  document.getElementById('impactResults').classList.remove('show');
+  document.getElementById('modalBackdrop').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modalBackdrop').classList.remove('open'); }
+
+function backdropClick(e, id) {
+  if (e.target === document.getElementById(id)) {
+    id === 'achBackdrop' ? closeAch() : closeModal();
+  }
+}
+
+function calcImpact() {
+  const key     = document.getElementById('dropSelect').value;
+  const results = document.getElementById('impactResults');
+  if (!key) { results.classList.remove('show'); return; }
+
+  const d = DROP_IMPACT[key];
+  if (!d) return;
+
+  const blockedHTML = d.blocked.length
+    ? d.blocked.map(b => `<div class="blocked-item"><div class="blocked-dot"></div>${b}</div>`).join('')
+    : `<div class="blocked-item safe"><div class="blocked-dot"></div>No downstream courses blocked</div>`;
+
+  const delayHTML = d.risk
+    ? `<div class="delay-note has-risk">⚠ <strong>Graduation delay risk:</strong> ${d.delay}. Speak with your advisor before dropping.</div>`
+    : `<div class="delay-note no-risk">✓ Estimated delay: <strong>${d.delay}</strong>. This drop is lower risk, but still review with your advisor.</div>`;
+
+  results.innerHTML = `
+    <div class="impact-summary">
+      <div class="impact-stat ${d.blocked.length > 1 ? 'danger' : d.blocked.length === 1 ? 'warn' : 'ok'}">
+        <div class="impact-val">${d.blocked.length}</div>
+        <div class="impact-key">Courses Blocked</div>
+      </div>
+      <div class="impact-stat ${d.cr > 9 ? 'danger' : d.cr > 3 ? 'warn' : 'ok'}">
+        <div class="impact-val">${d.cr}</div>
+        <div class="impact-key">Credits at Risk</div>
+      </div>
+      <div class="impact-stat ${d.risk ? 'danger' : 'ok'}">
+        <div class="impact-val" style="font-size:15px;padding-top:4px">${d.risk ? '⚠' : '✓'}</div>
+        <div class="impact-key">Grad Risk</div>
+      </div>
+    </div>
+    <div class="blocked-label">Blocked Courses</div>
+    <div class="blocked-list">${blockedHTML}</div>
+    ${delayHTML}
+  `;
+  results.classList.add('show');
+}
+
+// ─── Init ──────────────────────────────────────────────────────────────────
+
+function init() {
+  renderAll();
+
+  // Animate progress bar
+  requestAnimationFrame(() => {
+    setTimeout(() => { document.getElementById('xpFill').style.width = '53.9%'; }, 120);
+  });
+
+  // Draw prereq lines after layout
+  setTimeout(drawLines, 120);
+  window.addEventListener('resize', debounce(drawLines, 160));
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

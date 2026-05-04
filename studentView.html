@@ -136,56 +136,115 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 .note-body{font-size:12.5px;line-height:1.7}
 .note-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block}
 .hidden{display:none}
-/* ===== DEGREE PATH VISUALIZER ===== */
-.dp-hdr{background:#fff;border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:16px;flex-shrink:0;flex-wrap:wrap}
-.dp-prog-wrap{flex:1;min-width:160px;max-width:300px}
-.dp-prog-track{height:5px;background:var(--border);border-radius:3px;margin-top:5px;overflow:hidden}
-.dp-prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--purple));border-radius:3px;transition:width 0.4s}
-.dp-cred-label{font-size:11px;font-weight:600;color:var(--muted)}
-.dp-drop-btn{padding:6px 13px;border-radius:8px;font-size:11.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--text);transition:all 0.2s;white-space:nowrap;flex-shrink:0}
-.dp-drop-btn.active{background:#fff0f1;color:#cc1122;border-color:#ffb3ba}
-.dp-canvas-wrap{flex:1;overflow:auto;background:#0f0f13;position:relative}
-.dp-canvas{position:relative;padding:20px 24px 60px;display:inline-flex;gap:24px;min-height:100%}
-.dp-col{width:180px;flex-shrink:0}
-.dp-sem-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:14px;line-height:1.3}
-.dp-sem-sub{font-size:9px;color:rgba(255,255,255,0.18);display:block;margin-top:2px;font-weight:400;letter-spacing:0;text-transform:none}
-.dp-nodes{display:flex;flex-direction:column;gap:10px}
-.dp-node{width:180px;height:64px;border-radius:10px;padding:9px 12px;cursor:pointer;transition:background 0.3s,border-color 0.3s,color 0.3s,box-shadow 0.3s;position:relative;box-sizing:border-box;border:1.5px solid transparent;user-select:none;flex-shrink:0}
-.dp-node:hover{filter:brightness(1.12)}
-.dp-code{font-size:10px;font-weight:700;letter-spacing:0.2px;line-height:1}
-.dp-name{font-size:12px;font-weight:600;margin-top:3px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dp-cr{font-size:9px;position:absolute;bottom:7px;right:10px;opacity:0.6}
-.dp-lock{position:absolute;bottom:7px;left:10px;font-size:10px;opacity:0.35}
-.dp-node.dp-completed{background:#0b3830;border-color:#00c9a7}
-.dp-node.dp-completed .dp-code{color:#4dffd4}
-.dp-node.dp-completed .dp-name{color:#a0ffe8}
-.dp-node.dp-in-progress{background:#0b1d3d;border-color:#3d72ff}
-.dp-node.dp-in-progress .dp-code{color:#80aaff}
-.dp-node.dp-in-progress .dp-name{color:#b8ccff}
-.dp-node.dp-recommended{background:#160d3a;border-color:#6C63FF;animation:dp-pulse 2.2s ease-in-out infinite}
-.dp-node.dp-recommended .dp-code{color:#a09aff}
-.dp-node.dp-recommended .dp-name{color:#d0ccff}
-.dp-node.dp-blocked{background:#161620;border-color:#242436}
-.dp-node.dp-blocked .dp-code{color:#32324a}
-.dp-node.dp-blocked .dp-name{color:#32324a}
-.dp-node.dp-blocked .dp-cr{color:#282838}
-.dp-node.dp-elective{background:#2b1800;border-color:#cc8400}
-.dp-node.dp-elective .dp-code{color:#ffb040}
-.dp-node.dp-elective .dp-name{color:#ffd080}
-.dp-node.dp-drop-impact{background:#2d0b0b!important;border-color:#ff4757!important;animation:none!important}
-.dp-node.dp-drop-impact .dp-code{color:#ff6b7a!important}
-.dp-node.dp-drop-impact .dp-name{color:#ff9090!important}
-@keyframes dp-pulse{0%,100%{box-shadow:0 0 0 0 rgba(108,99,255,0)}55%{box-shadow:0 0 10px 3px rgba(108,99,255,0.3)}}
-.dp-svg{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
-.dp-tooltip{position:fixed;background:#181828;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,0.8);pointer-events:none;z-index:9999;max-width:220px;line-height:1.5;box-shadow:0 8px 28px rgba(0,0,0,0.6);display:none}
-.dp-tt-code{font-size:10px;font-weight:700;color:#4dffd4;margin-bottom:3px}
-.dp-tt-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px}
-.dp-tt-cr{display:inline-block;background:rgba(255,255,255,0.1);padding:1px 8px;border-radius:20px;font-size:10px;margin-bottom:6px}
-.dp-tt-desc{font-size:11px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:5px}
-.dp-tt-pre{font-size:10.5px;color:rgba(255,255,255,0.38)}
-.dp-tt-pre strong{color:rgba(255,255,255,0.65)}
-.dp-tt-hint{font-size:10px;margin-top:5px;color:rgba(255,255,255,0.3)}
-@media(max-width:640px){.dp-canvas-wrap{overflow-x:hidden}.dp-canvas{flex-direction:column;gap:20px;padding:14px;display:flex}.dp-col{width:100%}.dp-node{width:100%}.dp-nodes{flex-direction:row;flex-wrap:wrap;gap:8px}.dp-node{width:calc(50% - 4px);height:56px}}
+/* ===== PATHWISE DEGREE MAP ===== */
+#v-plan{background:#1C1E2E}
+.pw-hdr{background:rgba(22,24,38,.97);border-bottom:1px solid rgba(139,133,204,.1);padding:14px 20px 12px;flex-shrink:0}
+.pw-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.pw-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#8B85CC,#6B7FD4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;letter-spacing:-.5px}
+.pw-uname{font-size:14px;font-weight:700;color:#E8E6F0;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pw-usub{font-size:11px;color:#9B99B0;margin-top:1px}
+.pw-dbtn{margin-left:auto;flex-shrink:0;background:rgba(139,133,204,.1);border:1px solid rgba(139,133,204,.22);color:#8B85CC;padding:6px 13px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;transition:background .2s;white-space:nowrap}
+.pw-dbtn:hover{background:rgba(139,133,204,.18);border-color:rgba(139,133,204,.36)}
+.pw-xps{margin-bottom:11px}
+.pw-xpl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+.pw-xpl span:first-child{color:#8B85CC;font-weight:700}
+.pw-xpl span:last-child{color:#52506A}
+.pw-xpt{height:6px;background:rgba(139,133,204,.1);border-radius:99px;overflow:hidden}
+.pw-xpf{height:100%;width:0%;background:linear-gradient(90deg,#8B85CC,#A89EE0);border-radius:99px;transition:width 1.4s cubic-bezier(.22,1,.36,1);box-shadow:0 0 10px rgba(139,133,204,.3)}
+.pw-stats{display:flex;align-items:center;flex-wrap:wrap;gap:0}
+.pw-stat{display:flex;flex-direction:column;gap:1px;padding-right:16px}
+.pw-sv{font-size:13px;font-weight:700;color:#E8E6F0}.pw-sv.ok{color:#5B8C6E}
+.pw-sk{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#52506A}
+.pw-sdiv{width:1px;height:22px;background:rgba(255,255,255,.07);margin-right:16px;flex-shrink:0}
+.pw-scroll{flex:1;overflow-y:auto;overflow-x:hidden}
+.pw-scroll::-webkit-scrollbar{width:4px}
+.pw-scroll::-webkit-scrollbar-thumb{background:rgba(139,133,204,.2);border-radius:99px}
+.pw-main{position:relative;padding:28px 20px 60px}
+#pw-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
+.pw-lvls{position:relative;z-index:1}
+.pw-level{margin-bottom:36px}
+.pw-lhdr{display:flex;align-items:center;gap:9px;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pw-lnum{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#8B85CC;background:rgba(139,133,204,.1);padding:3px 7px;border-radius:5px;flex-shrink:0}
+.pw-lname{font-size:12px;font-weight:500;color:#9B99B0}
+.pw-lsep{flex:1}
+.pw-lbadge{font-size:10px;font-weight:700;letter-spacing:.3px;padding:3px 9px;border-radius:20px;flex-shrink:0}
+.pw-cleared{background:rgba(91,140,110,.13);color:#5B8C6E;border:1px solid rgba(91,140,110,.28)}
+.pw-inprog{background:rgba(107,127,212,.1);color:#6B7FD4;border:1px solid rgba(107,127,212,.28);display:flex;align-items:center;gap:5px}
+.pw-pdot{width:5px;height:5px;border-radius:50%;background:#6B7FD4;animation:pw-dot 2.2s ease-in-out infinite}
+@keyframes pw-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.pw-level.current{padding:12px;margin-left:-12px;margin-right:-12px;border-radius:13px;background:rgba(107,127,212,.04);border:1px solid rgba(107,127,212,.1)}
+.pw-level.future{opacity:.82}
+.pw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pw-card{border-radius:11px;padding:12px 13px;cursor:pointer;position:relative;transition:transform .18s,box-shadow .18s,border-color .18s;border:1px solid transparent;user-select:none;min-height:88px;display:flex;flex-direction:column;justify-content:space-between}
+.pw-card:hover{transform:translateY(-2px)}
+.pw-card.completed{background:linear-gradient(145deg,rgba(91,140,110,.22),rgba(91,140,110,.1));border-color:rgba(91,140,110,.32)}
+.pw-card.completed:hover{box-shadow:0 5px 20px rgba(91,140,110,.18);border-color:rgba(91,140,110,.5)}
+.pw-card.in-progress{background:linear-gradient(145deg,rgba(107,127,212,.22),rgba(107,127,212,.1));border-color:rgba(107,127,212,.38);animation:pw-glow 3.2s ease-in-out infinite}
+@keyframes pw-glow{0%,100%{box-shadow:0 0 0 rgba(107,127,212,0)}50%{box-shadow:0 0 18px rgba(107,127,212,.22)}}
+.pw-card.in-progress:hover{box-shadow:0 5px 24px rgba(107,127,212,.32)}
+.pw-card.available{background:rgba(58,61,82,.55);border-color:rgba(255,255,255,.07)}
+.pw-card.available:hover{box-shadow:0 4px 14px rgba(0,0,0,.28);border-color:rgba(255,255,255,.13)}
+.pw-card.locked{background:rgba(37,40,54,.65);border-color:rgba(255,255,255,.03);opacity:.6;cursor:default}
+.pw-card.locked:hover{transform:none}
+.pw-ctop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.pw-code{font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase}
+.completed .pw-code{color:#7BB890}.in-progress .pw-code{color:#8F9EE4}.available .pw-code{color:#9B99B0}.locked .pw-code{color:#52506A}
+.pw-icon{font-size:12px;line-height:1}
+.pw-cname{font-size:12px;font-weight:600;line-height:1.32;flex:1}
+.completed .pw-cname{color:#EAE8F4}.in-progress .pw-cname{color:#EAE8F4}.available .pw-cname{color:#BDBAD0}.locked .pw-cname{color:#52506A}
+.pw-cfoot{display:flex;justify-content:space-between;align-items:center;margin-top:7px}
+.pw-cr{font-size:10px;color:#52506A}
+.pw-grade{font-size:12px;font-weight:700;color:#85C49A}
+.pw-tip{position:fixed;background:#282B42;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 13px;font-size:12px;color:#E8E6F0;pointer-events:none;z-index:9999;max-width:210px;box-shadow:0 8px 28px rgba(0,0,0,.45);opacity:0;transition:opacity .12s;line-height:1.5}
+.pw-tip.show{opacity:1}
+.pw-tt{font-weight:700;font-size:13px;margin-bottom:3px}
+.pw-ts{color:#9B99B0}.pw-ts strong{color:#E8E6F0}
+.pw-bd{position:fixed;inset:0;background:rgba(10,12,22,.72);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
+.pw-bd.open{display:flex}
+.pw-ach{background:#1F2238;border:1px solid rgba(91,140,110,.28);border-radius:17px;padding:26px 24px 20px;max-width:340px;width:100%;position:relative;animation:pw-pop .23s cubic-bezier(.34,1.56,.64,1)}
+.pw-ach.prog{border-color:rgba(107,127,212,.28)}.pw-ach.avail{border-color:rgba(139,133,204,.22)}
+@keyframes pw-pop{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.pw-xbtn{position:absolute;top:12px;right:12px;background:none;border:none;color:#52506A;font-size:16px;cursor:pointer;padding:3px 7px;border-radius:5px;transition:color .15s}
+.pw-xbtn:hover{color:#E8E6F0}
+.pw-emoji{font-size:30px;display:block;margin-bottom:11px}
+.pw-eye{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#5B8C6E;margin-bottom:5px}
+.prog .pw-eye{color:#6B7FD4}.avail .pw-eye{color:#8B85CC}
+.pw-atitle{font-size:18px;font-weight:800;color:#E8E6F0;margin-bottom:2px;letter-spacing:-.2px}
+.pw-asub{font-size:12px;color:#9B99B0;margin-bottom:16px}
+.pw-agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.pw-acell{background:rgba(255,255,255,.04);border-radius:8px;padding:9px 11px}
+.pw-aclbl{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:#52506A;margin-bottom:2px}
+.pw-acval{font-size:14px;font-weight:700;color:#E8E6F0}
+.pw-anote{font-size:12px;color:#9B99B0;background:rgba(91,140,110,.08);border-radius:8px;padding:9px 12px;line-height:1.55;margin-bottom:14px}
+.pw-anote strong{color:#5B8C6E}
+.prog .pw-anote{background:rgba(107,127,212,.08)}.prog .pw-anote strong{color:#6B7FD4}
+.avail .pw-anote{background:rgba(139,133,204,.07)}.avail .pw-anote strong{color:#8B85CC}
+.pw-abtn{width:100%;background:rgba(255,255,255,.06);border:none;border-radius:9px;padding:10px;color:#E8E6F0;font-size:13px;font-weight:500;cursor:pointer;transition:background .18s}
+.pw-abtn:hover{background:rgba(255,255,255,.1)}
+.pw-modal{background:#1F2238;border:1px solid rgba(139,133,204,.18);border-radius:17px;padding:26px 24px 20px;max-width:420px;width:100%;position:relative;animation:pw-pop .23s cubic-bezier(.34,1.56,.64,1)}
+.pw-mtitle{font-size:17px;font-weight:800;color:#E8E6F0;margin-bottom:4px;letter-spacing:-.2px}
+.pw-msub{font-size:12px;color:#9B99B0;margin-bottom:18px;line-height:1.5}
+.pw-msel{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:10px 13px;color:#E8E6F0;font-size:13px;outline:none;cursor:pointer;margin-bottom:16px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B99B0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;transition:border-color .15s}
+.pw-msel:focus{border-color:#8B85CC}.pw-msel option{background:#1F2238;color:#E8E6F0}
+.pw-imp{display:none}.pw-imp.show{display:block}
+.pw-isum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.pw-istat{background:rgba(255,255,255,.04);border-radius:9px;padding:10px 8px;text-align:center}
+.pw-ival{font-size:18px;font-weight:800;margin-bottom:2px;line-height:1}
+.pw-ikey{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:#52506A}
+.pw-istat.danger .pw-ival{color:#C47070}.pw-istat.warn .pw-ival{color:#C4813A}.pw-istat.ok .pw-ival{color:#5B8C6E}
+.pw-blbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#52506A;margin-bottom:6px}
+.pw-blist{display:flex;flex-direction:column;gap:5px}
+.pw-bitem{display:flex;align-items:center;gap:9px;background:rgba(196,112,112,.07);border:1px solid rgba(196,112,112,.12);border-radius:8px;padding:8px 11px;font-size:12px;color:#D4B0B0}
+.pw-bitem.safe{background:rgba(91,140,110,.07);border-color:rgba(91,140,110,.12);color:#9EC4AE}
+.pw-bdot{width:5px;height:5px;border-radius:50%;background:#C47070;flex-shrink:0}
+.pw-bitem.safe .pw-bdot{background:#5B8C6E}
+.pw-dnote{margin-top:11px;font-size:12px;padding:8px 12px;border-radius:8px;line-height:1.5}
+.pw-dnote.risk{background:rgba(196,129,58,.1);border:1px solid rgba(196,129,58,.2);color:#D4A870}
+.pw-dnote.safe{background:rgba(91,140,110,.08);border:1px solid rgba(91,140,110,.15);color:#9EC4AE}
+.pw-mcbtn{width:100%;background:rgba(255,255,255,.05);border:none;border-radius:9px;padding:10px;color:#E8E6F0;font-size:13px;font-weight:500;cursor:pointer;margin-top:16px;transition:background .18s}
+.pw-mcbtn:hover{background:rgba(255,255,255,.09)}
+@media(max-width:720px){.pw-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.pw-sdiv{display:none}.pw-stats{gap:12px}}
 </style>
 
 <div class="app">
@@ -212,7 +271,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
   <div class="nb">
     <div class="av-row">
       <div class="av">JM</div>
-      <div><div class="av-name">Jordan Martinez</div><div class="av-role">Finance · Junior</div></div>
+      <div><div class="av-name">Jordan Martinez</div><div class="av-role">Computer Science BS · Junior</div></div>
     </div>
     <a class="sb-link" href="index.html">
       <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -225,23 +284,53 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 
 <!-- DEGREE PLAN -->
 <div id="v-plan" style="display:flex;flex-direction:column;height:100%">
-  <div class="dp-hdr">
-    <div>
-      <div class="pg-title">Degree Path — Jordan Martinez</div>
-      <div class="pg-sub">Computer Science BS · Catalog 2024 · 128 credits total</div>
+  <div class="pw-hdr">
+    <div class="pw-top">
+      <div class="pw-av">JM</div>
+      <div style="flex:1;min-width:0">
+        <div class="pw-uname">Jordan Martinez</div>
+        <div class="pw-usub">Computer Science BS &middot; Catalog 2024 &middot; USD</div>
+      </div>
+      <button class="pw-dbtn" onclick="pwOpenModal()">&#9889; Drop Impact</button>
     </div>
-    <div class="dp-prog-wrap">
-      <div class="dp-cred-label" id="dp-cred-label">48 / 128 credits completed</div>
-      <div class="dp-prog-track"><div class="dp-prog-fill" id="dp-prog-fill" style="width:37.5%"></div></div>
+    <div class="pw-xps">
+      <div class="pw-xpl"><span>&#9108; 69 / 128 credits &middot; Level 6 Unlocked</span><span>53.9%</span></div>
+      <div class="pw-xpt"><div class="pw-xpf" id="pw-xpf"></div></div>
     </div>
-    <button class="dp-drop-btn" id="dp-drop-btn" onclick="dpToggleDrop()">Drop Impact</button>
+    <div class="pw-stats">
+      <div class="pw-stat"><div class="pw-sv">4</div><div class="pw-sk">Semesters Cleared</div></div>
+      <div class="pw-sdiv"></div>
+      <div class="pw-stat"><div class="pw-sv">18</div><div class="pw-sk">Courses Unlocked</div></div>
+      <div class="pw-sdiv"></div>
+      <div class="pw-stat"><div class="pw-sv">3.2</div><div class="pw-sk">GPA</div></div>
+      <div class="pw-sdiv"></div>
+      <div class="pw-stat"><div class="pw-sv ok">May 2026</div><div class="pw-sk">On Track</div></div>
+    </div>
   </div>
-  <div class="dp-canvas-wrap">
-    <div class="dp-canvas" id="dp-canvas">
-      <svg class="dp-svg" id="dp-svg" width="1" height="1"></svg>
+  <div class="pw-scroll">
+    <div class="pw-main" id="pw-main">
+      <svg id="pw-svg" aria-hidden="true"></svg>
+      <div class="pw-lvls" id="pw-lvls"></div>
     </div>
   </div>
-  <div class="dp-tooltip" id="dp-tooltip"></div>
+  <div class="pw-bd" id="pw-ach-bd" onclick="pwBdClick(event,'pw-ach-bd')"><div id="pw-ach-card"></div></div>
+  <div class="pw-bd" id="pw-modal-bd" onclick="pwBdClick(event,'pw-modal-bd')">
+    <div class="pw-modal">
+      <button class="pw-xbtn" onclick="pwCloseModal()">&#x2715;</button>
+      <div class="pw-mtitle">Drop Impact Calculator</div>
+      <div class="pw-msub">Select a current course to see how dropping it affects your graduation path.</div>
+      <select class="pw-msel" id="pw-msel" onchange="pwCalcImpact()">
+        <option value="">&#8212; Select a current course &#8212;</option>
+        <option value="CS330">CS 330 &middot; Operating Systems</option>
+        <option value="CS340">CS 340 &middot; Databases</option>
+        <option value="CS350">CS 350 &middot; Software Engineering</option>
+        <option value="CS360">CS 360 &middot; Networks</option>
+      </select>
+      <div class="pw-imp" id="pw-imp"></div>
+      <button class="pw-mcbtn" onclick="pwCloseModal()">Close</button>
+    </div>
+  </div>
+  <div class="pw-tip" id="pw-tip"></div>
 </div>
 
 <!-- COACH VIEW -->
@@ -436,7 +525,7 @@ function sw(v, el) {
   }
   if (v === 'notes') showNotes('olsen', document.querySelector('.ntab'));
   if (v === 'coach') updateCtxPills();
-  if (v === 'plan') setTimeout(dpArrows, 80);
+  if (v === 'plan') { setTimeout(pwDrawLines, 80); pwInitXp(); }
 }
 
 function showNotes(type, el) {
@@ -571,327 +660,200 @@ function calcDrop() {
 }
 
 // ================================================================
-// DEGREE PATH VISUALIZER
+// PATHWISE DEGREE MAP
 // ================================================================
-const DP_SEMS = [
-  {id:0,lbl:'Fall 2022',sub:'Year 1 Fall'},
-  {id:1,lbl:'Spring 2023',sub:'Year 1 Spring'},
-  {id:2,lbl:'Fall 2023',sub:'Year 2 Fall'},
-  {id:3,lbl:'Spring 2024',sub:'Year 2 Spring'},
-  {id:4,lbl:'Fall 2024',sub:'Year 3 Fall'},
-  {id:5,lbl:'Spring 2025',sub:'Year 3 Spring'},
-  {id:6,lbl:'Fall 2025',sub:'Year 4 Fall'},
-  {id:7,lbl:'Spring 2026',sub:'Year 4 Spring'},
+const PW_SEM = [
+  {level:1,name:'Fall 2023',  status:'cleared'},
+  {level:2,name:'Spring 2024',status:'cleared'},
+  {level:3,name:'Fall 2024',  status:'current'},
+  {level:4,name:'Spring 2025',status:'future'},
+  {level:5,name:'Fall 2025',  status:'future'},
+  {level:6,name:'Spring 2026',status:'future'},
 ];
 
-const DP = [
-  // ── Year 1 Fall ──────────────────────────────────────────────
-  {id:'ENGL101',code:'ENGL 101',name:'Writing I',cr:3,pre:[],sem:0,
-   desc:'Academic writing, argumentation, and revision fundamentals.'},
-  {id:'MATH115',code:'MATH 115',name:'Precalculus',cr:4,pre:[],sem:0,
-   desc:'Algebra, functions, and trig as preparation for calculus.'},
-  {id:'CS101',code:'CS 101',name:'Intro to CS',cr:3,pre:[],sem:0,
-   desc:'Computational thinking, algorithms, and first programs.'},
-  {id:'ECON101',code:'ECON 101',name:'Microeconomics',cr:3,pre:[],sem:0,
-   desc:'Markets, supply/demand, consumer theory, and pricing.'},
-  // ── Year 1 Spring ────────────────────────────────────────────
-  {id:'MATH130',code:'MATH 130',name:'Calculus I',cr:4,pre:['MATH115'],sem:1,
-   desc:'Limits, derivatives, and introduction to integration.'},
-  {id:'CS150',code:'CS 150',name:'Programming I',cr:3,pre:['CS101'],sem:1,
-   desc:'Python programming — variables, loops, functions, I/O.'},
-  {id:'ENGL102',code:'ENGL 102',name:'Writing II',cr:3,pre:['ENGL101'],sem:1,
-   desc:'Research writing, source integration, and argumentation.'},
-  {id:'PHIL101',code:'PHIL 101',name:'Ethics',cr:3,pre:[],sem:1,
-   desc:'Ethical theories: utilitarianism, deontology, virtue ethics.'},
-  // ── Year 2 Fall ──────────────────────────────────────────────
-  {id:'MATH220',code:'MATH 220',name:'Calculus II',cr:4,pre:['MATH130'],sem:2,
-   desc:'Integration techniques, sequences, series, and applications.'},
-  {id:'CS200',code:'CS 200',name:'Data Structures',cr:3,pre:['CS150'],sem:2,
-   desc:'Lists, stacks, queues, trees, hash tables, and Big-O analysis.'},
-  {id:'MATH215',code:'MATH 215',name:'Discrete Math',cr:3,pre:['MATH130'],sem:2,
-   desc:'Logic, proofs, sets, graphs, and combinatorics.'},
-  {id:'STAT250',code:'STAT 250',name:'Statistics',cr:3,pre:['MATH130'],sem:2,
-   desc:'Probability, distributions, hypothesis testing, regression.'},
-  // ── Year 2 Spring (in progress) ──────────────────────────────
-  {id:'CS250',code:'CS 250',name:'Computer Org',cr:3,pre:['CS200'],sem:3,
-   desc:'Digital logic, assembly language, memory hierarchy, CPU design.'},
-  {id:'CS260',code:'CS 260',name:'Algorithms',cr:3,pre:['CS200','MATH215'],sem:3,
-   desc:'Sorting, DP, greedy, graph algorithms, and NP-complexity.'},
-  {id:'MATH310',code:'MATH 310',name:'Linear Algebra',cr:3,pre:['MATH220'],sem:3,
-   desc:'Vectors, matrices, eigenvalues, and ML applications.'},
-  {id:'CS270',code:'CS 270',name:'Systems Prog',cr:3,pre:['CS250'],sem:3,
-   desc:'C programming, memory management, processes, system calls.'},
-  // ── Year 3 Fall ──────────────────────────────────────────────
-  {id:'CS330',code:'CS 330',name:'Operating Systems',cr:3,pre:['CS270'],sem:4,
-   desc:'Scheduling, virtual memory, file systems, and concurrency.'},
-  {id:'CS340',code:'CS 340',name:'Databases',cr:3,pre:['CS260'],sem:4,
-   desc:'Relational models, SQL, normalization, query optimization.'},
-  {id:'CS350',code:'CS 350',name:'Software Eng',cr:3,pre:['CS260'],sem:4,
-   desc:'Agile methods, design patterns, testing, and team projects.'},
-  {id:'CS360',code:'CS 360',name:'Networks',cr:3,pre:['CS270'],sem:4,
-   desc:'TCP/IP, routing, DNS, sockets, and network security basics.'},
-  // ── Year 3 Spring ────────────────────────────────────────────
-  {id:'CS370',code:'CS 370',name:'AI / ML',cr:3,pre:['CS260','STAT250','MATH310'],sem:5,
-   desc:'Search, classifiers, neural networks, and reinforcement learning.'},
-  {id:'CS380',code:'CS 380',name:'Prog Languages',cr:3,pre:['CS260'],sem:5,
-   desc:'Language paradigms, type systems, interpreters, lambda calculus.'},
-  {id:'ELECTA',code:'Elective A',name:'Tech Elective',cr:3,pre:['CS260'],sem:5,type:'elective',
-   desc:'Any 300+ level CS elective of your choice.'},
-  {id:'PHIL310',code:'PHIL 310',name:'Ethics in Tech',cr:3,pre:['PHIL101'],sem:5,
-   desc:'AI ethics, surveillance, privacy, and algorithmic bias.'},
-  // ── Year 4 Fall ──────────────────────────────────────────────
-  {id:'CS450',code:'CS 450',name:'Capstone I',cr:3,pre:['CS350','CS340'],sem:6,
-   desc:'Team capstone: proposal, design, and initial implementation.'},
-  {id:'CS460',code:'CS 460',name:'Security',cr:3,pre:['CS360','CS330'],sem:6,
-   desc:'Cryptography, network attacks, and vulnerability analysis.'},
-  {id:'ELECTB',code:'Elective B',name:'Tech Elective',cr:3,pre:['CS370'],sem:6,type:'elective',
-   desc:'Advanced AI/ML elective building on CS 370.'},
-  {id:'ELECTC',code:'Elective C',name:'Tech Elective',cr:3,pre:['CS330'],sem:6,type:'elective',
-   desc:'Systems or networks elective — choose based on interest.'},
-  // ── Year 4 Spring ────────────────────────────────────────────
-  {id:'CS480',code:'CS 480',name:'Capstone II',cr:3,pre:['CS450'],sem:7,
-   desc:'Complete and present capstone project. Final demo and review.'},
-  {id:'CS490',code:'CS 490',name:'Senior Seminar',cr:3,pre:['CS450'],sem:7,
-   desc:'Career prep, interviews, ethics review, and portfolio.'},
-  {id:'ELECTD',code:'Elective D',name:'Tech Elective',cr:3,pre:['CS340'],sem:7,type:'elective',
-   desc:'Advanced database or systems elective.'},
-  {id:'FREE1',code:'Free Elect',name:'Free Elective',cr:3,pre:[],sem:7,type:'elective',
-   desc:'Any course from any department. Explore freely!'},
+const PW_COURSES = [
+  {id:'MATH220',code:'MATH 220',name:'Calculus II',      cr:4,pre:[],                 sem:0,state:'completed',  grade:'A−'},
+  {id:'CS200',  code:'CS 200', name:'Data Structures',   cr:3,pre:[],                 sem:0,state:'completed',  grade:'A' },
+  {id:'MATH215',code:'MATH 215',name:'Discrete Math',    cr:3,pre:[],                 sem:0,state:'completed',  grade:'B+'},
+  {id:'STAT250',code:'STAT 250',name:'Statistics',       cr:3,pre:[],                 sem:0,state:'completed',  grade:'B' },
+  {id:'CS250',  code:'CS 250', name:'Computer Org.',     cr:3,pre:['CS200'],           sem:1,state:'completed',  grade:'A' },
+  {id:'CS260',  code:'CS 260', name:'Algorithms',        cr:3,pre:['CS200','MATH215'], sem:1,state:'completed',  grade:'B+'},
+  {id:'MATH310',code:'MATH 310',name:'Linear Algebra',   cr:3,pre:['MATH220'],         sem:1,state:'completed',  grade:'B' },
+  {id:'CS270',  code:'CS 270', name:'Systems Prog.',     cr:3,pre:['CS250'],           sem:1,state:'completed',  grade:'A−'},
+  {id:'CS330',  code:'CS 330', name:'Operating Systems', cr:3,pre:['CS270','CS260'],   sem:2,state:'in-progress',grade:null},
+  {id:'CS340',  code:'CS 340', name:'Databases',         cr:3,pre:['CS260'],           sem:2,state:'in-progress',grade:null},
+  {id:'CS350',  code:'CS 350', name:'Software Eng.',     cr:3,pre:['CS260'],           sem:2,state:'in-progress',grade:null},
+  {id:'CS360',  code:'CS 360', name:'Networks',          cr:3,pre:['CS270'],           sem:2,state:'in-progress',grade:null},
+  {id:'CS370',  code:'CS 370', name:'AI / ML',           cr:3,pre:['CS260','STAT250'], sem:3,state:'available',  grade:null},
+  {id:'CS380',  code:'CS 380', name:'Prog. Languages',   cr:3,pre:['CS330'],           sem:3,state:'locked',     grade:null},
+  {id:'ELECTA', code:'Elective',name:'Tech Elective A',  cr:3,pre:['CS260'],           sem:3,state:'available',  grade:null},
+  {id:'PHIL310',code:'PHIL 310',name:'Ethics in Tech',   cr:3,pre:[],                 sem:3,state:'available',  grade:null},
+  {id:'CS450',  code:'CS 450', name:'Capstone I',        cr:3,pre:['CS350'],           sem:4,state:'locked',     grade:null},
+  {id:'CS460',  code:'CS 460', name:'Security',          cr:3,pre:['CS330','CS360'],   sem:4,state:'locked',     grade:null},
+  {id:'ELECTB', code:'Elective',name:'Tech Elective B',  cr:3,pre:[],                 sem:4,state:'available',  grade:null},
+  {id:'ELECTC', code:'Elective',name:'Tech Elective C',  cr:3,pre:[],                 sem:4,state:'available',  grade:null},
+  {id:'CS480',  code:'CS 480', name:'Capstone II',       cr:3,pre:['CS450'],           sem:5,state:'locked',     grade:null},
+  {id:'CS490',  code:'CS 490', name:'Senior Seminar',    cr:3,pre:['CS480'],           sem:5,state:'locked',     grade:null},
+  {id:'ELECTD', code:'Elective',name:'Tech Elective D',  cr:3,pre:[],                 sem:5,state:'available',  grade:null},
+  {id:'FREEELEC',code:'Elective',name:'Free Elective',   cr:3,pre:[],                 sem:5,state:'available',  grade:null},
 ];
-
-// Initial state: Year 1 + Year 2 Fall = completed; Year 2 Spring = in progress
-let dpDone = new Set([
-  'ENGL101','MATH115','CS101','ECON101',
-  'MATH130','CS150','ENGL102','PHIL101',
-  'MATH220','CS200','MATH215','STAT250'
-]);
-let dpProg = new Set(['CS250','CS260','MATH310','CS270']);
-let dpDropMode = false;
-
-function dpStatus(c) {
-  if (dpDone.has(c.id)) return 'dp-completed';
-  if (dpProg.has(c.id)) return 'dp-in-progress';
-  const ok = c.pre.every(p => dpDone.has(p) || dpProg.has(p));
-  if (!ok) return 'dp-blocked';
-  return c.type === 'elective' ? 'dp-elective' : 'dp-recommended';
-}
-
-// BFS: courses that depend (directly or transitively) on id and aren't yet done
-function dpImpact(id) {
-  const hit = new Set();
-  const q = [id], seen = new Set([id]);
-  while (q.length) {
-    const cur = q.shift();
-    DP.forEach(c => {
-      if (seen.has(c.id) || dpDone.has(c.id)) return;
-      if (!c.pre.includes(cur)) return;
-      seen.add(c.id); hit.add(c.id); q.push(c.id);
-    });
-  }
-  return hit;
-}
-
-function dpCompletedCr() {
-  return DP.filter(c => dpDone.has(c.id)).reduce((s,c) => s + c.cr, 0);
-}
-
-const DP_COL = {
-  'dp-completed':'#00c9a7','dp-in-progress':'#3d72ff',
-  'dp-recommended':'#6C63FF','dp-elective':'#cc8400','dp-blocked':'#242436'
+const PW_UNLOCKS = {
+  CS200:['CS250','CS260'],MATH215:['CS260'],MATH220:['MATH310'],STAT250:['CS370'],
+  CS250:['CS270'],CS260:['CS330','CS340','CS350','CS360','CS370','ELECTA'],
+  CS270:['CS330','CS360'],CS330:['CS380','CS460'],CS350:['CS450'],
+  CS360:['CS460'],CS450:['CS480'],CS480:['CS490'],
 };
-const DP_OP = {
-  'dp-completed':0.6,'dp-in-progress':0.55,
-  'dp-recommended':0.55,'dp-elective':0.5,'dp-blocked':0.14
+const PW_LINES = [
+  ['CS200','CS250'],['CS200','CS260'],['MATH215','CS260'],['MATH220','MATH310'],
+  ['STAT250','CS370'],['CS250','CS270'],['CS260','CS330'],['CS260','CS340'],
+  ['CS260','CS350'],['CS260','CS360'],['CS270','CS330'],['CS270','CS360'],
+  ['CS260','CS370'],['CS330','CS380'],['CS330','CS460'],['CS360','CS460'],
+  ['CS350','CS450'],['CS450','CS480'],['CS480','CS490'],
+];
+const PW_DROP = {
+  CS330:{blocked:['CS 380 · Prog. Languages','CS 460 · Security'],risk:true,delay:'1 semester',cr:9},
+  CS340:{blocked:[],risk:false,delay:'None',cr:3},
+  CS350:{blocked:['CS 450 · Capstone I','CS 480 · Capstone II','CS 490 · Senior Seminar'],risk:true,delay:'Graduation risk',cr:12},
+  CS360:{blocked:['CS 460 · Security'],risk:false,delay:'1 semester',cr:6},
 };
+const PW_NOTES = {
+  CS330:'Strong start — OS concurrency concepts clicking well. Watch the midterm scheduling section.',
+  CS340:'SQL fundamentals solid. Next unit: query optimization and indexing.',
+  CS350:'Team project on track. Peer review milestone due Week 11.',
+  CS360:'Network layer lab complete. Moving into transport protocols this week.',
+};
+const pwById = {};
+PW_COURSES.forEach(c => { pwById[c.id] = c; });
 
-function dpRender() {
-  const canvas = document.getElementById('dp-canvas');
-  if (!canvas) return;
-  [...canvas.children].forEach(ch => { if (ch.id !== 'dp-svg') ch.remove(); });
+function pwIcon(s){return{completed:'✓','in-progress':'◉',available:'○',locked:'🔒'}[s]||''}
 
-  const bySem = {};
-  DP.forEach(c => { (bySem[c.sem] = bySem[c.sem] || []).push(c); });
-
-  DP_SEMS.forEach(s => {
-    const col = document.createElement('div');
-    col.className = 'dp-col';
-    const lbl = document.createElement('div');
-    lbl.className = 'dp-sem-lbl';
-    lbl.innerHTML = s.lbl + '<span class="dp-sem-sub">' + s.sub + '</span>';
-    col.appendChild(lbl);
-    const wrap = document.createElement('div');
-    wrap.className = 'dp-nodes';
-    (bySem[s.id] || []).forEach(c => {
-      const st = dpStatus(c);
-      const nd = document.createElement('div');
-      nd.className = 'dp-node ' + st;
-      nd.id = 'dpn-' + c.id;
-      nd.innerHTML =
-        '<div class="dp-code">' + c.code + '</div>' +
-        '<div class="dp-name">' + c.name + '</div>' +
-        (st === 'dp-blocked' ? '<span class="dp-lock">&#x1F512;</span>' : '') +
-        '<span class="dp-cr">' + c.cr + 'cr</span>';
-      nd.addEventListener('click', () => dpClick(c));
-      nd.addEventListener('mouseenter', e => dpTip(e, c));
-      nd.addEventListener('mousemove', dpMoveTip);
-      nd.addEventListener('mouseleave', dpHideTip);
-      wrap.appendChild(nd);
-    });
-    col.appendChild(wrap);
-    canvas.appendChild(col);
-  });
-
-  const cr = dpCompletedCr();
-  const lb = document.getElementById('dp-cred-label');
-  const fl = document.getElementById('dp-prog-fill');
-  if (lb) lb.textContent = cr + ' / 128 credits completed';
-  if (fl) fl.style.width = (cr / 128 * 100).toFixed(1) + '%';
-
-  requestAnimationFrame(dpArrows);
+function pwCard(c){
+  return `<div class="pw-card ${c.state}" id="pw-card-${c.id}">
+    <div>
+      <div class="pw-ctop"><span class="pw-code">${c.code}</span><span class="pw-icon">${pwIcon(c.state)}</span></div>
+      <div class="pw-cname">${c.name}</div>
+    </div>
+    <div class="pw-cfoot"><span class="pw-cr">${c.cr} cr</span>${c.grade?`<span class="pw-grade">${c.grade}</span>`:''}</div>
+  </div>`;
 }
 
-function dpClick(c) {
-  if (dpDropMode) return;
-  const st = dpStatus(c);
-  if (st === 'dp-completed') {
-    dpDone.delete(c.id);
-  } else if (st !== 'dp-blocked') {
-    dpDone.add(c.id);
-    dpProg.delete(c.id);
-  }
-  dpRender();
-}
-
-function dpArrows() {
-  const svg = document.getElementById('dp-svg');
-  const canvas = document.getElementById('dp-canvas');
-  if (!svg || !canvas) return;
-  svg.setAttribute('width', canvas.scrollWidth);
-  svg.setAttribute('height', canvas.scrollHeight);
-  svg.innerHTML = '';
-
-  // Arrowhead markers per status
-  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-  Object.entries(DP_COL).forEach(([k, col]) => {
-    const m = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-    m.setAttribute('id', 'dpa-' + k);
-    m.setAttribute('markerWidth', '6');
-    m.setAttribute('markerHeight', '4');
-    m.setAttribute('refX', '5');
-    m.setAttribute('refY', '2');
-    m.setAttribute('orient', 'auto');
-    const p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    p.setAttribute('points', '0 0,6 2,0 4');
-    p.setAttribute('fill', col);
-    p.setAttribute('opacity', k === 'dp-blocked' ? '0.22' : '0.7');
-    m.appendChild(p);
-    defs.appendChild(m);
+function pwRender(){
+  const wrap = document.getElementById('pw-lvls');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  PW_SEM.forEach((s,si) => {
+    const courses = PW_COURSES.filter(c => c.sem === si);
+    const el = document.createElement('div');
+    el.className = `pw-level ${s.status}`;
+    let badge = '';
+    if (s.status==='cleared') badge=`<span class="pw-lbadge pw-cleared">CLEARED ✓</span>`;
+    else if (s.status==='current') badge=`<span class="pw-lbadge pw-inprog"><span class="pw-pdot"></span>IN PROGRESS</span>`;
+    el.innerHTML = `<div class="pw-lhdr"><span class="pw-lnum">Level ${s.level}</span><span class="pw-lname">— ${s.name}</span><span class="pw-lsep"></span>${badge}</div><div class="pw-grid">${courses.map(pwCard).join('')}</div>`;
+    wrap.appendChild(el);
   });
-  svg.appendChild(defs);
-
-  const cr = canvas.getBoundingClientRect();
-
-  DP.forEach(tgt => {
-    tgt.pre.forEach(pid => {
-      const src = DP.find(x => x.id === pid);
-      if (!src) return;
-      const se = document.getElementById('dpn-' + src.id);
-      const te = document.getElementById('dpn-' + tgt.id);
-      if (!se || !te) return;
-      const sr = se.getBoundingClientRect();
-      const tr = te.getBoundingClientRect();
-      const sx = sr.right  - cr.left;
-      const sy = sr.top + sr.height / 2 - cr.top;
-      const ex = tr.left   - cr.left;
-      const ey = tr.top + tr.height / 2 - cr.top;
-      const st = dpStatus(src);
-      const col = DP_COL[st] || '#333';
-      const op  = DP_OP[st]  || 0.15;
-      const cp  = Math.min(Math.abs(ex - sx) * 0.45, 130);
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', `M${sx},${sy} C${sx+cp},${sy} ${ex-cp},${ey} ${ex},${ey}`);
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', col);
-      path.setAttribute('stroke-width', '1.5');
-      path.setAttribute('stroke-opacity', op);
-      path.setAttribute('marker-end', 'url(#dpa-' + st + ')');
-      svg.appendChild(path);
-    });
+  PW_COURSES.forEach(c => {
+    const el = document.getElementById(`pw-card-${c.id}`);
+    if (!el) return;
+    if (c.state==='locked'){
+      el.addEventListener('mouseenter',e=>pwLockTip(e,c));
+      el.addEventListener('mousemove',pwMoveTip);
+      el.addEventListener('mouseleave',pwHideTip);
+    } else if (c.state==='completed'){
+      el.addEventListener('click',()=>pwOpenAch(c));
+      el.addEventListener('mouseenter',e=>pwDoneTip(e,c));
+      el.addEventListener('mousemove',pwMoveTip);
+      el.addEventListener('mouseleave',pwHideTip);
+    } else if (c.state==='in-progress'){
+      el.addEventListener('click',()=>pwOpenProg(c));
+    } else {
+      el.addEventListener('click',()=>pwOpenAvail(c));
+    }
   });
 }
 
-function dpToggleDrop() {
-  dpDropMode = !dpDropMode;
-  const btn = document.getElementById('dp-drop-btn');
-  if (btn) {
-    btn.classList.toggle('active', dpDropMode);
-    btn.textContent = dpDropMode ? 'Drop Impact: ON' : 'Drop Impact';
-  }
-  if (!dpDropMode) {
-    document.querySelectorAll('.dp-drop-impact').forEach(n => n.classList.remove('dp-drop-impact'));
-  }
+function pwStroke(s){return{completed:'#5B8C6E','in-progress':'#6B7FD4',available:'#3A3D52',locked:'#252836'}[s]||'#3A3D52'}
+
+function pwDrawLines(){
+  const svg = document.getElementById('pw-svg');
+  const main = document.getElementById('pw-main');
+  if (!svg || !main) return;
+  const mR = main.getBoundingClientRect();
+  svg.setAttribute('height', main.scrollHeight);
+  svg.setAttribute('width', main.offsetWidth);
+  let p = '';
+  PW_LINES.forEach(([aId,bId]) => {
+    const aEl = document.getElementById(`pw-card-${aId}`);
+    const bEl = document.getElementById(`pw-card-${bId}`);
+    if (!aEl || !bEl) return;
+    const aR = aEl.getBoundingClientRect();
+    const bR = bEl.getBoundingClientRect();
+    const x1 = aR.left-mR.left+aR.width/2, y1 = aR.top-mR.top+aR.height;
+    const x2 = bR.left-mR.left+bR.width/2, y2 = bR.top-mR.top;
+    const dy = y2-y1, c1y = y1+dy*.38, c2y = y1+dy*.62;
+    const src = pwById[aId];
+    const col = pwStroke(src?.state);
+    const op = src?.state==='completed'?.22:src?.state==='in-progress'?.18:.09;
+    const dash = src?.state==='completed'?'':'stroke-dasharray="4 5"';
+    p += `<path d="M${x1},${y1} C${x1},${c1y} ${x2},${c2y} ${x2},${y2}" fill="none" stroke="${col}" stroke-width="1.5" stroke-opacity="${op}" ${dash}/>`;
+  });
+  svg.innerHTML = p;
 }
 
-function dpTip(e, c) {
-  const tip = document.getElementById('dp-tooltip');
-  if (!tip) return;
-  const st = dpStatus(c);
-  const stLbl = {
-    'dp-completed':'Completed',
-    'dp-in-progress':'In Progress',
-    'dp-recommended':'Recommended Next',
-    'dp-blocked':'Blocked — prereqs not met',
-    'dp-elective':'Elective (available)'
-  }[st] || st;
-  const preNames = c.pre.map(p => { const f = DP.find(x => x.id === p); return f ? f.code : p; });
-  let hint = '';
-  if (!dpDropMode) {
-    if (st === 'dp-completed') hint = '<div class="dp-tt-hint">Click to unmark</div>';
-    else if (st !== 'dp-blocked') hint = '<div class="dp-tt-hint">Click to mark completed</div>';
-  } else {
-    hint = '<div class="dp-tt-hint" style="color:#ff9090">Hover shows what this course unlocks</div>';
-  }
-  tip.innerHTML =
-    '<div class="dp-tt-code">' + c.code + ' · ' + stLbl + '</div>' +
-    '<div class="dp-tt-name">' + c.name + '</div>' +
-    '<span class="dp-tt-cr">' + c.cr + ' credits</span>' +
-    '<div class="dp-tt-desc">' + c.desc + '</div>' +
-    (preNames.length
-      ? '<div class="dp-tt-pre"><strong>Prereqs:</strong> ' + preNames.join(', ') + '</div>'
-      : '<div class="dp-tt-pre" style="color:rgba(255,255,255,0.22)">No prerequisites</div>') +
-    hint;
-  tip.style.display = 'block';
-  dpMoveTip(e);
-  if (dpDropMode) {
-    document.querySelectorAll('.dp-drop-impact').forEach(n => n.classList.remove('dp-drop-impact'));
-    dpImpact(c.id).forEach(id => {
-      const el = document.getElementById('dpn-' + id);
-      if (el) el.classList.add('dp-drop-impact');
-    });
-  }
+const pwTip = document.getElementById('pw-tip');
+function pwLockTip(e,c){
+  const miss = c.pre.filter(p=>pwById[p]?.state!=='completed').map(p=>pwById[p]?.code||p).join(', ');
+  pwTip.innerHTML=`<div class="pw-tt">🔒 ${c.name}</div><div class="pw-ts">Complete first: <strong>${miss||'Prerequisites required'}</strong></div>`;
+  pwPosTip(e); pwTip.classList.add('show');
+}
+function pwDoneTip(e,c){
+  const u=(PW_UNLOCKS[c.id]||[]).map(id=>pwById[id]?.code).filter(Boolean).join(', ');
+  pwTip.innerHTML=`<div class="pw-tt">✓ ${c.name}</div><div class="pw-ts">${PW_SEM[c.sem].name} · Grade: <strong>${c.grade}</strong>${u?`<br>Unlocks: ${u}`:''}</div>`;
+  pwPosTip(e); pwTip.classList.add('show');
+}
+function pwPosTip(e){const w=215,h=85,pad=13;let x=e.clientX+pad,y=e.clientY+pad;if(x+w>window.innerWidth)x=e.clientX-w-pad;if(y+h>window.innerHeight)y=e.clientY-h-pad;pwTip.style.left=x+'px';pwTip.style.top=y+'px'}
+function pwMoveTip(e){pwPosTip(e)}
+function pwHideTip(){pwTip.classList.remove('show')}
+
+function pwOpenAch(c){
+  const u=(PW_UNLOCKS[c.id]||[]).map(id=>pwById[id]?.name).filter(Boolean);
+  document.getElementById('pw-ach-card').innerHTML=`<div class="pw-ach"><button class="pw-xbtn" onclick="pwCloseAch()">✕</button><span class="pw-emoji">🏆</span><div class="pw-eye">Achievement Unlocked</div><div class="pw-atitle">${c.name}</div><div class="pw-asub">${c.code} · ${PW_SEM[c.sem].name}</div><div class="pw-agrid"><div class="pw-acell"><div class="pw-aclbl">Grade</div><div class="pw-acval">${c.grade}</div></div><div class="pw-acell"><div class="pw-aclbl">Credits</div><div class="pw-acval">${c.cr}</div></div></div><div class="pw-anote"><strong>Unlocks →</strong> ${u.length?u.join(', '):'No direct dependents'}</div><button class="pw-abtn" onclick="pwCloseAch()">Continue</button></div>`;
+  document.getElementById('pw-ach-bd').classList.add('open');
+}
+function pwOpenProg(c){
+  document.getElementById('pw-ach-card').innerHTML=`<div class="pw-ach prog"><button class="pw-xbtn" onclick="pwCloseAch()">✕</button><span class="pw-emoji">◉</span><div class="pw-eye">In Progress · ${PW_SEM[c.sem].name}</div><div class="pw-atitle">${c.name}</div><div class="pw-asub">${c.code} · ${c.cr} credits</div><div class="pw-agrid"><div class="pw-acell"><div class="pw-aclbl">Status</div><div class="pw-acval" style="color:#6B7FD4;font-size:12px">Enrolled</div></div><div class="pw-acell"><div class="pw-aclbl">Credits</div><div class="pw-acval">${c.cr}</div></div></div><div class="pw-anote"><strong>Advisor Note →</strong> ${PW_NOTES[c.id]||'No recent notes.'}</div><button class="pw-abtn" onclick="pwCloseAch()">Close</button></div>`;
+  document.getElementById('pw-ach-bd').classList.add('open');
+}
+function pwOpenAvail(c){
+  const pre=c.pre.map(p=>pwById[p]?.name||p).join(', ');
+  document.getElementById('pw-ach-card').innerHTML=`<div class="pw-ach avail"><button class="pw-xbtn" onclick="pwCloseAch()">✕</button><span class="pw-emoji">○</span><div class="pw-eye">Upcoming · ${PW_SEM[c.sem].name}</div><div class="pw-atitle">${c.name}</div><div class="pw-asub">${c.code} · ${c.cr} credits</div><div class="pw-agrid"><div class="pw-acell"><div class="pw-aclbl">Credits</div><div class="pw-acval">${c.cr}</div></div><div class="pw-acell"><div class="pw-aclbl">Status</div><div class="pw-acval" style="color:#8B85CC;font-size:11px">Ready to register</div></div></div>${pre?`<div class="pw-anote"><strong>Prerequisites →</strong> ${pre}</div>`:''}<button class="pw-abtn" onclick="pwCloseAch()">Close</button></div>`;
+  document.getElementById('pw-ach-bd').classList.add('open');
+}
+function pwCloseAch(){document.getElementById('pw-ach-bd').classList.remove('open')}
+
+function pwOpenModal(){document.getElementById('pw-msel').value='';document.getElementById('pw-imp').innerHTML='';document.getElementById('pw-imp').classList.remove('show');document.getElementById('pw-modal-bd').classList.add('open')}
+function pwCloseModal(){document.getElementById('pw-modal-bd').classList.remove('open')}
+function pwBdClick(e,id){if(e.target===document.getElementById(id)){id==='pw-ach-bd'?pwCloseAch():pwCloseModal()}}
+
+function pwCalcImpact(){
+  const key=document.getElementById('pw-msel').value;
+  const el=document.getElementById('pw-imp');
+  if(!key){el.classList.remove('show');return}
+  const d=PW_DROP[key]; if(!d) return;
+  const bl=d.blocked.length?d.blocked.map(b=>`<div class="pw-bitem"><div class="pw-bdot"></div>${b}</div>`).join(''):`<div class="pw-bitem safe"><div class="pw-bdot"></div>No downstream courses blocked</div>`;
+  const dn=d.risk?`<div class="pw-dnote risk">⚠ <strong>Graduation delay risk:</strong> ${d.delay}. Speak with your advisor before dropping.</div>`:`<div class="pw-dnote safe">✓ Estimated delay: <strong>${d.delay}</strong>. Lower risk, but still review with your advisor.</div>`;
+  el.innerHTML=`<div class="pw-isum"><div class="pw-istat ${d.blocked.length>1?'danger':d.blocked.length?'warn':'ok'}"><div class="pw-ival">${d.blocked.length}</div><div class="pw-ikey">Blocked</div></div><div class="pw-istat ${d.cr>9?'danger':d.cr>3?'warn':'ok'}"><div class="pw-ival">${d.cr}</div><div class="pw-ikey">Credits at Risk</div></div><div class="pw-istat ${d.risk?'danger':'ok'}"><div class="pw-ival" style="font-size:14px;padding-top:3px">${d.risk?'⚠':'✓'}</div><div class="pw-ikey">Grad Risk</div></div></div><div class="pw-blbl">Blocked Courses</div><div class="pw-blist">${bl}</div>${dn}`;
+  el.classList.add('show');
 }
 
-function dpMoveTip(e) {
-  const tip = document.getElementById('dp-tooltip');
-  if (!tip || tip.style.display === 'none') return;
-  const x = e.clientX + 14, y = e.clientY - 8;
-  const w = tip.offsetWidth || 220, h = tip.offsetHeight || 160;
-  tip.style.left = (x + w > window.innerWidth - 8 ? e.clientX - w - 14 : x) + 'px';
-  tip.style.top  = Math.max(8, Math.min(y, window.innerHeight - h - 8)) + 'px';
+let pwXpDone = false;
+function pwInitXp(){
+  if(pwXpDone) return; pwXpDone=true;
+  setTimeout(()=>{const f=document.getElementById('pw-xpf');if(f)f.style.width='53.9%'},150);
 }
 
-function dpHideTip() {
-  const tip = document.getElementById('dp-tooltip');
-  if (tip) tip.style.display = 'none';
-  if (dpDropMode) {
-    document.querySelectorAll('.dp-drop-impact').forEach(n => n.classList.remove('dp-drop-impact'));
-  }
-}
-
-// Also redraw arrows on window resize
-window.addEventListener('resize', dpArrows);
-
-// Kick off initial render
-dpRender();
+window.addEventListener('resize',()=>{clearTimeout(window._pwRT);window._pwRT=setTimeout(pwDrawLines,160)});
+pwRender();
+setTimeout(pwDrawLines,150);
+pwInitXp();
 
 </script>
