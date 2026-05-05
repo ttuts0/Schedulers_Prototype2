@@ -243,6 +243,83 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 .pw-dnote.safe{background:rgba(91,140,110,.08);border:1px solid rgba(91,140,110,.15);color:#9EC4AE}
 .pw-mcbtn{width:100%;background:rgba(255,255,255,.05);border:none;border-radius:9px;padding:10px;color:#E8E6F0;font-size:13px;font-weight:500;cursor:pointer;margin-top:16px;transition:background .18s}
 .pw-mcbtn:hover{background:rgba(255,255,255,.09)}
+/* elective picker */
+.pw-ach.elec{max-width:420px;border-color:rgba(139,133,204,.25)}
+.pw-eopts{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.pw-eopt{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:9px 12px}
+.pw-eopt-top{background:rgba(139,133,204,.1);border-color:rgba(139,133,204,.22)}
+.pw-erank{font-size:10px;font-weight:700;color:#52506A;white-space:nowrap;padding-top:1px;min-width:60px}
+.pw-eopt-top .pw-erank{color:#8B85CC}
+.pw-einfo{flex:1;min-width:0}
+.pw-ename{font-size:12px;font-weight:600;color:#C8C5DC}
+.pw-eopt-top .pw-ename{color:#BDB9E8}
+.pw-ewhy{font-size:11px;color:#9B99B0;margin-top:2px;line-height:1.4}
+.pw-alex-btn{width:100%;background:rgba(107,127,212,.08);border:1px solid rgba(107,127,212,.18);border-radius:9px;padding:9px 13px;color:#6B7FD4;font-size:12px;font-weight:600;cursor:pointer;margin-bottom:10px;transition:background .18s;text-align:left}
+.pw-alex-btn:hover{background:rgba(107,127,212,.15)}
+.pw-alex-exp{background:rgba(107,127,212,.07);border:1px solid rgba(107,127,212,.14);border-radius:9px;padding:10px 13px;font-size:12px;color:#9B99B0;line-height:1.6;margin-bottom:12px;display:none}
+.pw-alex-exp.open{display:block}
+.pw-alex-exp strong{color:#8B9EE4}
+/* elective card picker */
+.pw-elec-wrap{border-radius:11px;padding:12px 13px;display:flex;flex-direction:column;gap:7px;background:rgba(58,61,82,.55);border:1px solid rgba(255,255,255,.07);cursor:default}
+.pw-elec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.pw-elec-title{font-size:11px;font-weight:700;color:#9B99B0;text-transform:uppercase;letter-spacing:.04em}
+.pw-elec-cr{font-size:10px;color:#52506A;font-weight:600}
+.pw-elec-list{display:flex;flex-direction:column;gap:4px}
+.pw-eitem{display:flex;align-items:flex-start;gap:7px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:7px;padding:7px 9px;cursor:pointer;transition:background .15s,border-color .15s}
+.pw-eitem:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)}
+.pw-eitem-1{background:rgba(139,133,204,.1);border-color:rgba(139,133,204,.22)}
+.pw-eitem-1:hover{background:rgba(139,133,204,.16);border-color:rgba(139,133,204,.35)}
+.pw-eitem-sel{background:rgba(91,140,110,.15)!important;border-color:rgba(91,140,110,.35)!important}
+.pw-eitem-rank{font-size:10px;font-weight:700;color:#52506A;min-width:16px;padding-top:1px;flex-shrink:0}
+.pw-eitem-1 .pw-eitem-rank{color:#8B85CC}
+.pw-eitem-body{flex:1;min-width:0}
+.pw-eitem-top{display:flex;align-items:baseline;gap:6px}
+.pw-eitem-code{font-size:10px;font-weight:700;color:#9B99B0}
+.pw-eitem-name{font-size:11px;font-weight:600;color:#C8C5DC}
+.pw-eitem-1 .pw-eitem-name{color:#BDB9E8}
+.pw-eitem-rec{font-size:9px;color:#8B85CC;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.pw-eitem-check{font-size:11px;color:#5B8C6E;font-weight:700;flex-shrink:0;padding-top:1px}
+.pw-ask-alex{background:none;border:none;color:#6B7FD4;font-size:10px;font-weight:600;cursor:pointer;opacity:.65;transition:opacity .15s;padding:0;align-self:flex-end;margin-top:2px}
+.pw-ask-alex:hover{opacity:1}
+.pw-elec-tip{position:fixed;background:#21233A;border:1px solid rgba(139,133,204,.28);border-radius:11px;padding:12px 15px;max-width:230px;font-size:12px;color:#E8E6F0;pointer-events:none;z-index:9999;opacity:0;transition:opacity .15s;line-height:1.55;box-shadow:0 6px 24px rgba(0,0,0,.45)}
+.pw-elec-tip.show{opacity:1}
+.pw-etip-name{font-size:11px;font-weight:700;color:#8B85CC;margin-bottom:5px}
+/* major/minor explorer */
+.pw-exp-wrap{margin:0 0 18px;border-radius:12px;border:1px solid rgba(255,255,255,.08);overflow:hidden;background:rgba(28,30,46,.7)}
+.pw-exp-toggle{width:100%;background:none;border:none;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;color:#C8C5DC;font-size:13px;font-weight:600;text-align:left;transition:background .15s;gap:8px}
+.pw-exp-toggle:hover{background:rgba(255,255,255,.04)}
+.pw-exp-tl{display:flex;align-items:center;gap:8px}
+.pw-exp-ticon{font-size:15px}
+.pw-exp-chevron{color:#52506A;font-size:11px;transition:transform .2s;flex-shrink:0}
+.pw-exp-chevron.open{transform:rotate(180deg)}
+.pw-exp-panel{padding:0 14px 14px;display:none}
+.pw-exp-panel.open{display:block;animation:pwExpFade .2s ease}
+@keyframes pwExpFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.pw-exp-sel{width:100%;background:#181A2C;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 11px;color:#C8C5DC;font-size:13px;margin-bottom:13px;outline:none;cursor:pointer;transition:border-color .15s}
+.pw-exp-sel:focus{border-color:rgba(139,133,204,.4)}
+.pw-exp-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:11px}
+.pw-exp-easy{background:rgba(91,140,110,.18);color:#5B8C6E;border:1px solid rgba(91,140,110,.3)}
+.pw-exp-possible{background:rgba(139,133,204,.14);color:#8B85CC;border:1px solid rgba(139,133,204,.28)}
+.pw-exp-risky{background:rgba(196,129,58,.14);color:#C4813A;border:1px solid rgba(196,129,58,.28)}
+.pw-exp-no{background:rgba(180,60,60,.12);color:#B44040;border:1px solid rgba(180,60,60,.22)}
+.pw-exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.pw-exp-cell{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:9px 11px}
+.pw-exp-cv{font-size:20px;font-weight:800;color:#E8E6F0;line-height:1}
+.pw-exp-rval .pw-exp-cv{color:#C4813A}
+.pw-exp-nval .pw-exp-cv{color:#B44040}
+.pw-exp-gval .pw-exp-cv{color:#5B8C6E}
+.pw-exp-ck{font-size:10px;color:#52506A;margin-top:3px}
+.pw-exp-overlap{margin-bottom:11px}
+.pw-exp-olbl{font-size:11px;color:#9B99B0;margin-bottom:5px}
+.pw-exp-none{font-size:11px;color:#8B6060;font-style:italic}
+.pw-exp-opill{display:inline-block;background:rgba(91,140,110,.1);border:1px solid rgba(91,140,110,.22);color:#9EC4AE;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;margin:2px 3px 2px 0}
+.pw-exp-alex{display:flex;gap:10px;background:rgba(107,127,212,.07);border:1px solid rgba(107,127,212,.13);border-radius:10px;padding:12px 13px}
+.pw-exp-aav{width:28px;height:28px;border-radius:50%;background:rgba(107,127,212,.18);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px}
+.pw-exp-atxt{font-size:12px;color:#B8B5C8;line-height:1.6;flex:1;min-width:0}
+.pw-exp-atxt strong{color:#8B9EE4}
+.pw-exp-askbtn{display:inline-block;margin-top:8px;background:none;border:none;color:#6B7FD4;font-size:11px;font-weight:600;cursor:pointer;padding:0;opacity:.75;transition:opacity .15s}
+.pw-exp-askbtn:hover{opacity:1}
+.pw-level.exp-affected{outline:1px solid rgba(196,129,58,.28);border-radius:12px;background:rgba(196,129,58,.03)!important}
 @media(max-width:720px){.pw-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.pw-sdiv{display:none}.pw-stats{gap:12px}}
 </style>
@@ -294,17 +371,17 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
       <button class="pw-dbtn" onclick="pwOpenModal()">&#9889; Drop Impact</button>
     </div>
     <div class="pw-xps">
-      <div class="pw-xpl"><span>&#9108; 69 / 128 credits &middot; Level 6 Unlocked</span><span>53.9%</span></div>
+      <div class="pw-xpl"><span>&#9108; 69 / 128 credits &middot; Level 3 · In Progress</span><span>53.9%</span></div>
       <div class="pw-xpt"><div class="pw-xpf" id="pw-xpf"></div></div>
     </div>
     <div class="pw-stats">
-      <div class="pw-stat"><div class="pw-sv">4</div><div class="pw-sk">Semesters Cleared</div></div>
+      <div class="pw-stat"><div class="pw-sv">2</div><div class="pw-sk">Semesters Cleared</div></div>
       <div class="pw-sdiv"></div>
       <div class="pw-stat"><div class="pw-sv">18</div><div class="pw-sk">Courses Unlocked</div></div>
       <div class="pw-sdiv"></div>
       <div class="pw-stat"><div class="pw-sv">3.2</div><div class="pw-sk">GPA</div></div>
       <div class="pw-sdiv"></div>
-      <div class="pw-stat"><div class="pw-sv ok">May 2026</div><div class="pw-sk">On Track</div></div>
+      <div class="pw-stat"><div class="pw-sv ok">May 2027</div><div class="pw-sk">On Track</div></div>
     </div>
   </div>
   <div class="pw-scroll">
@@ -331,6 +408,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
     </div>
   </div>
   <div class="pw-tip" id="pw-tip"></div>
+  <div class="pw-elec-tip" id="pw-elec-tip"></div>
 </div>
 
 <!-- COACH VIEW -->
@@ -345,25 +423,26 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
       <div style="font-size:11px;color:var(--muted);text-align:right">Registration<br><strong style="color:var(--coral)">Jan 15 · 8 days</strong></div>
     </div>
     <div class="ctx-pills" id="ctx-pills">
-      <div class="pill bad">GPA <strong>2.7 ↓</strong></div>
-      <div class="pill warn">4 sems declining</div>
-      <div class="pill">72 <strong>/128 cr</strong></div>
-      <div class="pill warn">No 8am · <strong>max 15cr</strong></div>
-      <div class="pill p">Goal: <strong>Internship</strong></div>
-      <div class="pill good">Strong: <strong>MGT/ECON</strong></div>
+      <div class="pill bad">GPA <strong>3.2 ↓</strong></div>
+      <div class="pill warn">Heavy sem · 4 courses</div>
+      <div class="pill">69 <strong>/128 cr</strong></div>
+      <div class="pill warn">No 8am · <strong>max 16cr</strong></div>
+      <div class="pill p">Goal: <strong>SWE Internship</strong></div>
+      <div class="pill good">Strong: <strong>Algorithms</strong></div>
     </div>
   </div>
   <div class="chat-scroll" id="cs">
     <div class="mrow">
       <div class="bav bav-ai">🎓</div>
-      <div><div class="bub ai">Hey Jordan! I've pulled your full transcript, checked your prereq chain, and read all your advisor notes.<br><br><span class="w">Your GPA has dropped 4 semesters in a row</span> — and I know exactly why. Every time you've loaded up on quant courses, it drops. Every MGT/ECON-heavy semester, it holds.<br><br>Registration is in 8 days. What do you want to tackle first?</div></div>
+      <div><div class="bub ai">Hey Jordan! I've synced your full transcript, checked every prereq chain, and read all your advisor notes.<br><br><span class="w">OS + Databases + Software Eng. + Networks all in one semester</span> — that's the heaviest CS core load in this degree. You stacked all four at once.<br><br>Registration for Spring 2025 opens January 15th — 8 days away. What do you want to tackle first?</div></div>
     </div>
   </div>
   <div class="qs" id="qs">
-    <div class="qc" onclick="doQ(this,'pattern')">Show me the pattern</div>
-    <div class="qc" onclick="doQ(this,'next')">Build my Fall schedule</div>
+    <div class="qc" onclick="doQ(this,'pattern')">Show me my grade pattern</div>
+    <div class="qc" onclick="doQ(this,'next')">Build my Spring 2025 schedule</div>
     <div class="qc" onclick="doQ(this,'drop')">Can I drop a class?</div>
     <div class="qc" onclick="doQ(this,'olsen')">What did Dr. Olsen say?</div>
+    <div class="qc" onclick="doQ(this,'major-minor')">Can I add a major or minor?</div>
   </div>
   <div class="inp-row">
     <input class="cinp" id="ci" placeholder="Ask Alex anything about your degree..." onkeydown="if(event.key==='Enter')send()">
@@ -391,8 +470,8 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 <script>
 const takes = {};
 const courseNames = {
-  math250:'MATH 250',fin215:'FIN 215',mgt450:'MGT 450',bus301:'BUS 301',
-  fin310:'FIN 310',acct301:'ACCT 301',fin420:'FIN 420',fin480:'FIN 480'
+  cs330:'CS 330', cs340:'CS 340', cs350:'CS 350', cs360:'CS 360',
+  cs370:'CS 370', cs380:'CS 380', phil310:'PHIL 310', cs415:'CS 415'
 };
 
 function setTake(course, val, btn) {
@@ -410,18 +489,18 @@ function setTake(course, val, btn) {
   updateCtxPills();
   updateQtCount();
 
-  // If they say no to MATH 250, Alex reacts immediately
-  if (course === 'math250' && val === 'no') {
+  // If they mark CS 330 as no, Alex warns about cascade
+  if (course === 'cs330' && val === 'no') {
     setTimeout(() => {
       sw('coach', null);
-      setTimeout(() => doQ(null, 'math250-no'), 200);
+      setTimeout(() => doQ(null, 'cs330-no'), 200);
     }, 400);
   }
-  // If they say yes to ACCT 301, Alex reacts
-  if (course === 'acct301' && val === 'yes') {
+  // If they mark CS 370 as yes, Alex reacts positively
+  if (course === 'cs370' && val === 'yes') {
     setTimeout(() => {
       sw('coach', null);
-      setTimeout(() => doQ(null, 'acct301-yes'), 200);
+      setTimeout(() => doQ(null, 'cs370-yes'), 200);
     }, 400);
   }
 }
@@ -444,12 +523,12 @@ function updateLearned() {
 }
 
 function updateCtxPills() {
-  const base = `<div class="pill bad">GPA <strong>2.7 ↓</strong></div>
-    <div class="pill warn">4 sems declining</div>
-    <div class="pill">72 <strong>/128 cr</strong></div>
-    <div class="pill warn">No 8am · <strong>max 15cr</strong></div>
-    <div class="pill p">Goal: <strong>Internship</strong></div>
-    <div class="pill good">Strong: <strong>MGT/ECON</strong></div>`;
+  const base = `<div class="pill bad">GPA <strong>3.2 ↓</strong></div>
+    <div class="pill warn">Heavy sem · 4 courses</div>
+    <div class="pill">69 <strong>/128 cr</strong></div>
+    <div class="pill warn">No 8am · <strong>max 16cr</strong></div>
+    <div class="pill p">Goal: <strong>SWE Internship</strong></div>
+    <div class="pill good">Strong: <strong>Algorithms</strong></div>`;
   const extra = Object.entries(takes).map(([k, v]) =>
     `<div class="pill ${v === 'yes' ? 'good' : v === 'no' ? 'no' : 'maybe'}">${v === 'yes' ? '✓' : v === 'no' ? '✗' : '?'} <strong>${courseNames[k]}</strong></div>`
   ).join('');
@@ -459,52 +538,101 @@ function updateCtxPills() {
 
 const replies = {
   pattern: {
-    msgs: [{t:'ai',txt:'Here\'s the brutal truth about your last 4 semesters:\n\nFall \'22: 3.4 — mostly MGT and ECON\nSpr \'23: 3.1 — added MATH 130 and ACCT 201 together\nFall \'23: 2.9 — two quant courses again\nSpr \'24: 2.7 — FIN 201 dragged you down\n\n<span class="w">Every single drop happened in a semester with 2+ quantitative courses.</span> Your C+ in MATH 130 is the signal I keep coming back to — it means MATH 250 needs to be your ONLY quant course this semester. Not one of two. Not one of three. The only one.'}],
-    chips: ['Build my schedule around that', 'Can I still get a 3.0?', 'What did Dr. Olsen flag?']
+    msgs: [{t:'ai',txt:'Here\'s what I see across your CS record:\n\nYear 1 Fall: <span class="g">3.8</span> — MATH 220, CS 200, MATH 215, STAT 250. Your strongest semester.\nYear 1 Spring: <span class="g">3.5</span> — CS 250, CS 260, MATH 310, CS 270. Solid — especially that B+ in CS 260.\nYear 2 Fall: <span class="w">est. 3.0</span> — OS + Databases + Software Eng. + Networks simultaneously.\n\n<span class="w">Every student I\'ve seen take all four CS core courses in parallel hits turbulence.</span> They\'re designed to build on each other, not run in parallel. The good news: it\'s temporary. Spring is yours to design better.'}],
+    chips: ['Build Spring around this', "Which course is the riskiest right now?", 'What did Dr. Olsen flag?']
   },
   next: {
-    msgs: [{t:'ai',txt:'Based on your grades, your advisor notes, and what you\'ve told me so far — here\'s what I\'d take Fall 2025:\n\n<span class="p">MATH 250 · Prof. Kim · TTh 11am</span> — non-negotiable\n<span class="g">FIN 215 · Financial Markets</span> — internship-relevant\n<span class="g">MGT 450 · Strategy</span> — your strength, GPA booster\n<span class="g">BUS 301 · Business Law</span> — light, clears a req\n\n12 credits · no 8am · 1 quant course only.\n\nIf you haven\'t already, go to the Degree Plan tab and tap ✓ on the ones you like. I\'ll adjust if you push back on anything.'}],
-    chips: ['What about ACCT 301?', 'Will this get me to May 2026?', 'What does Prof. Kim\'s section look like?']
+    msgs: [{t:'ai',txt:'Based on your prereq chain and how this semester looks — here\'s what I\'d take Spring 2025:\n\n<span class="p">CS 370 · AI / ML · TTh 2pm</span> — STAT 250 + CS 260 check out. You\'re ready.\n<span class="g">CS 415 · Compiler Design</span> — #1 tech elective. Locks in your Systems concentration.\n<span class="g">PHIL 310 · Ethics in Tech</span> — no prereqs, lighter load, broadens your program.\n\n9 credits to start. Add CS 380 only if you\'re confident in CS 330 right now — it\'s locked until CS 330 clears anyway.\n\nGo to the Degree Plan, pick your tech elective, and come back. I\'ll adjust the plan around whatever you choose.'}],
+    chips: ['What about CS 380?', 'Will this keep me on track for May 2027?', 'What does the AI/ML track look like?']
   },
   drop: {
-    msgs: [{t:'ai',txt:'Use the Drop Impact Calculator on your Degree Plan — it\'ll show you instantly.\n\nBut quick answer: <span class="g">MGT 310 is safe to drop</span> — it\'s not in your critical prereq chain.\n\n<span class="w">Do not skip MATH 250.</span> That one cascades into 3 blocked courses. Everything else is negotiable. That one isn\'t.'}],
-    chips: ['What if I drop FIN 201?', 'What does Angelo say about my workload?']
+    msgs: [{t:'ai',txt:'Use the Drop Impact tool in your Degree Plan — it shows the exact cascade in two clicks.\n\nQuick answer: <span class="g">CS 340 (Databases) is the safest drop</span> — it has no downstream prereqs in your critical path.\n\n<span class="w">Do not drop CS 330 (Operating Systems).</span> It directly unlocks CS 380, CS 460, and the entire Capstone chain. Dropping it pushes your graduation by at least one full semester.'}],
+    chips: ['What if I drop CS 360?', "What does Angelo say about my load?"]
   },
   olsen: {
-    msgs: [{t:'ai',txt:'Dr. Olsen left two notes I want you to read in the Advisors tab. The big things:\n\n<span class="w">Science & Tech vs Natural Science:</span> You\'re under the 2022 catalog — Science & Tech requirements apply. The BIOL 110 elective you were planning doesn\'t count. This is the kind of thing that catches people in senior year.\n\n<span class="p">Prof. Kim\'s MATH 250:</span> She specifically recommended this section for students who struggled in MATH 130. Smaller class, more office hours. This is a real difference.'}],
-    chips: ['What electives do count?', 'Tell me more about catalog year', 'What did Angelo say?']
+    msgs: [{t:'ai',txt:'Dr. Olsen flagged two things in the Advisor Notes tab — worth reading.\n\n<span class="w">Catalog year matters:</span> You\'re under 2022 catalog — Science & Tech gen-ed requirements apply. Some courses you\'d assume count don\'t. This is the kind of thing that catches people in senior year.\n\n<span class="p">CS 330 is your keystone:</span> She specifically flagged it. CS 380, CS 460, and the full Capstone sequence all unlock from CS 330. She wanted you to know the stakes before making any drop decisions.'}],
+    chips: ['Which gen-eds count for my catalog?', 'Tell me about the Capstone chain', "What did Angelo say?"]
   },
-  'math250-no': {
-    msgs: [{t:'ai',txt:'Hey — I noticed you marked MATH 250 as a no. I want to flag something before you commit to that.\n\n<span class="w">MATH 250 isn\'t optional for your degree.</span> It\'s a hard requirement that directly unlocks FIN 310, FIN 420, and ACCT 301. If you skip it this semester, graduation moves to December 2026 at the earliest.\n\nIs there something specific about it that\'s putting you off? The workload, the timing, a specific section? If it\'s any of those, I might be able to help work around the concern without losing a semester.'}],
-    chips: ['I\'m worried about the workload', 'Can I take it over summer?', 'Ok fine I\'ll take it']
+  'cs330-no': {
+    msgs: [{t:'ai',txt:'I noticed you marked CS 330 as a no — want to flag something before you commit to that.\n\n<span class="w">CS 330 isn\'t optional.</span> It directly unlocks CS 380 (Prog. Languages), CS 460 (Security), and the entire Capstone sequence. Dropping or skipping it doesn\'t delay one course — it delays graduation by at least a full semester.\n\nIs something specific putting you off? The workload, a concept you\'re struggling with, a section conflict? Tell me what\'s going on and I might be able to help without losing a semester.'}],
+    chips: ["It's the workload", "I might drop a different course", "OK I'll keep it"]
   },
-  'acct301-yes': {
-    msgs: [{t:'ai',txt:'Noted — and I want to give you a heads up before you commit.\n\nYou got a C+ in ACCT 202. Students with that grade taking ACCT 301 immediately had a <span class="w">38% fail rate.</span> It\'s not impossible — but pairing it with other heavy courses this semester would be risky.\n\nIf you want ACCT 301 in your plan, I\'d suggest it as a standalone heavy course with lighter electives around it. Want me to rebuild your semester with that in mind?'}],
-    chips: ['Yes, rebuild around ACCT 301', 'Maybe I should wait a semester', 'What courses pair well with ACCT 301?']
+  'cs370-yes': {
+    msgs: [{t:'ai',txt:'Great call — CS 370 is one of the best courses in the program for your trajectory.\n\nYou\'ve got both prereqs cleared: STAT 250 and CS 260. Students with your CS 260 grade (B+) tend to do well — the course is algorithm-heavy, which plays to your strength.\n\nI\'d pair it with CS 415 (Compiler Design) in Spring. Together they cover your Systems concentration and make your transcript look intentional to technical recruiters.'}],
+    chips: ["Build Spring around CS 370", "What's the full AI/ML track?", "Which elective pairs best with it?"]
+  },
+  'What about CS 380?': {
+    msgs: [{t:'ai',txt:'CS 380 (Prog. Languages) requires CS 330, which you\'re taking right now. It won\'t unlock until CS 330 clears at the end of this semester.\n\nIf you\'re doing well in CS 330, adding CS 380 in Spring is a solid move — it completes a core requirement and pairs well with Compiler Design. If this semester is rough, hold off and take 9-12 credits in Spring instead. Your May 2027 date is safe either way.'}],
+    chips: ['Build the 12-credit Spring', 'Build the 15-credit Spring']
+  },
+  'Will this keep me on track for May 2027?': {
+    msgs: [{t:'ai',txt:'Yes — you\'re on track. 69 of 128 credits done, 59 to go across 5 semesters. That\'s roughly 12 credits per semester, which is exactly what your plan shows.\n\nThe only real risk is if you drop CS 330 this semester. Everything else has flexibility. The Capstone sequence in Years 3-4 is the fixed constraint — make sure CS 450 is in your Spring 2026 plan and you\'re set.'}],
+    chips: ['Show me the full 4-year plan', 'What\'s my biggest remaining risk?']
+  },
+  'What does the AI/ML track look like?': {
+    msgs: [{t:'ai',txt:'Your AI/ML track is actually already well set up:\n\n<span class="g">STAT 250</span> — done ✓\n<span class="g">CS 260 · Algorithms</span> — done ✓\n<span class="p">CS 370 · AI/ML</span> — ready to take Spring 2025\n<span class="p">CS 480 · Advanced AI</span> — available Year 4, extends the track\n\nIf you want to go deep into ML, add CS 480 as your Year 4 tech elective. That combination (STAT 250 → CS 370 → CS 480) is what grad programs and ML-focused employers look for.'}],
+    chips: ['Add CS 480 to my plan', 'What about internships in AI?']
+  },
+  "It's the workload": {
+    msgs: [{t:'ai',txt:'Fair — taking all four CS core courses at once is genuinely heavy. I\'m not going to sugarcoat it.\n\nIf something has to give, CS 340 (Databases) is the safest drop — no downstream prereqs. Keep CS 330, CS 350, and CS 360 — they\'re all in your critical path.\n\nAngelo also flagged that SSS has free CS tutoring Mon–Thu in the Learning Commons. If OS concurrency or Networks labs are the specific drag, that\'s worth trying before you drop anything.'}],
+    chips: ["OK, I might drop CS 340", "What's the tutoring schedule?", "I'll push through"]
+  },
+  "I might drop a different course": {
+    msgs: [{t:'ai',txt:'Open the Drop Impact tool in the Degree Plan tab — it shows exactly which courses each option blocks. CS 340 is safest. CS 360 delays Security by one semester but nothing else critical. Those are your two realistic options.\n\nCS 330 and CS 350 are both off the table — they anchor too much of your upper-division plan.'}],
+    chips: ["Show me CS 340 impact", "Show me CS 360 impact"]
+  },
+  "OK I'll keep it": {
+    msgs: [{t:'ai',txt:'Good call. CS 330 is the one course this semester you don\'t want to negotiate away. Get through it — Spring is a much better-designed semester for you.'}],
+    chips: ['Build my Spring 2025', "What's my GPA trajectory?"]
+  },
+  'major-minor': {
+    msgs: [{t:'ai',txt:'Good question — and the right time to think about it. You have 5 semesters left, which gives you real flexibility.\n\nI\'ve analyzed all the realistic add-ons for a CS BS at your current credit count. Which one are you curious about?'}],
+    chips: ['Data Science Minor','Mathematics Minor','Business Minor','Cybersecurity Concentration','Mathematics Major']
+  },
+  'Data Science Minor': {
+    msgs: [{t:'ai',txt:'<span class="p">Data Science Minor — Possible ✓</span>\n\n<span class="g">STAT 250 and CS 260 already count</span> toward the minor — so you only need 4 more courses, not 6. They fit into your existing tech elective slots in Years 3–4 without adding a semester to your plan.\n\n<strong>4 extra courses · 0 extra semesters · 2 already done</strong>\n\nMy honest take: this is the best signal-to-effort add-on for SWE recruiting right now. Data science skills separate strong CS candidates, and your STAT 250 grade shows you can handle the coursework. I\'d prioritize this over everything else on the list.'}],
+    chips: ['What 4 courses would I need?','Explore another option','Add this to my Spring plan']
+  },
+  'Mathematics Minor': {
+    msgs: [{t:'ai',txt:'<span class="p">Mathematics Minor — Possible</span>\n\n<span class="g">MATH 220 already counts.</span> You need 4 more math courses spread across Years 3–4 — roughly one extra per semester for three semesters.\n\n<strong>4 extra courses · 0 extra semesters · 1 already done</strong>\n\nYour math grades are solid (MATH 220 A−, MATH 215 B+, MATH 310 B) so the coursework is within reach. I\'d recommend this if you\'re leaning toward grad school or a theory-heavy role. For general SWE recruiting, Data Science Minor signals more directly.'}],
+    chips: ['What 4 courses would I need?','How does this compare to Data Science Minor?','Explore another option']
+  },
+  'Business Minor': {
+    msgs: [{t:'ai',txt:'<span style="color:#C4813A">Business Minor — Risky</span>\n\nNo overlap with your CS degree — you\'d be taking all 6 courses from scratch. That competes directly with your upper-division CS load and fills your elective slots with non-CS courses.\n\n<strong>6 extra courses · +1 semester risk · 0 already done</strong>\n\nHonest take: for SWE recruiting, CS + Data Science Minor tells a much stronger technical story than CS + Business. The only case I\'d recommend this is if your goal is product management or a business-facing tech role specifically — not general software engineering.'}],
+    chips: ['What if I want PM roles?','Compare to Data Science Minor','Explore another option']
+  },
+  'Cybersecurity Concentration': {
+    msgs: [{t:'ai',txt:'<span class="g">Cybersecurity Concentration — Easy ✓</span>\n\n<span class="g">CS 360 (Networks) already counts</span> — you\'re taking it right now. You only need 3 more courses: CS 455, CS 465, and CS 470. Two of those slot naturally into your existing tech electives in Years 3–4.\n\n<strong>3 extra courses · 0 extra semesters · 1 already done</strong>\n\nThis is the highest signal-to-effort add-on in your entire degree right now. It costs you zero extra semesters, fills slots you already have, and cybersecurity is one of the most in-demand credentials in tech hiring. If you\'re at all interested in security, this is a no-brainer.'}],
+    chips: ['Add this to my plan','What do CS 455 and CS 465 cover?','Explore another option']
+  },
+  'Mathematics Major': {
+    msgs: [{t:'ai',txt:'<span style="color:#B44040">Mathematics Major — Not Recommended</span>\n\nEven with 3 overlapping courses (MATH 220, MATH 215, MATH 310), you need 11 more math courses. At 2–3 per semester that\'s at least <span class="w">3 extra semesters</span> — graduation moves from May 2027 to Spring 2030.\n\n<strong>11 extra courses · +3 semesters · 3 already done</strong>\n\nI\'d strongly recommend the Mathematics Minor instead — same signal to employers and grad schools, a fraction of the cost. If the math depth matters for a specific reason (grad school, quant roles), tell me and I can suggest a smarter path to that goal.'}],
+    chips: ['Tell me about the Math Minor instead','Why would I need that much math?','Explore another option']
+  },
+  'Explore another option': {
+    msgs: [{t:'ai',txt:'Which one do you want to look at?'}],
+    chips: ['Data Science Minor','Mathematics Minor','Business Minor','Cybersecurity Concentration','Mathematics Major']
   },
   fromtakes: {
     msgs: [{t:'ai',txt:''}],
     chips: []
   },
   quicktake: {
-    msgs: [{t:'ai',txt:'See those ✓ ? ✗ buttons on each course in your plan? Tap them as you scroll through. It only takes a second and it tells me a lot — whether you\'re dreading something, excited about something, or completely on the fence.\n\nThe more you tell me, the more I can tailor your schedule to actually fit you — not just what\'s required.'}],
+    msgs: [{t:'ai',txt:'See those ✓ ? ✗ buttons on each course in your plan? Tap them as you scroll through — it tells me whether you\'re excited about a course, dreading it, or on the fence.\n\nThe more you share, the more I can tailor your Spring schedule to actually fit you — not just what\'s required.'}],
     chips: ['Got it, going back to plan', 'What happens when I tap them?']
   },
-  'Got it, going back to plan': {msgs:[{t:'ai',txt:'Go for it — tap a few and come back. I\'ll have thoughts.'}],chips:[]},
-  'I\'m worried about the workload': {msgs:[{t:'ai',txt:'That\'s a fair concern. MATH 250 is about 8 hours a week. But here\'s the thing — Prof. Kim\'s TTh 11am section has a significantly better pass rate for students with your MATH 130 history. And if you keep the rest of your semester light (MGT 450 + BUS 301 + FIN 215), the total load is manageable.\n\nAngelo also mentioned in his note that 12 credits is the right number for you right now. This plan fits exactly in that range.'}],chips:['Ok, what\'s the full 12-credit plan?','Show me Prof. Kim vs other sections']},
-  'Can I take it over summer?': {msgs:[{t:'ai',txt:'You can — but the summer section is condensed into 6 weeks and has a higher drop rate than the regular semester. And if you\'re planning to intern this summer, the timing gets brutal.\n\nMy honest take: take it in Fall with Prof. Kim. Use the summer for recruiting prep instead.'}],chips:['Ok I\'ll take it Fall','What if I intern AND take summer classes?']},
-  'Ok fine I\'ll take it': {msgs:[{t:'ai',txt:'That\'s the right call. Go back to the plan and tap ✓ on MATH 250 — I\'ll update your semester build around it. Prof. Kim TTh 11am is the one to register for the moment registration opens January 15th.'}],chips:['Build my full Fall schedule','When do seats fill up?']},
+  'Got it, going back to plan': {msgs:[{t:'ai',txt:'Go for it — tap a few courses and come back. I\'ll have thoughts.'}],chips:[]},
   fallback: [
-    'Based on your transcript and what you\'ve told me so far — the most important thing before Jan 15 is locking in MATH 250. Everything else flows from that one decision.',
-    'Good question. Let me cross-reference your grades, your remaining requirements, and your advisor notes... The short answer is you\'re closer to on track than it might feel, but the prereq chain needs to be resolved this semester.',
-    'I\'m factoring in everything you\'ve shared — your preferences, your grades, what Dr. Olsen flagged, and what Angelo said about workload. Want me to show you the full picture?'
+    'Based on your transcript and what you\'ve told me — the most important thing before Jan 15 is deciding your Spring tech elective. Head to the Degree Plan tab and pick one. Everything else flows from that.',
+    'Good question. Cross-referencing your grades, prereq chain, and advisor notes... Short answer: you\'re on track for May 2027, but this semester\'s four-course load is the riskiest stretch of your degree. Get through it and Spring opens up.',
+    'I\'m factoring in your CS grades, your prereq chain, and what Dr. Olsen and Angelo flagged. Want me to just show you the full Spring 2025 picture?'
   ]
 };
 
 const notes = {
-  olsen: [{name:"Dr. Olsen",initials:"DO",color:"#6C63FF",date:"Jan 8, 2025",tag:"Prereq Warning",tagBg:"var(--rl)",tagColor:"#cc1122",body:"Jordan came in confused about Science & Tech vs Natural Science requirements. Clarified: Jordan is in Science & Tech under catalog year 2022. BIOL 110 does not count. Also discussed MATH 250 prereq chain — strongly advised registering for Prof. Kim's TTh 11am section."}],
-  academic: [{name:"Maria Santos",initials:"MS",color:"#00C9A7",date:"Dec 3, 2024",tag:"Registration",tagBg:"var(--gl)",tagColor:"#006a3a",body:"Met to review Spring 2025 registration. Jordan is on track with 72/128 credits. Catalog year confirmed as 2022. Reminder: DegreeWorks is view-only — always notify advising if you drop a course."}],
-  sss: [{name:"Angelo Reyes",initials:"AR",color:"#FFA502",date:"Nov 20, 2024",tag:"Support Check-in",tagBg:"var(--al)",tagColor:"#a06000",body:"Jordan came in after a difficult midterm week — stressed about quant courses. Suggested reducing to 12 credits next semester. Free MATH and ACCT tutoring available Mon–Thu through SSS."}]
+  olsen: [{name:"Dr. Olsen",initials:"DO",color:"#6C63FF",date:"Jan 8, 2025",tag:"Prereq Warning",tagBg:"var(--rl)",tagColor:"#cc1122",body:"Jordan came in to discuss Spring 2025 registration. Two items flagged:\n\n1. Catalog year 2022 — Science & Tech gen-ed requirements apply, not Natural Science. Some electives Jordan assumed would count toward graduation don't. Needs to verify before senior year.\n\n2. CS 330 is the keystone prerequisite for upper-division CS. CS 380, CS 460, and the entire Capstone sequence (CS 450 → CS 480 → CS 490) all depend on it. Strongly advised Jordan not to drop CS 330 under any circumstances this semester."}],
+  academic: [{name:"Maria Santos",initials:"MS",color:"#00C9A7",date:"Dec 3, 2024",tag:"Registration",tagBg:"var(--gl)",tagColor:"#006a3a",body:"Met to review Spring 2025 registration plan. Jordan is on track with 69/128 credits completed. Catalog year confirmed as 2022. Recommended CS 370 (AI/ML) as the first Spring priority — STAT 250 and CS 260 prereqs are both clear. Reminder: DegreeWorks is view-only — always notify advising before dropping a course mid-semester."}],
+  sss: [{name:"Angelo Reyes",initials:"AR",color:"#FFA502",date:"Nov 20, 2024",tag:"Support Check-in",tagBg:"var(--al)",tagColor:"#a06000",body:"Jordan came in stressed after Week 8 — taking OS, Databases, Software Engineering, and Networks simultaneously is an unusually heavy load. Discussed time management and load balancing strategies. Suggested considering 12–13 credits in Spring if this semester continues to feel overwhelming. Free CS tutoring available Mon–Thu through SSS in the Learning Commons — covers algorithms, systems, and data structures."}]
 };
 
 let fbIdx = 0;
@@ -590,10 +718,10 @@ function doQ(el, key) {
     const nos = entries.filter(([,v])=>v==='no').map(([k])=>courseNames[k]);
     const maybes = entries.filter(([,v])=>v==='maybe').map(([k])=>courseNames[k]);
     let resp = '';
-    if (nos.includes('MATH 250')) {
-      resp = `Ok I see you marked <span class="w">MATH 250 as a no</span>. I really need to push back on that one — it's the only course in your plan that I'd call non-negotiable. Without it, FIN 310, FIN 420, and ACCT 301 stay blocked and graduation moves to December 2026.\n\nEverything else you've flagged, I can work around.`;
-    } else if (yeses.includes('ACCT 301')) {
-      resp = `You said yes to ACCT 301 — I want to flag that. You got a C+ in ACCT 202, and students with that background taking 301 immediately had a 38% fail rate. If you want it in your plan, let's build the rest of the semester light around it.`;
+    if (nos.includes('CS 330')) {
+      resp = `I see you marked <span class="w">CS 330 as a no</span>. I need to push back on that one — it's the keystone of your entire upper-division CS plan. CS 380, CS 460, and the full Capstone sequence all depend on it. Dropping it moves graduation by at least one full semester.\n\nEverything else you've flagged, I can work around. That one I can't.`;
+    } else if (yeses.includes('CS 370')) {
+      resp = `You said yes to CS 370 (AI/ML) — great call. Your prereqs are clear, and students with your CS 260 grade tend to do well. I'd pair it with CS 415 (Compiler Design) in Spring to lock in your Systems concentration. Want me to build that plan?`;
     } else if (yeses.length > 0 && nos.length > 0) {
       resp = `Here's what I'm seeing from your picks:\n\n<span class="g">You want:</span> ${yeses.join(', ')}\n<span class="w">You don't want:</span> ${nos.join(', ')}\n${maybes.length ? `<span class="p">On the fence:</span> ${maybes.join(', ')}\n\n` : '\n'}That's helpful. I can build your Fall schedule around this — want me to?`;
     } else if (yeses.length > 0) {
@@ -626,7 +754,7 @@ function doQ(el, key) {
     } else {
       addMsg('ai', replies.fallback[fbIdx % replies.fallback.length].replace(/\n/g,'<br>'));
       fbIdx++;
-      setChips(['Show me the GPA pattern','Build my Fall schedule','What did Dr. Olsen say?']);
+      setChips(['Show me my grade pattern','Build my Spring 2025 schedule','What did Dr. Olsen say?']);
     }
   }, 1000);
 }
@@ -639,10 +767,10 @@ function send() {
 }
 
 const dropResults = {
-  'fin201-w': 'Dropping FIN 201 with a W loses 3 credits this semester. FIN 215 prereqs still clear. However FIN 310 gets pushed one semester — graduation moves from May 2026 to December 2026 unless another course fills the gap.',
-  'fin201-dfw': 'A DFW in FIN 201 is a significant GPA hit and you must retake it. Graduation moves to December 2026 at minimum. Contact Dr. Olsen immediately if you are at risk.',
-  'mgt310-w': 'Dropping MGT 310 with a W is safe — it\'s not in your critical prereq chain. Graduation timeline unaffected. You can retake any future semester.',
-  'math250': 'Do not skip MATH 250. It directly blocks FIN 310, FIN 420, and ACCT 301. Skipping it this semester moves graduation from May 2026 to December 2026 at the earliest. This is the one course you cannot skip.'
+  'cs330': 'Do not drop CS 330. It directly unlocks CS 380, CS 460, and the full Capstone chain (CS 450 → CS 480 → CS 490). Dropping it this semester moves graduation from May 2027 to December 2027 at minimum. This is the one course you cannot drop.',
+  'cs340': 'Dropping CS 340 (Databases) with a W is the safest option — it has no downstream prereqs in your critical path. Graduation timeline is unaffected. You can retake it any future semester.',
+  'cs350': 'CS 350 (Software Eng.) unlocks CS 450 (Capstone I). Dropping it delays the Capstone chain by one semester and pushes graduation to December 2027. Avoid if possible — contact advising before deciding.',
+  'cs360': 'Dropping CS 360 (Networks) delays CS 460 (Security) by one semester. It does not affect your Capstone chain. Lower risk than dropping CS 330 or CS 350, but still worth discussing with Dr. Olsen first.'
 };
 
 function calcDrop() {
@@ -663,12 +791,14 @@ function calcDrop() {
 // PATHWISE DEGREE MAP
 // ================================================================
 const PW_SEM = [
-  {level:1,name:'Fall 2023',  status:'cleared'},
-  {level:2,name:'Spring 2024',status:'cleared'},
-  {level:3,name:'Fall 2024',  status:'current'},
-  {level:4,name:'Spring 2025',status:'future'},
-  {level:5,name:'Fall 2025',  status:'future'},
-  {level:6,name:'Spring 2026',status:'future'},
+  {level:1,name:'Fall 2023',   status:'cleared'},
+  {level:2,name:'Spring 2024', status:'cleared'},
+  {level:3,name:'Fall 2024',   status:'current'},
+  {level:4,name:'Spring 2025', status:'future'},
+  {level:5,name:'Fall 2025',   status:'future'},
+  {level:6,name:'Spring 2026', status:'future'},
+  {level:7,name:'Fall 2026',   status:'future'},
+  {level:8,name:'Spring 2027', status:'future'},
 ];
 
 const PW_COURSES = [
@@ -692,10 +822,18 @@ const PW_COURSES = [
   {id:'CS460',  code:'CS 460', name:'Security',          cr:3,pre:['CS330','CS360'],   sem:4,state:'locked',     grade:null},
   {id:'ELECTB', code:'Elective',name:'Tech Elective B',  cr:3,pre:[],                 sem:4,state:'available',  grade:null},
   {id:'ELECTC', code:'Elective',name:'Tech Elective C',  cr:3,pre:[],                 sem:4,state:'available',  grade:null},
-  {id:'CS480',  code:'CS 480', name:'Capstone II',       cr:3,pre:['CS450'],           sem:5,state:'locked',     grade:null},
-  {id:'CS490',  code:'CS 490', name:'Senior Seminar',    cr:3,pre:['CS480'],           sem:5,state:'locked',     grade:null},
   {id:'ELECTD', code:'Elective',name:'Tech Elective D',  cr:3,pre:[],                 sem:5,state:'available',  grade:null},
-  {id:'FREEELEC',code:'Elective',name:'Free Elective',   cr:3,pre:[],                 sem:5,state:'available',  grade:null},
+  {id:'FREEELEC',code:'Elective',name:'Free Elective A', cr:3,pre:[],                 sem:5,state:'available',  grade:null},
+  {id:'WRIT302', code:'WRIT 302',name:'Technical Writing',cr:3,pre:[],                sem:5,state:'available',  grade:null},
+  {id:'SOSC280', code:'SOSC 280',name:'Social Science',  cr:3,pre:[],                 sem:5,state:'available',  grade:null},
+  {id:'CS480',  code:'CS 480', name:'Capstone II',       cr:3,pre:['CS450'],           sem:6,state:'locked',     grade:null},
+  {id:'ELECTE', code:'Elective',name:'Tech Elective E',  cr:3,pre:[],                 sem:6,state:'available',  grade:null},
+  {id:'HUMA230', code:'HUMA 230',name:'Humanities',      cr:3,pre:[],                 sem:6,state:'available',  grade:null},
+  {id:'SCI310',  code:'SCI 310', name:'Science Elective',cr:4,pre:[],                 sem:6,state:'available',  grade:null},
+  {id:'CS490',  code:'CS 490', name:'Senior Seminar',    cr:3,pre:['CS480'],           sem:7,state:'locked',     grade:null},
+  {id:'FREEELEC2',code:'Elective',name:'Free Elective B',cr:3,pre:[],                 sem:7,state:'available',  grade:null},
+  {id:'ARTS110', code:'ARTS 110',name:'Fine Arts',       cr:3,pre:[],                 sem:7,state:'available',  grade:null},
+  {id:'GENED490', code:'GEN 490', name:'Capstone Seminar',cr:1,pre:[],                sem:7,state:'available',  grade:null},
 ];
 const PW_UNLOCKS = {
   CS200:['CS250','CS260'],MATH215:['CS260'],MATH220:['MATH310'],STAT250:['CS370'],
@@ -722,12 +860,97 @@ const PW_NOTES = {
   CS350:'Team project on track. Peer review milestone due Week 11.',
   CS360:'Network layer lab complete. Moving into transport protocols this week.',
 };
+const pwElecSelected = {};
+const PW_ELEC_OPTS = {
+  ELECTA: {label:'Tech Elective A', options:[
+    {code:'CS 415',name:'Compiler Design',   rank:1, alexTip:"Alex's top pick — satisfies your Systems concentration and builds directly on CS 270. Students with your transcript averaged a B+ here. Locks in your concentration before Spring."},
+    {code:'CS 320',name:'Computer Graphics', rank:2, alexTip:"Good fallback if CS 415 fills. Counts as a tech elective but doesn't touch your concentration. Lighter workload — useful if this semester gets heavy."},
+    {code:'CS 435',name:'Formal Languages',  rank:3, alexTip:"Theory-heavy. Pairs well with CS 380 next semester but doesn't clear any concentration requirement. Alex ranks it #3 — pick it if you enjoy formal methods."},
+    {code:'CS 310',name:'Human-Computer Interaction', rank:4, alexTip:"Lightest workload of the four. No concentration credit, but strong for UX-adjacent internships. Alex ranks it #4 — a smart load-balancer for a busy semester."},
+  ]},
+  ELECTB: {label:'Tech Elective B', options:[
+    {code:'CS 425',name:'Distributed Systems',rank:1, alexTip:"Alex's top pick — stacks beautifully with OS and Networks you're taking now. Hits your Systems concentration and signals serious backend depth to recruiters."},
+    {code:'CS 430',name:'Machine Learning II',rank:2, alexTip:"Extends your AI/ML track from CS 370. Strong for data-science internships. Alex ranks it #2 — only skip if the math load alongside Capstone I feels like too much."},
+    {code:'CS 410',name:'Mobile Development', rank:3, alexTip:"Practical skills employers love. Doesn't advance your concentration but makes your portfolio pop. Alex ranks it #3 — good choice if you're recruiting for product roles."},
+    {code:'CS 320',name:'Computer Graphics',  rank:4, alexTip:"Creative elective, no concentration credit. Alex ranks it #4 — take it if you want a change of pace from systems work, otherwise go higher."},
+  ]},
+  ELECTC: {label:'Tech Elective C', options:[
+    {code:'CS 440',name:'Cloud Computing',   rank:1, alexTip:"Alex's top pick for this slot — pairs with Distributed Systems (ELECTB) to build a full modern-infrastructure story. Extremely high demand in internship listings right now."},
+    {code:'CS 455',name:'Cybersecurity II',  rank:2, alexTip:"Great follow-on to CS 460. Alex ranks it #2 — if you're taking Security this semester, this is the natural next step and signals a security specialization track."},
+    {code:'CS 310',name:'Human-Computer Interaction', rank:3, alexTip:"Broadens your skillset. Alex ranks it #3 — useful if you want a lighter sem-4 alongside Capstone I. No concentration credit, but solid soft-skills signal."},
+    {code:'CS 435',name:'Formal Languages',  rank:4, alexTip:"Theory credit for the CS concentration. Alex ranks it #4 — it's the right call only if you're planning grad school and need the formal-methods background."},
+  ]},
+  ELECTD: {label:'Tech Elective D', options:[
+    {code:'CS 480',name:'Advanced AI',       rank:1, alexTip:"Alex's top pick — extends your ML track and looks exceptional on grad school applications. Semester 5 is the right time: lighter requirement load, room to go deep."},
+    {code:'CS 455',name:'Cybersecurity II',  rank:2, alexTip:"Builds on CS 460 and is a top credential for security-track students. Alex ranks it #2 — if you skip it in ELECTC, grab it here."},
+    {code:'CS 410',name:'Mobile Development',rank:3, alexTip:"Great capstone portfolio piece — ship a real app you can demo in interviews. Alex ranks it #3 for practical value in a heavy capstone semester."},
+    {code:'CS 320',name:'Computer Graphics', rank:4, alexTip:"Final chance at this one. Alex ranks it #4 — take it only if you want a creative elective and your workload is light. Otherwise go higher on the list."},
+  ]},
+  FREEELEC: {label:'Free Elective A', options:[
+    {code:'BUS 350',name:'Entrepreneurship',          rank:1, alexTip:"Alex's top pick for your free elective — complements your CS degree for anyone thinking startup or product. Leans into your strengths and signals range to employers."},
+    {code:'ECON 310',name:'Behavioral Economics',     rank:2, alexTip:"Your transcript shows real strength in MGT/ECON courses. Alex ranks it #2 — leverages what you're already good at and pairs well with a tech career in fintech or product."},
+    {code:'COMM 220',name:'Technical Communication',  rank:3, alexTip:"The soft skill hiring managers keep asking for. Alex ranks it #3 — technical writing, presentations, cross-functional comms. Easy A that pays off at your first internship."},
+    {code:'PSYC 200',name:'Intro Psychology',         rank:4, alexTip:"GPA-friendly elective for a heavy capstone semester. Alex ranks it #4 — if Capstone II is consuming your bandwidth, this keeps your credits on track without adding stress."},
+  ]},
+  ELECTE: {label:'Tech Elective E', options:[
+    {code:'CS 480',name:'Advanced AI',        rank:1, alexTip:"Alex's top pick — your ML track culminates here. Strongest signal for grad school or AI-focused roles. Semester 7 timing gives you enough background to go deep."},
+    {code:'CS 455',name:'Cybersecurity II',   rank:2, alexTip:"Builds on CS 460 Security. Alex ranks it #2 — a direct credential for security-track students and one of the highest-demand skill sets in the job market right now."},
+    {code:'CS 410',name:'Mobile Development', rank:3, alexTip:"Ship a real app for your senior portfolio. Alex ranks it #3 — strong for product-track recruiting, and a lighter load alongside Capstone II."},
+    {code:'CS 320',name:'Computer Graphics',  rank:4, alexTip:"Creative elective, no concentration credit. Alex ranks it #4 — fine if you want a change of pace, but the other three options signal more to employers."},
+  ]},
+  FREEELEC2: {label:'Free Elective B', options:[
+    {code:'BUS 450',name:'Product Management',    rank:1, alexTip:"Alex's top pick for your final free elective — PM skills are what bridge your CS degree to startup and tech company roles. Excellent capstone to your four years."},
+    {code:'ECON 410',name:'Tech & Innovation',    rank:2, alexTip:"Pairs well with your existing ECON strength. Alex ranks it #2 — the course covers market design and platform economics, directly relevant to tech industry careers."},
+    {code:'COMM 320',name:'Presentation Skills',  rank:3, alexTip:"The one soft skill most CS grads wish they'd invested in. Alex ranks it #3 — if you're interviewing for internships this spring, this pays off immediately."},
+    {code:'PHIL 420',name:'AI Ethics',            rank:4, alexTip:"Relevant and increasingly required in tech roles. Alex ranks it #4 — take it if you want to stand out in interviews for companies with active AI ethics programs."},
+  ]},
+};
+
+const PW_EXPLORER = {
+  dsminor: {
+    label:'Data Science Minor', courses:6, overlap:2, added:4,
+    overlapList:['STAT 250','CS 260'],
+    affectedSems:[3,4], feasibility:'possible',
+    alexTake:`<strong>STAT 250 and CS 260 already count</strong> — so you only need 4 more courses, not 6. At your current pace you can finish this without pushing your graduation date, as long as you add one course per semester in Years 3 and 4. Your elective slots in Levels 4–5 can absorb most of them. I'd call this <strong>Possible</strong> — manageable if Spring 2025 isn't already overloaded.`,
+    askMsg:`Alex, should I add a Data Science minor given my current CS plan?`
+  },
+  mathminor: {
+    label:'Mathematics Minor', courses:5, overlap:1, added:4,
+    overlapList:['MATH 220'],
+    affectedSems:[3,4,5], feasibility:'possible',
+    alexTake:`<strong>MATH 220 already counts.</strong> You'd need 4 more math courses across Years 3–4. Your math grades are solid — MATH 220 A−, MATH 215 B+, MATH 310 B — so the coursework is within reach. Adds roughly one course per semester for three semesters, which is tight but doable. I'd call this <strong>Possible</strong>, especially if you enjoy the theory side of CS.`,
+    askMsg:`Alex, should I add a Mathematics minor alongside my CS degree?`
+  },
+  bizminor: {
+    label:'Business Minor', courses:6, overlap:0, added:6,
+    overlapList:[],
+    affectedSems:[3,4,5,6], feasibility:'risky',
+    alexTake:`No overlap with your CS degree — you'd be taking all 6 courses from scratch. Spread across 4 semesters it's technically possible, but it competes directly with your upper-division CS load and fills your elective slots with non-CS courses. I'd call this <strong>Risky</strong>. If your goal is a SWE internship, CS + Data Science minor tells a much stronger technical story than CS + Business for most recruiting pipelines.`,
+    askMsg:`Alex, should I add a Business minor? How does it compare to Data Science for SWE recruiting?`
+  },
+  cybersec: {
+    label:'Cybersecurity Concentration', courses:4, overlap:1, added:3,
+    overlapList:['CS 360'],
+    affectedSems:[4,5], feasibility:'easy',
+    alexTake:`<strong>CS 360 (Networks) already counts</strong> — and you're taking it right now. You only need 3 more courses: CS 455, CS 465, CS 470. Two of those fit naturally into your existing tech elective slots in Years 3–4. This costs you <strong>zero extra semesters</strong> and fills elective slots you already have. It's the highest signal-to-effort add-on in your entire degree right now.`,
+    askMsg:`Alex, walk me through adding a Cybersecurity concentration to my plan.`
+  },
+  mathmajor: {
+    label:'Mathematics Major', courses:14, overlap:3, added:11,
+    overlapList:['MATH 220','MATH 215','MATH 310'],
+    affectedSems:[3,4,5,6,7], feasibility:'no',
+    alexTake:`Honest answer: this turns your degree into a 5–6 year program. Even with 3 overlapping courses, you need 11 more math courses. At 2–3 per semester that's at least <strong>3 extra semesters</strong>, and math upper-division alongside CS upper-division is a brutal combination for GPA. If you want the math credential, the <strong>Mathematics minor is the right call</strong> — same signal to employers and grad schools, a fraction of the cost.`,
+    askMsg:`Alex, should I pursue a full Math major or just the minor alongside CS?`
+  },
+};
+
 const pwById = {};
 PW_COURSES.forEach(c => { pwById[c.id] = c; });
 
 function pwIcon(s){return{completed:'✓','in-progress':'◉',available:'○',locked:'🔒'}[s]||''}
 
 function pwCard(c){
+  if (c.code === 'Elective') return pwElecCard(c);
   return `<div class="pw-card ${c.state}" id="pw-card-${c.id}">
     <div>
       <div class="pw-ctop"><span class="pw-code">${c.code}</span><span class="pw-icon">${pwIcon(c.state)}</span></div>
@@ -752,6 +975,7 @@ function pwRender(){
     wrap.appendChild(el);
   });
   PW_COURSES.forEach(c => {
+    if (c.code === 'Elective') return;
     const el = document.getElementById(`pw-card-${c.id}`);
     if (!el) return;
     if (c.state==='locked'){
@@ -829,6 +1053,124 @@ function pwOpenAvail(c){
   document.getElementById('pw-ach-bd').classList.add('open');
 }
 function pwCloseAch(){document.getElementById('pw-ach-bd').classList.remove('open')}
+
+function pwElecCard(c){
+  const data = PW_ELEC_OPTS[c.id];
+  if (!data) return `<div class="pw-card available" id="pw-card-${c.id}"><div><div class="pw-ctop"><span class="pw-code">Elective</span><span class="pw-icon">○</span></div><div class="pw-cname">${c.name}</div></div><div class="pw-cfoot"><span class="pw-cr">${c.cr} cr</span></div></div>`;
+  const sel = pwElecSelected[c.id];
+  const items = data.options.map((opt,idx) => {
+    const isSel = sel === idx;
+    const isTop = idx === 0;
+    return `<div class="pw-eitem${isTop?' pw-eitem-1':''}${isSel?' pw-eitem-sel':''}" id="pw-eitem-${c.id}-${idx}"
+      onclick="pwSelectElec('${c.id}',${idx})"
+      onmouseenter="pwShowElecTip(event,'${c.id}',${idx})"
+      onmouseleave="pwHideElecTip()">
+      <div class="pw-eitem-rank">#${opt.rank}</div>
+      <div class="pw-eitem-body">
+        <div class="pw-eitem-top">
+          <span class="pw-eitem-code">${opt.code}</span>
+          <span class="pw-eitem-name">${opt.name}</span>
+        </div>
+        ${isTop?`<div class="pw-eitem-rec">★ Alex recommends</div>`:''}
+      </div>
+      ${isSel?`<div class="pw-eitem-check">✓</div>`:''}
+    </div>`;
+  }).join('');
+  const selOpt = sel != null ? data.options[sel] : null;
+  return `<div class="pw-elec-wrap" id="pw-card-${c.id}">
+    <div class="pw-elec-hdr">
+      <span class="pw-elec-title">${data.label}</span>
+      <span class="pw-elec-cr">${c.cr} cr</span>
+    </div>
+    <div class="pw-elec-list">${items}</div>
+    ${selOpt?`<button class="pw-ask-alex" onclick="pwAskAlex('${c.id}','${selOpt.code}','${data.label}')">Ask Alex why ${selOpt.code} ↗</button>`:`<button class="pw-ask-alex" onclick="pwAskAlex('${c.id}','${data.options[0].code}','${data.label}')">Ask Alex why ${data.options[0].code} ↗</button>`}
+  </div>`;
+}
+
+function pwShowElecTip(e, cid, idx){
+  const data = PW_ELEC_OPTS[cid];
+  if (!data) return;
+  const opt = data.options[idx];
+  const tip = document.getElementById('pw-elec-tip');
+  tip.innerHTML = `<div class="pw-etip-name">${opt.code} · ${opt.name}</div>${opt.alexTip}`;
+  const pad = 14, w = 230, h = 120;
+  let x = e.clientX + pad, y = e.clientY + pad;
+  if (x + w > window.innerWidth) x = e.clientX - w - pad;
+  if (y + h > window.innerHeight) y = e.clientY - h - pad;
+  tip.style.left = x + 'px';
+  tip.style.top = y + 'px';
+  tip.classList.add('show');
+}
+function pwHideElecTip(){ document.getElementById('pw-elec-tip').classList.remove('show'); }
+
+function pwSelectElec(cid, idx){
+  pwElecSelected[cid] = pwElecSelected[cid] === idx ? null : idx;
+  const c = pwById[cid];
+  if (!c) return;
+  const wrap = document.getElementById(`pw-card-${cid}`);
+  if (!wrap) return;
+  wrap.outerHTML = pwElecCard(c);
+  pwHideElecTip();
+}
+
+function pwAskAlex(cid, code, electName){
+  sw('coach', null);
+  setTimeout(() => {
+    const inp = document.getElementById('ci');
+    inp.value = `Alex, why did you recommend ${code} for my ${electName} slot?`;
+    inp.focus();
+  }, 120);
+}
+
+let pwExpOpen = false;
+function pwExpToggle(){
+  pwExpOpen = !pwExpOpen;
+  document.getElementById('pw-exp-panel').classList.toggle('open', pwExpOpen);
+  document.getElementById('pw-exp-chevron').classList.toggle('open', pwExpOpen);
+}
+
+function pwExpAnalyze(){
+  const key = document.getElementById('pw-exp-sel').value;
+  const res = document.getElementById('pw-exp-result');
+  document.querySelectorAll('.pw-level.exp-affected').forEach(el => el.classList.remove('exp-affected'));
+  if (!key){ res.innerHTML = ''; return; }
+  const d = PW_EXPLORER[key];
+  const badgeCls = {easy:'pw-exp-easy',possible:'pw-exp-possible',risky:'pw-exp-risky',no:'pw-exp-no'}[d.feasibility];
+  const badgeLabel = {easy:'Easy',possible:'Possible',risky:'Risky',no:'Not Recommended'}[d.feasibility];
+  const extraSems = {easy:0,possible:0,risky:1,no:3}[d.feasibility];
+  const vCls = {easy:' pw-exp-gval',possible:'',risky:' pw-exp-rval',no:' pw-exp-nval'}[d.feasibility];
+  const overlapHtml = d.overlapList.length
+    ? `<div class="pw-exp-overlap"><div class="pw-exp-olbl">Already counts toward this:</div>${d.overlapList.map(c=>`<span class="pw-exp-opill">✓ ${c}</span>`).join('')}</div>`
+    : `<div class="pw-exp-overlap"><div class="pw-exp-none">No overlap with your current courses.</div></div>`;
+  res.style.opacity = '0';
+  res.innerHTML = `
+    <span class="pw-exp-badge ${badgeCls}">${badgeLabel}</span>
+    <div class="pw-exp-grid">
+      <div class="pw-exp-cell${vCls}"><div class="pw-exp-cv">${d.added}</div><div class="pw-exp-ck">Extra courses</div></div>
+      <div class="pw-exp-cell${vCls}"><div class="pw-exp-cv">${extraSems === 0 ? '0' : '+'+extraSems}</div><div class="pw-exp-ck">Extra semesters</div></div>
+      <div class="pw-exp-cell"><div class="pw-exp-cv">${d.overlap}</div><div class="pw-exp-ck">Already done</div></div>
+    </div>
+    ${overlapHtml}
+    <div class="pw-exp-alex">
+      <div class="pw-exp-aav">🎓</div>
+      <div class="pw-exp-atxt">${d.alexTake}<br>
+        <button class="pw-exp-askbtn" onclick="pwExpAskAlex('${key}')">Ask Alex more ↗</button>
+      </div>
+    </div>`;
+  requestAnimationFrame(() => { res.style.transition = 'opacity .22s'; res.style.opacity = '1'; });
+  if (d.affectedSems && d.affectedSems.length){
+    setTimeout(() => {
+      const levels = document.querySelectorAll('.pw-level');
+      d.affectedSems.forEach(si => { if (levels[si]) levels[si].classList.add('exp-affected'); });
+    }, 60);
+  }
+}
+
+function pwExpAskAlex(key){
+  const d = PW_EXPLORER[key]; if (!d) return;
+  sw('coach', null);
+  setTimeout(() => { const inp = document.getElementById('ci'); inp.value = d.askMsg; inp.focus(); }, 120);
+}
 
 function pwOpenModal(){document.getElementById('pw-msel').value='';document.getElementById('pw-imp').innerHTML='';document.getElementById('pw-imp').classList.remove('show');document.getElementById('pw-modal-bd').classList.add('open')}
 function pwCloseModal(){document.getElementById('pw-modal-bd').classList.remove('open')}
