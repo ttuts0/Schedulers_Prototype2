@@ -177,6 +177,25 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 .ob-load-dots span{width:10px;height:10px;border-radius:50%;background:var(--purple);animation:ob-pulse 1.4s ease infinite}
 .ob-load-dots span:nth-child(2){animation-delay:.2s}
 .ob-load-dots span:nth-child(3){animation-delay:.4s}
+/* ===== WELCOME MODAL ===== */
+@keyframes wl-in{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+@keyframes wl-out{from{opacity:1}to{opacity:0}}
+.wl-overlay{position:fixed;inset:0;z-index:9100;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:24px}
+.wl-overlay.show{display:flex}
+.wl-overlay.hide{animation:wl-out .2s ease forwards}
+.wl-modal{background:#252836;border-radius:20px;padding:36px 32px 28px;max-width:620px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.4);animation:wl-in .3s ease both}
+.wl-logo{width:48px;height:48px;border-radius:14px;background:#8B85CC;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;margin:0 auto 20px}
+.wl-h1{font-size:22px;font-weight:800;color:#E8E6F0;text-align:center;margin-bottom:6px}
+.wl-sub{font-size:13.5px;color:#9b96b8;text-align:center;margin-bottom:24px}
+.wl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.wl-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 14px}
+.wl-cicon{font-size:22px;margin-bottom:10px}
+.wl-ctitle{font-size:13px;font-weight:700;color:#E8E6F0;margin-bottom:5px}
+.wl-cbody{font-size:12px;color:#9b96b8;line-height:1.55}
+.wl-note{font-size:11.5px;color:#6b6884;text-align:center;margin-bottom:22px}
+.wl-btn{display:block;margin:0 auto;padding:12px 32px;background:#8B85CC;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.wl-btn:hover{background:#7a74be}
+@media(max-width:560px){.wl-cards{grid-template-columns:1fr}}
 /* ===== PATHWISE DEGREE MAP ===== */
 #v-plan{background:var(--surf)}
 .pw-hdr{background:#fff;border-bottom:1px solid var(--border);padding:14px 20px 12px;flex-shrink:0}
@@ -328,9 +347,113 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 /* major/minor explorer (dead css, feature moved to Alex coach) */
 .pw-exp-wrap{margin:0 0 18px;border-radius:12px;border:1px solid var(--border);overflow:hidden;background:#fff}
 .pw-level.exp-affected{outline:1px solid rgba(255,165,2,.3);border-radius:12px;background:rgba(255,165,2,.03)!important}
+/* progressive disclosure */
+.pd-section{margin-bottom:10px}
+.pd-row{display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:12px;cursor:pointer;user-select:none;transition:background .15s}
+.pd-completed-row{background:rgba(46,213,115,.07);border:1px solid rgba(46,213,115,.22)}
+.pd-completed-row:hover{background:rgba(46,213,115,.13)}
+.pd-upcoming-row{background:var(--pl);border:1px solid rgba(108,99,255,.2)}
+.pd-upcoming-row:hover{background:rgba(108,99,255,.12)}
+.pd-row-icon{font-size:15px;flex-shrink:0}
+.pd-row-label{font-size:13px;font-weight:700;flex:1}
+.pd-row-meta{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.pd-chevron{flex-shrink:0;transition:transform .25s;color:var(--muted)}
+.pd-chevron.open{transform:rotate(180deg)}
+.pd-body{overflow:hidden;max-height:0;transition:max-height .38s ease}
+.pd-body.open{max-height:6000px}
+.pd-current-wrap{border:1.5px solid rgba(108,99,255,.3);border-radius:14px;background:rgba(108,99,255,.03);box-shadow:0 0 0 4px rgba(108,99,255,.05);margin-bottom:10px}
+.pd-current-hdr{display:flex;align-items:center;gap:10px;padding:12px 16px 10px}
+@keyframes pd-pulse{0%,100%{box-shadow:0 0 0 3px rgba(46,213,115,.25)}50%{box-shadow:0 0 0 7px rgba(46,213,115,.08)}}
+.pd-now-dot{width:8px;height:8px;border-radius:50%;background:#2ED573;box-shadow:0 0 0 3px rgba(46,213,115,.25);animation:pd-pulse 2s ease infinite;flex-shrink:0}
+.pd-now-label{font-size:14px;font-weight:800;color:var(--text)}
+.pd-now-sub{font-size:11.5px;color:var(--muted);margin-left:auto}
+/* Plan Next Semester card */
+.pns-card{background:#fff;border:1.5px solid #e8e6ff;border-radius:18px;margin:12px 16px 8px;padding:20px 22px 22px;position:relative}
+.pns-alex-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px}
+.pns-alex-av{width:32px;height:32px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pns-alex-bubble{background:#f3f2ff;border-radius:0 12px 12px 12px;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--text);line-height:1.4}
+.pns-alex-bubble span{color:var(--purple)}
+.pns-q{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #f0f0f8}
+.pns-q:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.pns-q-row{display:flex;align-items:flex-start;gap:8px}
+.pns-q-num{width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.pns-q-num.done{background:#2ED573}
+.pns-q-text{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.45;flex:1}
+.pns-chip-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;padding-left:30px}
+.pns-chip{border:1.5px solid #d8d6f5;border-radius:20px;padding:5px 13px;font-size:12px;font-weight:600;color:#6C63FF;background:#fff;cursor:pointer;transition:all .15s}
+.pns-chip:hover,.pns-chip.sel{background:var(--purple);color:#fff;border-color:var(--purple)}
+.pns-ans-row{display:none;align-items:center;gap:7px;margin-top:8px;padding-left:30px}
+.pns-q.answered .pns-ans-row{display:flex}
+.pns-q.answered .pns-chip-row,.pns-q.answered .pns-mf{display:none!important}
+.pns-ans-check{color:#2ED573;font-size:15px;font-weight:800}
+.pns-ans-text{font-size:12.5px;color:var(--muted);font-style:italic}
+.pns-change{font-size:11px;color:var(--purple);cursor:pointer;text-decoration:underline;margin-left:4px}
+.pns-mf{display:none;flex-direction:column;gap:8px;margin-top:10px;padding-left:30px}
+.pns-mf.show{display:flex}
+.pns-mf-label{font-size:12px;color:var(--muted);font-weight:600}
+.pns-mf-opts{display:flex;flex-wrap:wrap;gap:6px}
+.pns-mf-opt{border:1.5px solid #e0dff5;border-radius:14px;padding:4px 11px;font-size:11.5px;font-weight:600;color:#6c6ca0;background:#fff;cursor:pointer;transition:all .15s}
+.pns-mf-opt:hover,.pns-mf-opt.sel{background:#f3f2ff;border-color:var(--purple);color:var(--purple)}
+.pns-mf-save{margin-top:6px;align-self:flex-start;background:var(--purple);color:#fff;border:none;border-radius:14px;padding:6px 16px;font-size:12px;font-weight:700;cursor:pointer}
+.pns-sub-q{display:none;padding-left:30px;margin-top:8px}
+.pns-sub-q.show{display:block}
+.pns-sub-label{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.pns-rec{display:none;margin-top:20px;border-top:1.5px dashed #e0dff5;padding-top:20px}
+.pns-rec.show{display:block}
+.pns-rec-hdr{font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px}
+.pns-rec-sub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.pns-rec-courses{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.pns-rc{background:#f8f8ff;border:1.5px solid #e8e6ff;border-radius:12px;padding:12px 13px}
+.pns-rc-code{font-size:11px;font-weight:800;color:var(--purple);margin-bottom:2px}
+.pns-rc-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3}
+.pns-rc-cr{font-size:11px;color:var(--muted)}
+.pns-elec-label{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:8px}
+.pns-elec-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.pns-elec-opt{display:flex;align-items:center;gap:10px;padding:10px 13px;border:1.5px solid #e8e6ff;border-radius:12px;background:#fff;cursor:pointer;transition:all .15s;text-align:left}
+.pns-elec-opt:hover,.pns-elec-opt.sel{border-color:var(--purple);background:#f3f2ff}
+.pns-elec-opt.sel::after{content:'✓';margin-left:auto;color:var(--purple);font-weight:800}
+.pns-elec-opt-code{font-size:11px;font-weight:800;color:var(--purple);min-width:70px}
+.pns-elec-opt-name{font-size:12px;font-weight:600;color:var(--text)}
+.pns-elec-opt-cr{font-size:11px;color:var(--muted);margin-left:auto;padding-left:8px}
+.pns-load-msg{font-size:12px;color:var(--muted);margin-bottom:16px;padding:10px 13px;background:#fafaf8;border-radius:10px;border-left:3px solid var(--purple)}
+.pns-lock-btn{width:100%;padding:12px;background:linear-gradient(135deg,#6C63FF,#a78bfa);border:none;border-radius:14px;color:#fff;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
+.pns-lock-btn:hover{opacity:.9;transform:translateY(-1px)}
+.pns-locked-msg{display:none;text-align:center;padding:14px;font-size:14px;font-weight:800;color:#2ED573}
+.pns-top-pick{border-color:#6C63FF!important;background:#f3f2ff!important}
+.pns-top-tag{font-size:10.5px;font-weight:800;color:#6C63FF;background:#e8e6ff;border-radius:10px;padding:2px 7px;white-space:nowrap}
+.pns-top-why{font-size:11.5px;color:#5a5a8a;margin-top:5px;line-height:1.4;font-style:italic}
+@media(max-width:720px){.pns-rec-courses{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:720px){.pw-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.pw-sdiv{display:none}.pw-stats{gap:12px}}
 </style>
+
+<!-- WELCOME MODAL -->
+<div class="wl-overlay" id="wl-overlay">
+  <div class="wl-modal">
+    <div class="wl-logo">P</div>
+    <div class="wl-h1">Welcome to Pathwise</div>
+    <div class="wl-sub">Here's how to get the most out of it:</div>
+    <div class="wl-cards">
+      <div class="wl-card">
+        <div class="wl-cicon">🗺️</div>
+        <div class="wl-ctitle">Degree Plan</div>
+        <div class="wl-cbody">See every course in your degree, what's done, what's blocked, and what to take next.</div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-cicon">💬</div>
+        <div class="wl-ctitle">Ask Alex</div>
+        <div class="wl-cbody">Your personal academic coach. Ask anything about your schedule, grades, or graduation plan.</div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-cicon">👥</div>
+        <div class="wl-ctitle">Advisor Notes</div>
+        <div class="wl-cbody">See notes from all your advisors in one place. No more digging through emails.</div>
+      </div>
+    </div>
+    <div class="wl-note">Pathwise already knows your transcript and degree requirements from USD. No setup needed.</div>
+    <button class="wl-btn" onclick="wlClose()">Got it, let's go →</button>
+  </div>
+</div>
 
 <!-- ONBOARDING OVERLAY -->
 <div class="ob-overlay" id="ob-overlay">
@@ -420,7 +543,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
       </div>
       <div class="ob-nav">
         <button class="ob-back" onclick="obBack()">← Back</button>
-        <button class="ob-ct" id="ob-ct3" onclick="obSubmit()">Let's Go 🚀</button>
+        <button class="ob-ct" id="ob-ct3" onclick="obSubmit()">Meet Alex →</button>
       </div>
     </div>
 
@@ -436,8 +559,8 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 <div class="sb">
   <div class="logo-wrap">
     <div class="logo">
-      <div class="logo-mark">S</div>
-      <div><div class="logo-text">Schedu<span>lers</span></div><div class="logo-sub">Student Portal · USD</div></div>
+      <div class="logo-mark">P</div>
+      <div><div class="logo-text">Path<span>wise</span></div><div class="logo-sub">Student Portal · USD</div></div>
     </div>
   </div>
   <div class="nl">My Academics</div>
@@ -460,7 +583,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
     </div>
     <a class="sb-link" href="index.html">
       <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg>
-      Schedulers
+      Pathwise
     </a>
     <a class="sb-link" href="#" onclick="resetOnboarding();return false;" style="margin-top:4px">
       <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
@@ -510,10 +633,10 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
       <div class="pw-msub">Select a current course to see how dropping it affects your graduation path.</div>
       <select class="pw-msel" id="pw-msel" onchange="pwCalcImpact()">
         <option value="">&#8212; Select a current course &#8212;</option>
-        <option value="CS330">CS 330 &middot; Operating Systems</option>
-        <option value="CS340">CS 340 &middot; Databases</option>
-        <option value="CS350">CS 350 &middot; Software Engineering</option>
-        <option value="CS360">CS 360 &middot; Networks</option>
+        <option value="COMP342">COMP 342 &middot; Operating Systems</option>
+        <option value="COMP361">COMP 361 &middot; Database Systems</option>
+        <option value="COMP351">COMP 351 &middot; Software Engineering</option>
+        <option value="COMP362">COMP 362 &middot; Computer Networks</option>
       </select>
       <div class="pw-imp" id="pw-imp"></div>
       <button class="pw-mcbtn" onclick="pwCloseModal()">Close</button>
@@ -666,20 +789,30 @@ function obSubmit(){
   document.getElementById('ob-loading').classList.add('show');
   document.getElementById('ob-prog-fill').style.width='100%';
   localStorage.setItem(OB_KEY, JSON.stringify(obData));
-  setTimeout(obWelcome, 1600);
+  setTimeout(obShowWelcome, 1600);
+}
+
+function obShowWelcome(){
+  document.getElementById('ob-overlay').classList.remove('show');
+  document.getElementById('wl-overlay').classList.add('show');
+}
+
+function wlClose(){
+  const ov = document.getElementById('wl-overlay');
+  ov.classList.add('hide');
+  setTimeout(()=>{ ov.classList.remove('show','hide'); obWelcome(); }, 220);
 }
 
 function obWelcome(){
   document.getElementById('ob-overlay').classList.remove('show');
   const n = obData.name || 'there';
+  studentName = obData.name || 'Jordan';
   const st = obData.stype;
   const dr = obData.drain;
   const goal = obData.goal;
   const career = obData.career;
 
-  // Update header name
-  const nameEl = document.querySelector('.pw-uname');
-  if(nameEl) nameEl.textContent = n+' · CS Junior';
+  applyStudentName();
 
   // Personalized opener
   let opener = '';
@@ -705,15 +838,31 @@ function obWelcome(){
   const chips = goalChips[goal] || ['Am I on track?','Build my Spring schedule','Can I add a major or minor?','Show my degree plan'];
 
   sw('coach', null);
-  const chat = document.getElementById('chat-msgs');
+  const chat = document.getElementById('cs');
   if(chat){ chat.innerHTML=''; addMsg('ai', opener); }
   setChips(chips);
 }
 
+let studentName = 'Jordan';
+
+function applyStudentName(){
+  const initial = studentName.charAt(0).toUpperCase();
+  const avName = document.querySelector('.av-name');
+  if(avName) avName.textContent = studentName;
+  const pwName = document.querySelector('.pw-uname');
+  if(pwName) pwName.textContent = studentName + ' · CS Junior';
+  const sbAv = document.querySelector('.av');
+  if(sbAv) sbAv.textContent = initial;
+  const pwAv = document.querySelector('.pw-av');
+  if(pwAv) pwAv.textContent = initial;
+  const initBub = document.querySelector('#cs .bub.ai');
+  if(initBub) initBub.innerHTML = initBub.innerHTML.replace(/Jordan/g, studentName);
+}
+
 const takes = {};
 const courseNames = {
-  cs330:'CS 330', cs340:'CS 340', cs350:'CS 350', cs360:'CS 360',
-  cs370:'CS 370', cs380:'CS 380', phil310:'PHIL 310', cs415:'CS 415'
+  COMP342:'COMP 342', COMP361:'COMP 361', COMP351:'COMP 351', COMP362:'COMP 362',
+  COMP441:'COMP 441', COMP451:'COMP 451', PHIL368:'PHIL 368',
 };
 
 function setTake(course, val, btn) {
@@ -836,7 +985,7 @@ const replies = {
     chips: ['What 4 courses would I need?','Explore another option','Add this to my Spring plan']
   },
   'Mathematics Minor': {
-    msgs: [{t:'ai',txt:'<span class="p">Mathematics Minor — Possible</span>\n\n<span class="g">MATH 220 already counts.</span> You need 4 more math courses spread across Years 3–4 — roughly one extra per semester for three semesters.\n\n<strong>4 extra courses · 0 extra semesters · 1 already done</strong>\n\nYour math grades are solid (MATH 220 A−, MATH 215 B+, MATH 310 B) so the coursework is within reach. I\'d recommend this if you\'re leaning toward grad school or a theory-heavy role. For general SWE recruiting, Data Science Minor signals more directly.'}],
+    msgs: [{t:'ai',txt:'<span class="p">Mathematics Minor — Possible</span>\n\n<span class="g">MATH 220 already counts.</span> You need 4 more math courses spread across Years 3–4.\n\n<strong>4 extra courses · 0 extra semesters · 1 already done</strong>\n\nYour math grades are solid (MATH 220 A−, MATH 215 B+, MATH 310 B) so the coursework is within reach. I\'d recommend this if you\'re leaning toward grad school or a theory-heavy role. For general SWE recruiting, Data Science Minor signals more directly.'}],
     chips: ['What 4 courses would I need?','How does this compare to Data Science Minor?','Explore another option']
   },
   'Business Minor': {
@@ -878,7 +1027,7 @@ const replies = {
 const notes = {
   olsen: [{name:"Dr. Olsen",initials:"DO",color:"#6C63FF",date:"Jan 8, 2025",tag:"Prereq Warning",tagBg:"var(--rl)",tagColor:"#cc1122",body:"Jordan came in to discuss Spring 2025 registration. Two items flagged:\n\n1. Catalog year 2022 — Science & Tech gen-ed requirements apply, not Natural Science. Some electives Jordan assumed would count toward graduation don't. Needs to verify before senior year.\n\n2. CS 330 is the keystone prerequisite for upper-division CS. CS 380, CS 460, and the entire Capstone sequence (CS 450 → CS 480 → CS 490) all depend on it. Strongly advised Jordan not to drop CS 330 under any circumstances this semester."}],
   academic: [{name:"Maria Santos",initials:"MS",color:"#00C9A7",date:"Dec 3, 2024",tag:"Registration",tagBg:"var(--gl)",tagColor:"#006a3a",body:"Met to review Spring 2025 registration plan. Jordan is on track with 69/128 credits completed. Catalog year confirmed as 2022. Recommended CS 370 (AI/ML) as the first Spring priority — STAT 250 and CS 260 prereqs are both clear. Reminder: DegreeWorks is view-only — always notify advising before dropping a course mid-semester."}],
-  sss: [{name:"Angelo Reyes",initials:"AR",color:"#FFA502",date:"Nov 20, 2024",tag:"Support Check-in",tagBg:"var(--al)",tagColor:"#a06000",body:"Jordan came in stressed after Week 8 — taking OS, Databases, Software Engineering, and Networks simultaneously is an unusually heavy load. Discussed time management and load balancing strategies. Suggested considering 12–13 credits in Spring if this semester continues to feel overwhelming. Free CS tutoring available Mon–Thu through SSS in the Learning Commons — covers algorithms, systems, and data structures."}]
+  sss: [{name:"Angelo Reyes",initials:"AR",color:"#FFA502",date:"Nov 20, 2024",tag:"Support Check-in",tagBg:"var(--al)",tagColor:"#a06000",body:"Met with student during Week 8 check-in. Currently enrolled in four upper-division CS core courses simultaneously (OS, Databases, Software Engineering, Networks). Reviewed academic workload and discussed time management and scheduling strategies. Recommended evaluating course load for Spring — 12–13 credits may support stronger academic performance if current semester pace is difficult to sustain. SSS tutoring available Mon–Thu in the Learning Commons — CS coverage includes algorithms, systems, and data structures."}]
 };
 
 let fbIdx = 0;
@@ -914,7 +1063,7 @@ function showNotes(type, el) {
         </div>
         <span class="note-tag" style="background:${n.tagBg};color:${n.tagColor}">${n.tag}</span>
       </div>
-      <div class="note-body">${n.body.replace(/\n/g,'<br>')}</div>
+      <div class="note-body">${n.body.replace(/Jordan/g, studentName).replace(/\n/g,'<br>')}</div>
     </div>
   `).join('');
 }
@@ -923,7 +1072,7 @@ function addMsg(type, html) {
   const scroll = document.getElementById('cs');
   const row = document.createElement('div');
   row.className = 'mrow' + (type === 'u' ? ' u' : '');
-  const av = type === 'ai' ? '<div class="bav bav-ai">🎓</div>' : '<div class="bav bav-u">JM</div>';
+  const av = type === 'ai' ? '<div class="bav bav-ai">🎓</div>' : `<div class="bav bav-u">${studentName.charAt(0).toUpperCase()}</div>`;
   const bub = `<div class="bub ${type === 'u' ? 'u' : 'ai'}">${html}</div>`;
   row.innerHTML = type === 'ai' ? `${av}<div>${bub}</div>` : `<div>${bub}</div>${av}`;
   scroll.appendChild(row);
@@ -1013,10 +1162,10 @@ function send() {
 }
 
 const dropResults = {
-  'cs330': 'Do not drop CS 330. It directly unlocks CS 380, CS 460, and the full Capstone chain (CS 450 → CS 480 → CS 490). Dropping it this semester moves graduation from May 2027 to December 2027 at minimum. This is the one course you cannot drop.',
-  'cs340': 'Dropping CS 340 (Databases) with a W is the safest option — it has no downstream prereqs in your critical path. Graduation timeline is unaffected. You can retake it any future semester.',
-  'cs350': 'CS 350 (Software Eng.) unlocks CS 450 (Capstone I). Dropping it delays the Capstone chain by one semester and pushes graduation to December 2027. Avoid if possible — contact advising before deciding.',
-  'cs360': 'Dropping CS 360 (Networks) delays CS 460 (Security) by one semester. It does not affect your Capstone chain. Lower risk than dropping CS 330 or CS 350, but still worth discussing with Dr. Olsen first.'
+  'COMP342': 'Do not drop COMP 342. It directly unlocks COMP 451 (Programming Languages) and COMP 460 (Security). Dropping it this semester moves graduation from May 2026 to December 2026 at minimum. This is the one course you cannot drop.',
+  'COMP361': 'Dropping COMP 361 (Database Systems) with a W is the safest option — it has no downstream prereqs in your critical path. Graduation timeline is unaffected. You can retake it any future semester.',
+  'COMP351': 'COMP 351 (Software Engineering) unlocks the entire Capstone chain (COMP 490 → COMP 491 → COMP 492). Dropping it delays Capstone I by one semester and risks your May 2026 graduation. Contact advising before deciding.',
+  'COMP362': 'Dropping COMP 362 (Computer Networks) delays COMP 460 (Security) by one semester. It does not affect your Capstone chain. Lower risk than dropping COMP 342 or COMP 351, but still worth discussing with Dr. Olsen first.'
 };
 
 function calcDrop() {
@@ -1043,128 +1192,121 @@ const PW_SEM = [
   {level:4,name:'Spring 2025', status:'future'},
   {level:5,name:'Fall 2025',   status:'future'},
   {level:6,name:'Spring 2026', status:'future'},
-  {level:7,name:'Fall 2026',   status:'future'},
-  {level:8,name:'Spring 2027', status:'future'},
 ];
 
 const PW_COURSES = [
-  {id:'MATH220',code:'MATH 220',name:'Calculus II',      cr:4,pre:[],                 sem:0,state:'completed',  grade:'A−'},
-  {id:'CS200',  code:'CS 200', name:'Data Structures',   cr:3,pre:[],                 sem:0,state:'completed',  grade:'A' },
-  {id:'MATH215',code:'MATH 215',name:'Discrete Math',    cr:3,pre:[],                 sem:0,state:'completed',  grade:'B+'},
-  {id:'STAT250',code:'STAT 250',name:'Statistics',       cr:3,pre:[],                 sem:0,state:'completed',  grade:'B' },
-  {id:'CS250',  code:'CS 250', name:'Computer Org.',     cr:3,pre:['CS200'],           sem:1,state:'completed',  grade:'A' },
-  {id:'CS260',  code:'CS 260', name:'Algorithms',        cr:3,pre:['CS200','MATH215'], sem:1,state:'completed',  grade:'B+'},
-  {id:'MATH310',code:'MATH 310',name:'Linear Algebra',   cr:3,pre:['MATH220'],         sem:1,state:'completed',  grade:'B' },
-  {id:'CS270',  code:'CS 270', name:'Systems Prog.',     cr:3,pre:['CS250'],           sem:1,state:'completed',  grade:'A−'},
-  {id:'CS330',  code:'CS 330', name:'Operating Systems', cr:3,pre:['CS270','CS260'],   sem:2,state:'in-progress',grade:null},
-  {id:'CS340',  code:'CS 340', name:'Databases',         cr:3,pre:['CS260'],           sem:2,state:'in-progress',grade:null},
-  {id:'CS350',  code:'CS 350', name:'Software Eng.',     cr:3,pre:['CS260'],           sem:2,state:'in-progress',grade:null},
-  {id:'CS360',  code:'CS 360', name:'Networks',          cr:3,pre:['CS270'],           sem:2,state:'in-progress',grade:null},
-  {id:'CS370',  code:'CS 370', name:'AI / ML',           cr:3,pre:['CS260','STAT250'], sem:3,state:'available',  grade:null},
-  {id:'CS380',  code:'CS 380', name:'Prog. Languages',   cr:3,pre:['CS330'],           sem:3,state:'locked',     grade:null},
-  {id:'ELECTA', code:'Elective',name:'Tech Elective A',  cr:3,pre:['CS260'],           sem:3,state:'available',  grade:null},
-  {id:'PHIL310',code:'PHIL 310',name:'Ethics in Tech',   cr:3,pre:[],                 sem:3,state:'available',  grade:null},
-  {id:'CS450',  code:'CS 450', name:'Capstone I',        cr:3,pre:['CS350'],           sem:4,state:'locked',     grade:null},
-  {id:'CS460',  code:'CS 460', name:'Security',          cr:3,pre:['CS330','CS360'],   sem:4,state:'locked',     grade:null},
-  {id:'ELECTB', code:'Elective',name:'Tech Elective B',  cr:3,pre:[],                 sem:4,state:'available',  grade:null},
-  {id:'ELECTC', code:'Elective',name:'Tech Elective C',  cr:3,pre:[],                 sem:4,state:'available',  grade:null},
-  {id:'ELECTD', code:'Elective',name:'Tech Elective D',  cr:3,pre:[],                 sem:5,state:'available',  grade:null},
-  {id:'FREEELEC',code:'Elective',name:'Free Elective A', cr:3,pre:[],                 sem:5,state:'available',  grade:null},
-  {id:'WRIT302', code:'WRIT 302',name:'Technical Writing',cr:3,pre:[],                sem:5,state:'available',  grade:null},
-  {id:'SOSC280', code:'SOSC 280',name:'Social Science',  cr:3,pre:[],                 sem:5,state:'available',  grade:null},
-  {id:'CS480',  code:'CS 480', name:'Capstone II',       cr:3,pre:['CS450'],           sem:6,state:'locked',     grade:null},
-  {id:'ELECTE', code:'Elective',name:'Tech Elective E',  cr:3,pre:[],                 sem:6,state:'available',  grade:null},
-  {id:'HUMA230', code:'HUMA 230',name:'Humanities',      cr:3,pre:[],                 sem:6,state:'available',  grade:null},
-  {id:'SCI310',  code:'SCI 310', name:'Science Elective',cr:4,pre:[],                 sem:6,state:'available',  grade:null},
-  {id:'CS490',  code:'CS 490', name:'Senior Seminar',    cr:3,pre:['CS480'],           sem:7,state:'locked',     grade:null},
-  {id:'FREEELEC2',code:'Elective',name:'Free Elective B',cr:3,pre:[],                 sem:7,state:'available',  grade:null},
-  {id:'ARTS110', code:'ARTS 110',name:'Fine Arts',       cr:3,pre:[],                 sem:7,state:'available',  grade:null},
-  {id:'GENED490', code:'GEN 490', name:'Capstone Seminar',cr:1,pre:[],                sem:7,state:'available',  grade:null},
+  // Fall 2023
+  {id:'MATH220', code:'MATH 220',name:'Calculus II',                  cr:4,pre:[],                        sem:0,state:'completed',  grade:'A−'},
+  {id:'COMP150', code:'COMP 150',name:'Intro to Computer Science',    cr:3,pre:[],                        sem:0,state:'completed',  grade:'A' },
+  {id:'COMP231', code:'COMP 231',name:'Data Structures',              cr:3,pre:[],                        sem:0,state:'completed',  grade:'A' },
+  {id:'MATH215', code:'MATH 215',name:'Discrete Mathematics',         cr:3,pre:[],                        sem:0,state:'completed',  grade:'B+'},
+  // Spring 2024
+  {id:'COMP232', code:'COMP 232',name:'Algorithm Design & Analysis',  cr:3,pre:['COMP231','MATH215'],      sem:1,state:'completed',  grade:'B+'},
+  {id:'COMP341', code:'COMP 341',name:'Computer Organization',        cr:3,pre:['COMP231'],               sem:1,state:'completed',  grade:'A' },
+  {id:'MATH310', code:'MATH 310',name:'Linear Algebra',               cr:3,pre:['MATH220'],               sem:1,state:'completed',  grade:'B' },
+  {id:'COMP251', code:'COMP 251',name:'Systems Programming',          cr:3,pre:['COMP231'],               sem:1,state:'completed',  grade:'A−'},
+  // Fall 2024 — current
+  {id:'COMP342', code:'COMP 342',name:'Operating Systems',            cr:3,pre:['COMP251','COMP341'],      sem:2,state:'in-progress',grade:null},
+  {id:'COMP361', code:'COMP 361',name:'Database Systems',             cr:3,pre:['COMP232'],               sem:2,state:'in-progress',grade:null},
+  {id:'COMP351', code:'COMP 351',name:'Software Engineering',         cr:3,pre:['COMP232'],               sem:2,state:'in-progress',grade:null},
+  {id:'COMP362', code:'COMP 362',name:'Computer Networks',            cr:3,pre:['COMP251'],               sem:2,state:'in-progress',grade:null},
+  // Spring 2025
+  {id:'COMP441', code:'COMP 441',name:'Artificial Intelligence',      cr:3,pre:['COMP232'],               sem:3,state:'available',  grade:null},
+  {id:'COMP451', code:'COMP 451',name:'Programming Languages',        cr:3,pre:['COMP342'],               sem:3,state:'locked',     grade:null},
+  {id:'ELECTA',  code:'Elective',name:'Tech Elective A',              cr:3,pre:[],                        sem:3,state:'available',  grade:null},
+  {id:'PHIL368', code:'PHIL 368',name:'Ethics in Technology',         cr:3,pre:[],                        sem:3,state:'available',  grade:null},
+  // Fall 2025
+  {id:'COMP490', code:'COMP 490',name:'Senior Capstone I',            cr:3,pre:['COMP351'],               sem:4,state:'locked',     grade:null},
+  {id:'COMP460', code:'COMP 460',name:'Computer Security',            cr:3,pre:['COMP342','COMP362'],      sem:4,state:'locked',     grade:null},
+  {id:'ELECTB',  code:'Elective',name:'Tech Elective B',              cr:3,pre:[],                        sem:4,state:'available',  grade:null},
+  {id:'ELECTC',  code:'Elective',name:'Tech Elective C',              cr:3,pre:[],                        sem:4,state:'available',  grade:null},
+  // Spring 2026
+  {id:'COMP491', code:'COMP 491',name:'Senior Capstone II',           cr:3,pre:['COMP490'],               sem:5,state:'locked',     grade:null},
+  {id:'COMP492', code:'COMP 492',name:'Senior Seminar',               cr:3,pre:['COMP490'],               sem:5,state:'locked',     grade:null},
+  {id:'ELECTD',  code:'Elective',name:'Tech Elective D',              cr:3,pre:[],                        sem:5,state:'available',  grade:null},
+  {id:'FREEELEC',code:'Elective',name:'Free Elective',                cr:3,pre:[],                        sem:5,state:'available',  grade:null},
 ];
 const PW_UNLOCKS = {
-  CS200:['CS250','CS260'],MATH215:['CS260'],MATH220:['MATH310'],STAT250:['CS370'],
-  CS250:['CS270'],CS260:['CS330','CS340','CS350','CS360','CS370','ELECTA'],
-  CS270:['CS330','CS360'],CS330:['CS380','CS460'],CS350:['CS450'],
-  CS360:['CS460'],CS450:['CS480'],CS480:['CS490'],
+  COMP150:['COMP231'],
+  COMP231:['COMP232','COMP341','COMP251'],
+  MATH215:['COMP232'],
+  MATH220:['MATH310'],
+  COMP232:['COMP361','COMP351','COMP441'],
+  COMP341:['COMP342'],
+  COMP251:['COMP342','COMP362'],
+  COMP342:['COMP451','COMP460'],
+  COMP362:['COMP460'],
+  COMP351:['COMP490'],
+  COMP490:['COMP491','COMP492'],
 };
 const PW_LINES = [
-  ['CS200','CS250'],['CS200','CS260'],['MATH215','CS260'],['MATH220','MATH310'],
-  ['STAT250','CS370'],['CS250','CS270'],['CS260','CS330'],['CS260','CS340'],
-  ['CS260','CS350'],['CS260','CS360'],['CS270','CS330'],['CS270','CS360'],
-  ['CS260','CS370'],['CS330','CS380'],['CS330','CS460'],['CS360','CS460'],
-  ['CS350','CS450'],['CS450','CS480'],['CS480','CS490'],
+  ['COMP150','COMP231'],
+  ['COMP231','COMP232'],['COMP231','COMP341'],['COMP231','COMP251'],
+  ['MATH215','COMP232'],['MATH220','MATH310'],
+  ['COMP232','COMP361'],['COMP232','COMP351'],['COMP232','COMP441'],
+  ['COMP341','COMP342'],['COMP251','COMP342'],['COMP251','COMP362'],
+  ['COMP342','COMP451'],['COMP342','COMP460'],['COMP362','COMP460'],
+  ['COMP351','COMP490'],['COMP490','COMP491'],['COMP490','COMP492'],
 ];
 const PW_DROP = {
-  CS330:{blocked:['CS 380 · Prog. Languages','CS 460 · Security'],risk:true,delay:'1 semester',cr:9},
-  CS340:{blocked:[],risk:false,delay:'None',cr:3},
-  CS350:{blocked:['CS 450 · Capstone I','CS 480 · Capstone II','CS 490 · Senior Seminar'],risk:true,delay:'Graduation risk',cr:12},
-  CS360:{blocked:['CS 460 · Security'],risk:false,delay:'1 semester',cr:6},
+  COMP342:{blocked:['COMP 451 · Programming Languages','COMP 460 · Computer Security'],risk:true,delay:'1 semester',cr:6},
+  COMP361:{blocked:[],risk:false,delay:'None',cr:3},
+  COMP351:{blocked:['COMP 490 · Senior Capstone I','COMP 491 · Capstone II','COMP 492 · Senior Seminar'],risk:true,delay:'Graduation risk',cr:9},
+  COMP362:{blocked:['COMP 460 · Computer Security'],risk:false,delay:'1 semester',cr:3},
 };
 const PW_NOTES = {
-  CS330:'Strong start — OS concurrency concepts clicking well. Watch the midterm scheduling section.',
-  CS340:'SQL fundamentals solid. Next unit: query optimization and indexing.',
-  CS350:'Team project on track. Peer review milestone due Week 11.',
-  CS360:'Network layer lab complete. Moving into transport protocols this week.',
+  COMP342:'Strong start — OS concurrency concepts clicking well. Watch the midterm scheduling section.',
+  COMP361:'SQL fundamentals solid. Next unit: query optimization and indexing.',
+  COMP351:'Team project on track. Peer review milestone due Week 11.',
+  COMP362:'Network layer lab complete. Moving into transport protocols this week.',
 };
 const pwElecSelected = {};
 const PW_ELEC_OPTS = {
   ELECTA: {label:'Tech Elective A', options:[
-    {code:'CS 415',name:'Compiler Design',   rank:1, alexTip:"Alex's top pick — satisfies your Systems concentration and builds directly on CS 270. Students with your transcript averaged a B+ here. Locks in your concentration before Spring."},
-    {code:'CS 320',name:'Computer Graphics', rank:2, alexTip:"Good fallback if CS 415 fills. Counts as a tech elective but doesn't touch your concentration. Lighter workload — useful if this semester gets heavy."},
-    {code:'CS 435',name:'Formal Languages',  rank:3, alexTip:"Theory-heavy. Pairs well with CS 380 next semester but doesn't clear any concentration requirement. Alex ranks it #3 — pick it if you enjoy formal methods."},
-    {code:'CS 310',name:'Human-Computer Interaction', rank:4, alexTip:"Lightest workload of the four. No concentration credit, but strong for UX-adjacent internships. Alex ranks it #4 — a smart load-balancer for a busy semester."},
+    {code:'COMP 415',name:'Computer Graphics',          rank:1, alexTip:"Alex's top pick for Spring 2025 — creative, portfolio-ready, and a lighter load to balance against AI and Prog. Languages. Students who take this early often use it in internship interviews."},
+    {code:'COMP 425',name:'Distributed Systems',        rank:2, alexTip:"Strong systems signal for SWE recruiting. Alex ranks it #2 — pairs well with OS you're finishing now. Higher workload than COMP 415, so plan accordingly."},
+    {code:'COMP 430',name:'Machine Learning',           rank:3, alexTip:"Extends COMP 441 (AI) into the applied ML track. Alex ranks it #3 — taking both in the same semester is heavy. Better as a follow-on in Fall 2025."},
+    {code:'COMP 420',name:'Human-Computer Interaction', rank:4, alexTip:"Lightest workload of the four. No systems credit, but strong for UX and product-track roles. Alex ranks it #4 — a smart load-balancer if this semester gets heavy."},
   ]},
   ELECTB: {label:'Tech Elective B', options:[
-    {code:'CS 425',name:'Distributed Systems',rank:1, alexTip:"Alex's top pick — stacks beautifully with OS and Networks you're taking now. Hits your Systems concentration and signals serious backend depth to recruiters."},
-    {code:'CS 430',name:'Machine Learning II',rank:2, alexTip:"Extends your AI/ML track from CS 370. Strong for data-science internships. Alex ranks it #2 — only skip if the math load alongside Capstone I feels like too much."},
-    {code:'CS 410',name:'Mobile Development', rank:3, alexTip:"Practical skills employers love. Doesn't advance your concentration but makes your portfolio pop. Alex ranks it #3 — good choice if you're recruiting for product roles."},
-    {code:'CS 320',name:'Computer Graphics',  rank:4, alexTip:"Creative elective, no concentration credit. Alex ranks it #4 — take it if you want a change of pace from systems work, otherwise go higher."},
+    {code:'COMP 425',name:'Distributed Systems',        rank:1, alexTip:"Alex's top pick for Fall 2025 — stacks with OS and Networks to build a full systems story. Extremely high signal for backend and infrastructure roles."},
+    {code:'COMP 430',name:'Machine Learning',           rank:2, alexTip:"Extends COMP 441 into the applied ML track. Alex ranks it #2 — if you're aiming for AI-adjacent internships, this is the credential that closes the gap."},
+    {code:'COMP 440',name:'Cloud Computing',            rank:3, alexTip:"Pairs with Distributed Systems to build a modern infrastructure story. Alex ranks it #3 — great for SWE roles at cloud-first companies."},
+    {code:'COMP 415',name:'Computer Graphics',          rank:4, alexTip:"Creative elective, portfolio-friendly. Alex ranks it #4 here — if you already took it in Spring, go higher on the list."},
   ]},
   ELECTC: {label:'Tech Elective C', options:[
-    {code:'CS 440',name:'Cloud Computing',   rank:1, alexTip:"Alex's top pick for this slot — pairs with Distributed Systems (ELECTB) to build a full modern-infrastructure story. Extremely high demand in internship listings right now."},
-    {code:'CS 455',name:'Cybersecurity II',  rank:2, alexTip:"Great follow-on to CS 460. Alex ranks it #2 — if you're taking Security this semester, this is the natural next step and signals a security specialization track."},
-    {code:'CS 310',name:'Human-Computer Interaction', rank:3, alexTip:"Broadens your skillset. Alex ranks it #3 — useful if you want a lighter sem-4 alongside Capstone I. No concentration credit, but solid soft-skills signal."},
-    {code:'CS 435',name:'Formal Languages',  rank:4, alexTip:"Theory credit for the CS concentration. Alex ranks it #4 — it's the right call only if you're planning grad school and need the formal-methods background."},
+    {code:'COMP 440',name:'Cloud Computing',            rank:1, alexTip:"Alex's top pick — pairs with Distributed Systems (ELECTB) to complete a modern infrastructure skillset. Cloud is the highest-demand technical credential in SWE hiring right now."},
+    {code:'COMP 455',name:'Network Security',           rank:2, alexTip:"Natural extension of COMP 460 (Security) and COMP 362 (Networks). Alex ranks it #2 — if you're on a security track, this is the obvious next course."},
+    {code:'COMP 420',name:'Human-Computer Interaction', rank:3, alexTip:"Broadens your profile for PM and product roles. Alex ranks it #3 — solid if you want a change of pace from systems work alongside Capstone I."},
+    {code:'COMP 435',name:'Formal Languages & Automata',rank:4, alexTip:"Theory-heavy. Alex ranks it #4 — the right call only if you're planning grad school and need the formal-methods background. Otherwise go higher."},
   ]},
   ELECTD: {label:'Tech Elective D', options:[
-    {code:'CS 480',name:'Advanced AI',       rank:1, alexTip:"Alex's top pick — extends your ML track and looks exceptional on grad school applications. Semester 5 is the right time: lighter requirement load, room to go deep."},
-    {code:'CS 455',name:'Cybersecurity II',  rank:2, alexTip:"Builds on CS 460 and is a top credential for security-track students. Alex ranks it #2 — if you skip it in ELECTC, grab it here."},
-    {code:'CS 410',name:'Mobile Development',rank:3, alexTip:"Great capstone portfolio piece — ship a real app you can demo in interviews. Alex ranks it #3 for practical value in a heavy capstone semester."},
-    {code:'CS 320',name:'Computer Graphics', rank:4, alexTip:"Final chance at this one. Alex ranks it #4 — take it only if you want a creative elective and your workload is light. Otherwise go higher on the list."},
+    {code:'COMP 445',name:'Computer Vision',            rank:1, alexTip:"Alex's top pick for your final tech elective — caps your AI/ML track and is one of the most requested skills in current hiring. Spring 2026 is the right time: your background is ready."},
+    {code:'COMP 455',name:'Network Security',           rank:2, alexTip:"Builds on COMP 460 (Security). Alex ranks it #2 — if you skipped it in ELECTC, take it here. Top credential for security-track students."},
+    {code:'COMP 410',name:'Mobile Computing',           rank:3, alexTip:"Ship a real app for your senior portfolio. Alex ranks it #3 — strong for product-track recruiting and a lighter load alongside Capstone II."},
+    {code:'COMP 415',name:'Computer Graphics',          rank:4, alexTip:"Final chance at this elective. Alex ranks it #4 — take it only if your workload is light and you want a creative capstone project."},
   ]},
-  FREEELEC: {label:'Free Elective A', options:[
-    {code:'BUS 350',name:'Entrepreneurship',          rank:1, alexTip:"Alex's top pick for your free elective — complements your CS degree for anyone thinking startup or product. Leans into your strengths and signals range to employers."},
-    {code:'ECON 310',name:'Behavioral Economics',     rank:2, alexTip:"Your transcript shows real strength in MGT/ECON courses. Alex ranks it #2 — leverages what you're already good at and pairs well with a tech career in fintech or product."},
-    {code:'COMM 220',name:'Technical Communication',  rank:3, alexTip:"The soft skill hiring managers keep asking for. Alex ranks it #3 — technical writing, presentations, cross-functional comms. Easy A that pays off at your first internship."},
-    {code:'PSYC 200',name:'Intro Psychology',         rank:4, alexTip:"GPA-friendly elective for a heavy capstone semester. Alex ranks it #4 — if Capstone II is consuming your bandwidth, this keeps your credits on track without adding stress."},
-  ]},
-  ELECTE: {label:'Tech Elective E', options:[
-    {code:'CS 480',name:'Advanced AI',        rank:1, alexTip:"Alex's top pick — your ML track culminates here. Strongest signal for grad school or AI-focused roles. Semester 7 timing gives you enough background to go deep."},
-    {code:'CS 455',name:'Cybersecurity II',   rank:2, alexTip:"Builds on CS 460 Security. Alex ranks it #2 — a direct credential for security-track students and one of the highest-demand skill sets in the job market right now."},
-    {code:'CS 410',name:'Mobile Development', rank:3, alexTip:"Ship a real app for your senior portfolio. Alex ranks it #3 — strong for product-track recruiting, and a lighter load alongside Capstone II."},
-    {code:'CS 320',name:'Computer Graphics',  rank:4, alexTip:"Creative elective, no concentration credit. Alex ranks it #4 — fine if you want a change of pace, but the other three options signal more to employers."},
-  ]},
-  FREEELEC2: {label:'Free Elective B', options:[
-    {code:'BUS 450',name:'Product Management',    rank:1, alexTip:"Alex's top pick for your final free elective — PM skills are what bridge your CS degree to startup and tech company roles. Excellent capstone to your four years."},
-    {code:'ECON 410',name:'Tech & Innovation',    rank:2, alexTip:"Pairs well with your existing ECON strength. Alex ranks it #2 — the course covers market design and platform economics, directly relevant to tech industry careers."},
-    {code:'COMM 320',name:'Presentation Skills',  rank:3, alexTip:"The one soft skill most CS grads wish they'd invested in. Alex ranks it #3 — if you're interviewing for internships this spring, this pays off immediately."},
-    {code:'PHIL 420',name:'AI Ethics',            rank:4, alexTip:"Relevant and increasingly required in tech roles. Alex ranks it #4 — take it if you want to stand out in interviews for companies with active AI ethics programs."},
+  FREEELEC: {label:'Free Elective', options:[
+    {code:'BUS 350', name:'Entrepreneurship',           rank:1, alexTip:"Alex's top pick for your free elective — bridges your CS degree toward startup and product roles. Leans into your strengths and signals range to employers."},
+    {code:'ECON 310',name:'Behavioral Economics',       rank:2, alexTip:"Pairs well with a tech career in fintech or product. Alex ranks it #2 — academically interesting, relatively light workload for a capstone semester."},
+    {code:'COMM 220',name:'Technical Communication',    rank:3, alexTip:"The one soft skill most CS grads wish they'd built earlier. Alex ranks it #3 — technical writing and presentations pay off immediately at your first internship."},
+    {code:'PSYC 200',name:'Intro Psychology',           rank:4, alexTip:"GPA-friendly for a heavy capstone semester. Alex ranks it #4 — keeps your credits on track without adding stress when Capstone II is dominating your time."},
   ]},
 };
 
 const PW_EXPLORER = {
   dsminor: {
     label:'Data Science Minor', courses:6, overlap:2, added:4,
-    overlapList:['STAT 250','CS 260'],
+    overlapList:['COMP 232','MATH 310'],
     affectedSems:[3,4], feasibility:'possible',
     alexTake:`<strong>STAT 250 and CS 260 already count</strong> — so you only need 4 more courses, not 6. At your current pace you can finish this without pushing your graduation date, as long as you add one course per semester in Years 3 and 4. Your elective slots in Levels 4–5 can absorb most of them. I'd call this <strong>Possible</strong> — manageable if Spring 2025 isn't already overloaded.`,
     askMsg:`Alex, should I add a Data Science minor given my current CS plan?`
   },
   mathminor: {
     label:'Mathematics Minor', courses:5, overlap:1, added:4,
-    overlapList:['MATH 220'],
+    overlapList:['MATH 220','MATH 215','MATH 310'],
     affectedSems:[3,4,5], feasibility:'possible',
-    alexTake:`<strong>MATH 220 already counts.</strong> You'd need 4 more math courses across Years 3–4. Your math grades are solid — MATH 220 A−, MATH 215 B+, MATH 310 B — so the coursework is within reach. Adds roughly one course per semester for three semesters, which is tight but doable. I'd call this <strong>Possible</strong>, especially if you enjoy the theory side of CS.`,
+    alexTake:`<strong>MATH 220 already counts.</strong> You'd need 4 more math courses spread across Years 3–4. Your math grades are solid — MATH 220 A−, MATH 215 B+, MATH 310 B — so the coursework is within reach. Adds roughly one course per semester for three semesters, which is tight but doable. I'd call this <strong>Possible</strong>, especially if you enjoy the theory side of CS.`,
     askMsg:`Alex, should I add a Mathematics minor alongside my CS degree?`
   },
   bizminor: {
@@ -1176,7 +1318,7 @@ const PW_EXPLORER = {
   },
   cybersec: {
     label:'Cybersecurity Concentration', courses:4, overlap:1, added:3,
-    overlapList:['CS 360'],
+    overlapList:['COMP 362'],
     affectedSems:[4,5], feasibility:'easy',
     alexTake:`<strong>CS 360 (Networks) already counts</strong> — and you're taking it right now. You only need 3 more courses: CS 455, CS 465, CS 470. Two of those fit naturally into your existing tech elective slots in Years 3–4. This costs you <strong>zero extra semesters</strong> and fills elective slots you already have. It's the highest signal-to-effort add-on in your entire degree right now.`,
     askMsg:`Alex, walk me through adding a Cybersecurity concentration to my plan.`
@@ -1210,16 +1352,164 @@ function pwRender(){
   const wrap = document.getElementById('pw-lvls');
   if (!wrap) return;
   wrap.innerHTML = '';
-  PW_SEM.forEach((s,si) => {
-    const courses = PW_COURSES.filter(c => c.sem === si);
-    const el = document.createElement('div');
-    el.className = `pw-level ${s.status}`;
+
+  const indexed = PW_SEM.map((s,i) => ({...s, idx:i}));
+  const cleared = indexed.filter(s => s.status==='cleared');
+  const current = indexed.find(s => s.status==='current');
+  const future  = indexed.filter(s => s.status==='future');
+
+  function semHtml(s){
+    const courses = PW_COURSES.filter(c => c.sem===s.idx);
     let badge = '';
     if (s.status==='cleared') badge=`<span class="pw-lbadge pw-cleared">CLEARED ✓</span>`;
     else if (s.status==='current') badge=`<span class="pw-lbadge pw-inprog"><span class="pw-pdot"></span>IN PROGRESS</span>`;
-    el.innerHTML = `<div class="pw-lhdr"><span class="pw-lnum">Level ${s.level}</span><span class="pw-lname">— ${s.name}</span><span class="pw-lsep"></span>${badge}</div><div class="pw-grid">${courses.map(pwCard).join('')}</div>`;
-    wrap.appendChild(el);
-  });
+    return `<div class="pw-level ${s.status}"><div class="pw-lhdr"><span class="pw-lnum">Level ${s.level}</span><span class="pw-lname">— ${s.name}</span><span class="pw-lsep"></span>${badge}</div><div class="pw-grid">${courses.map(pwCard).join('')}</div></div>`;
+  }
+  function chev(id){
+    return `<svg class="pd-chevron" id="${id}" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+  }
+
+  // Section 1 — Cleared (collapsed)
+  if (cleared.length){
+    const cr = PW_COURSES.filter(c => cleared.some(s => s.idx===c.sem)).reduce((a,c)=>a+c.cr,0);
+    wrap.innerHTML += `<div class="pd-section">
+      <div class="pd-row pd-completed-row" onclick="pdToggle('pd-cleared')">
+        <span class="pd-row-icon" style="color:#2ED573">✓</span>
+        <span class="pd-row-label" style="color:#1a7a45">${cleared.length} Semester${cleared.length>1?'s':''} Cleared</span>
+        <span class="pd-row-meta">${cr} credits done</span>
+        ${chev('pd-cleared-chev')}
+      </div>
+      <div class="pd-body" id="pd-cleared">${cleared.map(semHtml).join('')}</div>
+    </div>`;
+  }
+
+  // Section 2 — Current (always open)
+  if (current){
+    const courses = PW_COURSES.filter(c => c.sem===current.idx);
+    wrap.innerHTML += `<div class="pd-current-wrap">
+      <div class="pd-current-hdr">
+        <div class="pd-now-dot"></div>
+        <span class="pd-now-label">Now — ${current.name}</span>
+        <span class="pd-now-sub">Level ${current.level} · In Progress</span>
+      </div>
+      <div class="pw-grid" style="padding:0 12px 10px">${courses.map(pwCard).join('')}</div>
+    </div>`;
+  }
+
+  // Plan Next Semester card
+  const nextSem = future.length ? future[0] : null;
+  if (nextSem){
+    const obRaw = localStorage.getItem(OB_KEY);
+    const obSaved = obRaw ? JSON.parse(obRaw) : {};
+    const prefEarliest = obSaved.earliest || '8am';
+    const prefMax = obSaved.maxcr || '15';
+    const prefDrain = obSaved.drain || 'uncertain';
+    wrap.innerHTML += `<div class="pns-card" id="pns-card">
+      <div class="pns-alex-row">
+        <div class="pns-alex-av">🎓</div>
+        <div class="pns-alex-bubble">Let's plan your <span>${nextSem.name}</span> together. A few quick questions.</div>
+      </div>
+      <div class="pns-q" id="pns-q1">
+        <div class="pns-q-row">
+          <div class="pns-q-num" id="pns-q1-num">1</div>
+          <div class="pns-q-text">Your saved preferences: <b>${prefEarliest} start</b>, max <b>${prefMax} credits</b>, energy style <b>${prefDrain}</b>. Still good?</div>
+        </div>
+        <div class="pns-chip-row" id="pns-q1-chips">
+          <div class="pns-chip" onclick="pnsAns(1,'yes')">Yes, keep them ✓</div>
+          <div class="pns-chip" onclick="pnsPrefsDone()">Let me update them</div>
+        </div>
+        <div class="pns-mf show" id="pns-pref-form" style="display:none">
+          <div class="pns-mf-label">Earliest class time?</div>
+          <div class="pns-mf-opts" id="pns-pf-time">
+            ${['7am','8am','9am','10am'].map(t=>`<div class="pns-mf-opt${t===prefEarliest?' sel':''}" onclick="pnsMfSel('pns-pf-time',this,'earliest','${t}')">${t}</div>`).join('')}
+          </div>
+          <div class="pns-mf-label" style="margin-top:4px">Max credits?</div>
+          <div class="pns-mf-opts" id="pns-pf-cr">
+            ${['12','13','14','15','16','18'].map(n=>`<div class="pns-mf-opt${n===prefMax?' sel':''}" onclick="pnsMfSel('pns-pf-cr',this,'maxcr','${n}')">${n}</div>`).join('')}
+          </div>
+          <button class="pns-mf-save" onclick="pnsPrefsDone()">Save & continue</button>
+        </div>
+        <div class="pns-ans-row" id="pns-q1-ans">
+          <span class="pns-ans-check">✓</span>
+          <span class="pns-ans-text" id="pns-q1-ans-txt"></span>
+          <span class="pns-change" onclick="pnsChange(1)">change</span>
+        </div>
+      </div>
+      <div class="pns-q" id="pns-q2">
+        <div class="pns-q-row">
+          <div class="pns-q-num" id="pns-q2-num">2</div>
+          <div class="pns-q-text">Do you have a job or internship next semester?</div>
+        </div>
+        <div class="pns-chip-row" id="pns-q2-chips">
+          <div class="pns-chip" onclick="pnsAns(2,'no')">No</div>
+          <div class="pns-chip" onclick="pnsAns(2,'yes-pt')">Yes, part-time</div>
+          <div class="pns-chip" onclick="pnsAns(2,'yes-ft')">Yes, full-time</div>
+        </div>
+        <div class="pns-sub-q" id="pns-q2b">
+          <div class="pns-sub-label">About how many hours/week?</div>
+          <div class="pns-chip-row" style="padding-left:0">
+            <div class="pns-chip" onclick="pnsAns(2,'10h')">~10 hrs</div>
+            <div class="pns-chip" onclick="pnsAns(2,'20h')">~20 hrs</div>
+            <div class="pns-chip" onclick="pnsAns(2,'30h')">~30 hrs+</div>
+          </div>
+        </div>
+        <div class="pns-ans-row" id="pns-q2-ans">
+          <span class="pns-ans-check">✓</span>
+          <span class="pns-ans-text" id="pns-q2-ans-txt"></span>
+          <span class="pns-change" onclick="pnsChange(2)">change</span>
+        </div>
+      </div>
+      <div class="pns-q" id="pns-q3">
+        <div class="pns-q-row">
+          <div class="pns-q-num" id="pns-q3-num">3</div>
+          <div class="pns-q-text">What's your main goal for next semester?</div>
+        </div>
+        <div class="pns-chip-row" id="pns-q3-chips">
+          <div class="pns-chip" onclick="pnsAns(3,'steady')">Stay on track</div>
+          <div class="pns-chip" onclick="pnsAns(3,'intern')">Land an internship</div>
+          <div class="pns-chip" onclick="pnsAns(3,'grad')">Prep for grad school</div>
+          <div class="pns-chip" onclick="pnsAns(3,'finish')">Just finish strong</div>
+        </div>
+        <div class="pns-ans-row" id="pns-q3-ans">
+          <span class="pns-ans-check">✓</span>
+          <span class="pns-ans-text" id="pns-q3-ans-txt"></span>
+          <span class="pns-change" onclick="pnsChange(3)">change</span>
+        </div>
+      </div>
+      <div class="pns-rec" id="pns-rec">
+        <div class="pns-rec-hdr">Alex's recommendation for ${nextSem.name}</div>
+        <div class="pns-rec-sub" id="pns-rec-sub"></div>
+        <div class="pns-rec-courses">
+          <div class="pns-rc"><div class="pns-rc-code">COMP 441</div><div class="pns-rc-name">Algorithm Analysis</div><div class="pns-rc-cr">3 credits · Required</div></div>
+          <div class="pns-rc"><div class="pns-rc-code">COMP 451</div><div class="pns-rc-name">Database Systems</div><div class="pns-rc-cr">3 credits · Required</div></div>
+          <div class="pns-rc"><div class="pns-rc-code">PHIL 368</div><div class="pns-rc-name">Ethics in Technology</div><div class="pns-rc-cr">3 credits · Core req</div></div>
+          <div id="pns-elec-chosen" style="display:none" class="pns-rc"><div class="pns-rc-code" id="pns-ec-code"></div><div class="pns-rc-name" id="pns-ec-name"></div><div class="pns-rc-cr" id="pns-ec-cr"></div></div>
+        </div>
+        <div class="pns-elec-label">Choose your elective (pick one):</div>
+        <div class="pns-elec-opts" id="pns-elec-opts"></div>
+        <div class="pns-load-msg" id="pns-load-msg"></div>
+        <button class="pns-lock-btn" id="pns-lock-btn" onclick="pnsLockIn()">Lock in ${nextSem.name} plan →</button>
+        <div class="pns-locked-msg" id="pns-locked-msg">✓ ${nextSem.name} plan locked in — you're set!</div>
+      </div>
+    </div>`;
+    pnsElecOpts();
+  }
+
+  // Section 3 — Upcoming (collapsed)
+  if (future.length){
+    const gradName = future[future.length-1].name;
+    wrap.innerHTML += `<div class="pd-section">
+      <div class="pd-row pd-upcoming-row" onclick="pdToggle('pd-future')">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="pd-row-label">${future.length} Semesters Ahead</span>
+        <span class="pd-row-meta">Grad: ${gradName}</span>
+        ${chev('pd-future-chev')}
+      </div>
+      <div class="pd-body" id="pd-future">${future.map(semHtml).join('')}</div>
+    </div>`;
+  }
+
+  // Attach event listeners
   PW_COURSES.forEach(c => {
     if (c.code === 'Elective') return;
     const el = document.getElementById(`pw-card-${c.id}`);
@@ -1241,6 +1531,193 @@ function pwRender(){
   });
 }
 
+function pdToggle(id){
+  const body = document.getElementById(id);
+  const chev = document.getElementById(id+'-chev');
+  if (!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (chev) chev.classList.toggle('open', !isOpen);
+  setTimeout(pwDrawLines, 420);
+}
+
+const pnsData = { q1: null, q2: null, q3: null, elec: null, prefs: {} };
+
+const PNS_ELECS = [
+  { code:'COMP 460', name:'Computer Networks', credits:3,
+    why:{ steady:'Rounds out your systems knowledge before upper-division electives.', intern:'Network fundamentals come up constantly in SWE interviews.', grad:'Solid prereq background for systems/distributed computing research.', finish:'Predictable workload — lectures + problem sets, no surprises.' } },
+  { code:'COMP 490', name:'Special Topics: AI/ML', credits:3,
+    why:{ steady:'Keeps you current with the fastest-moving area of CS.', intern:'Top pick for landing tech internships — employers love ML exposure.', grad:'Strong signal for grad school apps, especially in AI-track programs.', finish:'Project-based with flexible scope — good fit for a lower-stress semester.' } },
+  { code:'MATH 370', name:'Probability & Statistics', credits:3,
+    why:{ steady:'Fills a math requirement and pairs well with COMP 441.', intern:'Data roles and ML interviews lean heavily on probability.', grad:'Essential foundation if you\'re applying to any CS or data science program.', finish:'Lighter on coding — good balance if you want breathing room.' } },
+  { code:'ENGL 320', name:'Technical Writing', credits:3,
+    why:{ steady:'Covers your writing requirement and builds a skill most CS grads lack.', intern:'Great for a lighter semester — lets you focus energy on the job search.', grad:'Strong writing directly helps with grad school statements and research papers.', finish:'Low-pressure course to round out your semester.' } },
+];
+
+// top pick index per goal
+const PNS_TOP = { steady:0, intern:1, grad:2, finish:3 };
+
+function pnsElecOpts(){
+  const el = document.getElementById('pns-elec-opts');
+  if (!el) return;
+  const goal = pnsData.q3 || 'steady';
+  const topIdx = PNS_TOP[goal] ?? 0;
+  el.innerHTML = PNS_ELECS.map((e,i) => {
+    const isTop = i === topIdx;
+    const whyText = e.why[goal] || '';
+    return `<div class="pns-elec-opt${isTop?' pns-top-pick':''}" id="pns-eo-${i}" onclick="pnsElecSel(${i})">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span class="pns-elec-opt-code">${e.code}</span>
+          <span class="pns-elec-opt-name">${e.name}</span>
+          ${isTop ? '<span class="pns-top-tag">⭐ Alex\'s pick</span>' : ''}
+        </div>
+        ${isTop && whyText ? `<div class="pns-top-why">${whyText}</div>` : ''}
+      </div>
+      <span class="pns-elec-opt-cr">${e.credits} cr</span>
+    </div>`;
+  }).join('');
+}
+
+function pnsElecSel(i){
+  document.querySelectorAll('.pns-elec-opt').forEach(el=>el.classList.remove('sel'));
+  const el = document.getElementById('pns-eo-'+i);
+  if (el) el.classList.add('sel');
+  pnsData.elec = PNS_ELECS[i];
+  const ec = document.getElementById('pns-elec-chosen');
+  const ecCode = document.getElementById('pns-ec-code');
+  const ecName = document.getElementById('pns-ec-name');
+  const ecCr = document.getElementById('pns-ec-cr');
+  if (ec && ecCode && ecName && ecCr){
+    ecCode.textContent = PNS_ELECS[i].code;
+    ecName.textContent = PNS_ELECS[i].name;
+    ecCr.textContent = PNS_ELECS[i].credits + ' credits · Elective';
+    ec.style.display = '';
+  }
+  pnsUpdateLoad();
+}
+
+function pnsMfSel(groupId, el, key, val){
+  document.querySelectorAll('#'+groupId+' .pns-mf-opt').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  pnsData.prefs[key] = val;
+}
+
+function pnsPrefsDone(){
+  const form = document.getElementById('pns-pref-form');
+  const chips = document.getElementById('pns-q1-chips');
+  if (form && form.style.display !== 'none'){
+    // save updated prefs back to localStorage
+    try{
+      const raw = localStorage.getItem(OB_KEY);
+      const d = raw ? JSON.parse(raw) : {};
+      if (pnsData.prefs.earliest) d.earliest = pnsData.prefs.earliest;
+      if (pnsData.prefs.maxcr) d.maxcr = pnsData.prefs.maxcr;
+      localStorage.setItem(OB_KEY, JSON.stringify(d));
+    }catch(e){}
+    pnsAns(1, 'updated');
+  } else {
+    if (chips) chips.style.display = 'none';
+    if (form) form.style.display = 'flex';
+  }
+}
+
+function pnsAns(q, val){
+  pnsData['q'+q] = val;
+  const qEl = document.getElementById('pns-q'+q);
+  const numEl = document.getElementById('pns-q'+q+'-num');
+  const ansTxt = document.getElementById('pns-q'+q+'-ans-txt');
+  if (!qEl) return;
+
+  const labels = {
+    1: { yes:'Keeping your preferences', updated:'Preferences updated' },
+    2: { no:'No job / internship', 'yes-pt':'Part-time job', 'yes-ft':'Full-time job', '10h':'~10 hrs/week', '20h':'~20 hrs/week', '30h':'~30 hrs+/week' },
+    3: { steady:'Stay on track', intern:'Land an internship', grad:'Prep for grad school', finish:'Finish strong' },
+  };
+  if (ansTxt) ansTxt.textContent = labels[q][val] || val;
+
+  if (q===2 && (val==='yes-pt'||val==='yes-ft')){
+    const sub = document.getElementById('pns-q2b');
+    if (sub) sub.classList.add('show');
+    return;
+  }
+
+  qEl.classList.add('answered');
+  if (numEl) numEl.classList.add('done');
+
+  if (q===2){
+    const sub = document.getElementById('pns-q2b');
+    if (sub) sub.classList.remove('show');
+  }
+
+  pnsUpdateLoad();
+  pnsCheck();
+}
+
+function pnsChange(q){
+  const qEl = document.getElementById('pns-q'+q);
+  const numEl = document.getElementById('pns-q'+q+'-num');
+  if (!qEl) return;
+  qEl.classList.remove('answered');
+  if (numEl) numEl.classList.remove('done');
+  pnsData['q'+q] = null;
+  if (q===1){
+    const chips = document.getElementById('pns-q1-chips');
+    const form = document.getElementById('pns-pref-form');
+    if (chips) chips.style.display = '';
+    if (form) form.style.display = 'none';
+  }
+  document.getElementById('pns-rec')?.classList.remove('show');
+}
+
+function pnsUpdateLoad(){
+  const msg = document.getElementById('pns-load-msg');
+  if (!msg) return;
+  const q2 = pnsData.q2;
+  const obRaw = localStorage.getItem(OB_KEY);
+  const obSaved = obRaw ? JSON.parse(obRaw) : {};
+  const maxCr = parseInt(pnsData.prefs.maxcr || obSaved.maxcr || 15);
+  const electCr = pnsData.elec ? pnsData.elec.credits : 3;
+  const coreCr = 9; // COMP 441 + COMP 451 + PHIL 368
+  const total = coreCr + electCr;
+  let note = '';
+  if (q2==='yes-ft'||q2==='30h') note = `Full course load may be tough with work — consider ${Math.min(total, 12)} credits.`;
+  else if (q2==='yes-pt'||q2==='20h') note = `${total} credits works well alongside a part-time schedule.`;
+  else note = `${total} credits — well within your ${maxCr}-credit limit.`;
+  msg.textContent = note;
+}
+
+function pnsCheck(){
+  if (pnsData.q1 && pnsData.q2 && pnsData.q3){
+    const rec = document.getElementById('pns-rec');
+    if (rec) rec.classList.add('show');
+    const sub = document.getElementById('pns-rec-sub');
+    if (sub){
+      const goalMap = { steady:'keeping you on pace for graduation', intern:'positioning you for internship recruiting', grad:'strengthening your grad school application', finish:'a manageable load to finish strong' };
+      sub.textContent = 'Alex picked these for ' + (goalMap[pnsData.q3]||'your goals') + '.';
+    }
+    pnsElecOpts(); // re-render with goal-aware top pick
+    pnsUpdateLoad();
+  }
+}
+
+function pnsLockIn(){
+  if (!pnsData.elec){
+    alert('Please choose an elective first.');
+    return;
+  }
+  const btn = document.getElementById('pns-lock-btn');
+  const msg = document.getElementById('pns-locked-msg');
+  if (btn) btn.style.display = 'none';
+  if (msg) msg.style.display = 'block';
+  // Highlight the first future semester header
+  const futureBody = document.getElementById('pd-future');
+  if (futureBody){
+    futureBody.style.background = '#f3f2ff';
+    futureBody.style.borderRadius = '12px';
+  }
+}
+
 function pwStroke(s){return{completed:'#2ED573','in-progress':'#6C63FF',available:'#c8c8e0',locked:'#e0e0ea'}[s]||'#c8c8e0'}
 
 function pwDrawLines(){
@@ -1255,12 +1732,16 @@ function pwDrawLines(){
     const aEl = document.getElementById(`pw-card-${aId}`);
     const bEl = document.getElementById(`pw-card-${bId}`);
     if (!aEl || !bEl) return;
+    const aBody = aEl.closest('.pd-body');
+    const bBody = bEl.closest('.pd-body');
+    if ((aBody && !aBody.classList.contains('open')) || (bBody && !bBody.classList.contains('open'))) return;
+    const src = pwById[aId];
+    if (src?.state === 'completed') return;
     const aR = aEl.getBoundingClientRect();
     const bR = bEl.getBoundingClientRect();
     const x1 = aR.left-mR.left+aR.width/2, y1 = aR.top-mR.top+aR.height;
     const x2 = bR.left-mR.left+bR.width/2, y2 = bR.top-mR.top;
     const dy = y2-y1, c1y = y1+dy*.38, c2y = y1+dy*.62;
-    const src = pwById[aId];
     const col = pwStroke(src?.state);
     const op = src?.state==='completed'?.55:src?.state==='in-progress'?.5:.35;
     const dash = src?.state==='completed'?'':'stroke-dasharray="4 5"';
@@ -1444,5 +1925,6 @@ pwRender();
 setTimeout(pwDrawLines,150);
 pwInitXp();
 obInit();
+(function(){ try{ const s=localStorage.getItem(OB_KEY); if(s){ const d=JSON.parse(s); if(d.name){ studentName=d.name; applyStudentName(); } } }catch(e){} })();
 
 </script>

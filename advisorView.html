@@ -110,8 +110,8 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 <div class="sb">
   <div class="logo-wrap">
     <div class="logo">
-      <div class="logo-mark">S</div>
-      <div><div class="logo-text">Schedu<span>lers</span></div><div class="logo-sub">Advisor Portal · USD</div></div>
+      <div class="logo-mark">P</div>
+      <div><div class="logo-text">Path<span>wise</span></div><div class="logo-sub">Advisor Portal · USD</div></div>
     </div>
   </div>
   <div class="nl">Overview</div>
@@ -128,7 +128,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
     </div>
     <a class="sb-link" href="index.html">
       <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="15 18 9 12 15 6"/></svg>
-      Schedulers Home
+      Pathwise Home
     </a>
   </div>
 </div>
@@ -156,7 +156,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
       <div class="demand-head">
         <div>
           <div class="demand-title">Section Demand Alert</div>
-          <div class="demand-sub">Schedulers detected courses with more students who need them than available seats</div>
+          <div class="demand-sub">Pathwise detected courses with more students who need them than available seats</div>
         </div>
         <div class="demand-badge">Recommend to Dean</div>
       </div>
@@ -181,7 +181,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
         </div>
       </div>
       <div class="recommend-btn">
-        <div class="rec-text"><strong>Schedulers recommends:</strong> Open 1 additional section of MATH 250 before registration opens. 13 students across 4 advisors need it to stay on their graduation track. If it fills before they register, each student loses a semester.</div>
+        <div class="rec-text"><strong>Pathwise recommends:</strong> Open 1 additional section of MATH 250 before registration opens. 13 students across 4 advisors need it to stay on their graduation track. If it fills before they register, each student loses a semester.</div>
         <button class="btn btn-gold" onclick="sendToDean('math250')">Send to Dean ↗</button>
       </div>
     </div>
@@ -213,12 +213,12 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 <!-- SECTION DEMAND VIEW -->
 <div id="v-demand" class="hidden">
   <div class="topbar">
-    <div><div class="pg-title">Section Demand Alerts</div><div class="pg-sub">Schedulers detected 3 courses with more students needing them than available seats</div></div>
+    <div><div class="pg-title">Section Demand Alerts</div><div class="pg-sub">Pathwise detected 3 courses with more students needing them than available seats</div></div>
     <button class="btn btn-gold" onclick="sendAllToDean()">Send All Recommendations to Dean ↗</button>
   </div>
   <div class="scroll">
     <div style="background:var(--al);border:1px solid #ffd4a3;border-radius:10px;padding:12px 15px;margin-bottom:14px;font-size:12.5px;color:#6b3a00;line-height:1.6">
-      <strong>How this works:</strong> Schedulers cross-references every student's graduation requirements with current course availability. When more students need a course to graduate on time than seats exist, it flags it here — before registration opens, not after it fills.
+      <strong>How this works:</strong> Pathwise cross-references every student's graduation requirements with current course availability. When more students need a course to graduate on time than seats exist, it flags it here — before registration opens, not after it fills.
     </div>
 
     <!-- MATH 250 -->
@@ -250,7 +250,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
         </div>
       </div>
       <div class="recommend-btn">
-        <div class="rec-text"><strong>Schedulers recommendation to Dean:</strong> Open 1 additional section of MATH 250. Suggest Prof. Kim (highest success rate for at-risk students) or Prof. Lee as instructor. TTh afternoon preferred based on student schedule data.</div>
+        <div class="rec-text"><strong>Pathwise recommendation to Dean:</strong> Open 1 additional section of MATH 250. Suggest Prof. Kim (highest success rate for at-risk students) or Prof. Lee as instructor. TTh afternoon preferred based on student schedule data.</div>
         <button class="btn btn-gold" id="btn-math250" onclick="sendToDean('math250')">Send to Dean ↗</button>
       </div>
       <div id="sent-math250-2" class="hidden sent" style="margin:0 16px 14px">✓ Sent to Dean Chen · Jan 9, 2025 · Includes names of 13 affected students and $180k graduation impact estimate.</div>
@@ -283,7 +283,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
         </div>
       </div>
       <div class="recommend-btn">
-        <div class="rec-text"><strong>Schedulers recommendation:</strong> Reserve seats for students with COMP 305 as a graduation requirement before general registration opens. Or open a second section if instructor available.</div>
+        <div class="rec-text"><strong>Pathwise recommendation:</strong> Reserve seats for students with COMP 305 as a graduation requirement before general registration opens. Or open a second section if instructor available.</div>
         <button class="btn btn-gold" id="btn-comp305" onclick="sendToDean('comp305')">Send to Dean ↗</button>
       </div>
       <div id="sent-comp305" class="hidden sent" style="margin:0 16px 14px">✓ Sent to Dean Chen · Jan 9, 2025 · Seat reservation request included.</div>
@@ -311,7 +311,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
         </div>
       </div>
       <div class="recommend-btn" style="background:#f9f9f9;border-color:var(--border)">
-        <div class="rec-text" style="color:var(--muted)">No action needed yet. Schedulers will alert if demand increases or seats drop below threshold before Jan 15.</div>
+        <div class="rec-text" style="color:var(--muted)">No action needed yet. Pathwise will alert if demand increases or seats drop below threshold before Jan 15.</div>
         <button class="btn" style="color:var(--muted)" disabled>No action needed</button>
       </div>
     </div>
@@ -321,7 +321,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 
 <!-- COHORT TRENDS -->
 <div id="v-trends" class="hidden">
-  <div class="topbar"><div><div class="pg-title">Cohort Patterns</div><div class="pg-sub">What Schedulers sees across all your advisees</div></div></div>
+  <div class="topbar"><div><div class="pg-title">Cohort Patterns</div><div class="pg-sub">What Pathwise sees across all your advisees</div></div></div>
   <div class="scroll">
     <div class="sec">
       <div class="sh"><div class="st">Most Common Recurring Mistakes</div></div>
@@ -332,7 +332,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:var(--t
 
 <!-- MESSAGING -->
 <div id="v-messages" class="hidden">
-  <div class="topbar"><div><div class="pg-title">Bulk Messaging</div><div class="pg-sub">Schedulers drafts personalized messages — you review and send</div></div></div>
+  <div class="topbar"><div><div class="pg-title">Bulk Messaging</div><div class="pg-sub">Pathwise drafts personalized messages — you review and send</div></div></div>
   <div class="scroll">
     <div class="sec">
       <div class="sh"><div class="st">Message Preview · Personalized for Jordan Martinez</div></div>
@@ -360,7 +360,7 @@ Dr. Olsen</textarea>
 <!-- DEAN REPORT -->
 <div id="v-reports" class="hidden">
   <div class="topbar">
-    <div><div class="pg-title">Dean's Report</div><div class="pg-sub">Spring 2025 · CS Department · Prepared by Schedulers</div></div>
+    <div><div class="pg-title">Dean's Report</div><div class="pg-sub">Spring 2025 · CS Department · Prepared by Pathwise</div></div>
     <button class="btn btn-p" onclick="alert('Report exported as PDF!')">Export PDF</button>
   </div>
   <div class="scroll">
@@ -373,7 +373,7 @@ Dr. Olsen</textarea>
 
     <div class="sec" style="border:2px solid var(--gold);margin-bottom:13px">
       <div class="sh" style="background:linear-gradient(135deg,#1a1a35,#0f0f23)">
-        <div><div class="st" style="color:#fff">Section Recommendations from Schedulers</div><div class="ss" style="color:rgba(255,255,255,0.5)">Open additional sections before Jan 15 to protect graduation rates</div></div>
+        <div><div class="st" style="color:#fff">Section Recommendations from Pathwise</div><div class="ss" style="color:rgba(255,255,255,0.5)">Open additional sections before Jan 15 to protect graduation rates</div></div>
         <div id="dean-sent-badge" class="hidden" style="font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;background:var(--gl);color:#006a3a">✓ Sent to Dean</div>
       </div>
       <div class="ai" style="background:#fffdf0">
@@ -408,9 +408,9 @@ Dr. Olsen</textarea>
 
     <div class="sec">
       <div class="sh"><div class="st">Additional Recommendations</div></div>
-      <div class="ai"><div class="ai-icon" style="background:var(--rl)">📋</div><div class="ai-text"><strong>DegreeWorks is view-only and does not update when students drop courses.</strong> <span class="w">4 students dropped courses this semester without notifying advisors</span> — DegreeWorks still shows them as enrolled. Schedulers caught this by cross-referencing registration data. Recommend a real-time drop notification policy.</div></div>
+      <div class="ai"><div class="ai-icon" style="background:var(--rl)">📋</div><div class="ai-text"><strong>DegreeWorks is view-only and does not update when students drop courses.</strong> <span class="w">4 students dropped courses this semester without notifying advisors</span> — DegreeWorks still shows them as enrolled. Pathwise caught this by cross-referencing registration data. Recommend a real-time drop notification policy.</div></div>
       <div class="ai"><div class="ai-icon" style="background:var(--al)">🗂️</div><div class="ai-text"><strong>Catalog year confusion is a recurring structural problem.</strong> <span class="a">3 students this semester</span> were planning electives that don't count under their catalog year (Science & Tech vs Natural Science). A clearer automated warning at the point of registration would prevent this annually.</div></div>
-      <div class="ai"><div class="ai-icon" style="background:var(--gl)">📈</div><div class="ai-text"><strong>Early intervention is working.</strong> <span class="g">Advisor response time improved significantly</span> since Schedulers deployment. Students arrive at appointments pre-briefed. Advisors report spending more time on career and research conversations instead of catching students up on basics.</div></div>
+      <div class="ai"><div class="ai-icon" style="background:var(--gl)">📈</div><div class="ai-text"><strong>Early intervention is working.</strong> <span class="g">Advisor response time improved significantly</span> since Pathwise deployment. Students arrive at appointments pre-briefed. Advisors report spending more time on career and research conversations instead of catching students up on basics.</div></div>
     </div>
   </div>
 </div>
@@ -491,7 +491,7 @@ function showDetail(id){
       <div class="pbar-lbl"><span>Degree progress</span><span style="font-weight:700">${pct}%</span></div>
       <div class="pbar-track"><div class="pbar-fill" style="width:${pct}%;background:${s.status==='red'?'var(--red)':s.status==='amber'?'var(--amber)':'var(--teal)'}"></div></div>
     </div>
-    <div style="padding:0 15px 4px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px">Schedulers Intelligence Brief</div>
+    <div style="padding:0 15px 4px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px">Pathwise Intelligence Brief</div>
     ${s.alerts.map(a=>`<div class="ai"><div class="ai-icon" style="background:${a.t==='r'?'var(--rl)':a.t==='a'?'var(--al)':a.t==='g'?'var(--gl)':'var(--pl)'}">${a.icon}</div><div class="ai-text">${a.txt}</div></div>`).join('')}
     <div class="note-composer">
       <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:7px">Leave a note (visible to all advisors)</div>
